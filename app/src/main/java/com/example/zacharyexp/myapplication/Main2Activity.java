@@ -21,6 +21,9 @@ public class Main2Activity extends Activity {
     public static final String FILENAME = "patientlist.txt";
     public String nameS, ageS, infoS;
     public EditText info, name, age;
+    Boolean infoB = false;
+    Boolean nameB = false;
+    Boolean ageB = false;
     File file;
 
     @Override
@@ -47,6 +50,39 @@ public class Main2Activity extends Activity {
         info = (EditText)findViewById(R.id.editText);
         name = (EditText)findViewById(R.id.editText2);
         age = (EditText)findViewById(R.id.editText3);
+
+        info.setOnClickListener(
+                new EditText.OnClickListener(){
+                    public void onClick(View v){
+                        if(infoB == false) {
+                            info.setText("");
+                            infoB = true;
+                        }
+                    }
+                }
+        );
+
+        name.setOnClickListener(
+                new EditText.OnClickListener(){
+                    public void onClick(View v){
+                        if(nameB == false) {
+                            name.setText("");
+                            nameB = true;
+                        }
+                    }
+                }
+        );
+
+        age.setOnClickListener(
+                new EditText.OnClickListener(){
+                    public void onClick(View v){
+                        if(ageB == false) {
+                            age.setText("");
+                            ageB = true;
+                        }
+                    }
+                }
+        );
 
         button2.setOnClickListener(
                 new Button.OnClickListener(){

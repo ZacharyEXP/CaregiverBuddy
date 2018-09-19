@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,14 +28,16 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FileManager fm = new FileManager();
+
         Button testbutton = (Button)findViewById(R.id.testbutton);
-        //TextView patientInfo = (TextView)findViewById(R.id.patientInfo);
         ListView patientInfoL = (ListView)findViewById(R.id.patientList);
-        //ArrayList<String> array[] = new ArrayList<String>[0];
-        List<String> data = new ArrayList<String>();
-        //String array[] = new String[10];
+        ArrayList<String> data = new ArrayList<String>();
 
         try {
+            File file = new File(FILENAME);
+            String path = file.getCanonicalPath();
+            System.out.println(path);
             FileInputStream fileInputStream= openFileInput(FILENAME);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -53,10 +57,23 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
                 R.layout.activity_list_item, R.id.textview, data);
 
-        patientInfoL.setAdapter(adapter);
+        patientInfoL.setAdapter(adapter1);
+
+        patientInfoL.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                    long arg3)
+            {
+                String value = (String)adapter.getItemAtPosition(position);
+                System.out.println(value);
+                // assuming string and if you want to get the value on click of list item
+                // do what you intend to do on click of listview row
+            }
+        });
 
         testbutton.setOnClickListener(
                 new Button.OnClickListener(){
