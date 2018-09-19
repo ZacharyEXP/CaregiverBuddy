@@ -35,9 +35,9 @@ public class MainActivity extends Activity {
         ArrayList<String> data = new ArrayList<String>();
 
         try {
-            File file = new File(FILENAME);
-            String path = file.getCanonicalPath();
-            System.out.println(path);
+            //File file = new File(FILENAME);
+            //String path = file.getAbsolutePath();
+            //System.out.println(path);
             FileInputStream fileInputStream= openFileInput(FILENAME);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

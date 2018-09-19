@@ -3,6 +3,7 @@ package com.example.zacharyexp.myapplication;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 
 public class FileManager extends Activity {
     public static final String FILENAME = "patientlist.txt";
+    final static String path = Environment.getDataDirectory().getAbsolutePath() + "/data/com.example.zacharyexp.myapplication/files/";
+    final static String TAG = FileManager.class.getName();
 
     public FileManager() {
         //ArrayList<String> data = new ArrayList<String>();
@@ -25,11 +28,11 @@ public class FileManager extends Activity {
         String[] data;
 
         try {
-            File file = new File(FILENAME);
-            String path = file.getCanonicalPath();
-            System.out.println(path);
-            FileInputStream fileInputStream = openFileInput(FILENAME);
-            System.out.println("Test 1");
+            //File file = new File(FILENAME);
+            //String path = file.getAbsolutePath();
+            //System.out.println(path);
+            FileInputStream fileInputStream = new FileInputStream (new File(path + FILENAME));
+            System.out.println("It works");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
@@ -42,15 +45,18 @@ public class FileManager extends Activity {
 
                 System.out.println("Test 1");
 
-                for(int i = 0; i < data.length - 1; i++) {
+                for(int i = 0; i < data.length; i++) {
                     switch(i % 3) {
                         case 0:
                             names.add(data[i]);
+                            break;
                         case 1:
                             ages.add(data[i]);
+                            break;
                         case 2:
                             descriptions.add(data[i]);
                             System.out.println("Test 2");
+                            break;
                     }
                 }
             }
