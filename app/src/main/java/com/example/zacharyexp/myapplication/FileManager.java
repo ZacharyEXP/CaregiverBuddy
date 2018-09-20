@@ -12,9 +12,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FileManager extends Activity {
+public class FileManager extends Activity implements Serializable{
     public static final String FILENAME = "patientlist.txt";
     final static String path = Environment.getDataDirectory().getAbsolutePath() + "/data/com.example.zacharyexp.myapplication/files/";
     final static String TAG = FileManager.class.getName();
@@ -22,9 +23,9 @@ public class FileManager extends Activity {
     ArrayList<String> ages = new ArrayList<String>();
     ArrayList<String> descriptions = new ArrayList<String>();
     File file = new File(path + FILENAME);
+    int idCount = 0;
 
     public FileManager() {
-        int idCount = 1;
 
         String[] data;
 
@@ -52,6 +53,7 @@ public class FileManager extends Activity {
                             break;
                         case 2:
                             descriptions.add(data[i]);
+                            idCount++;
                             System.out.println("Test 2");
                             break;
                     }
