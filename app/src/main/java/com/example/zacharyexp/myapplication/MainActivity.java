@@ -23,34 +23,29 @@ public class MainActivity extends Activity {
 
     public static final String FILENAME = "patientlist.txt";
 
+    FileManager fm = new FileManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        FileManager fm = new FileManager();
 
         Button testbutton = (Button)findViewById(R.id.testbutton);
         ListView patientInfoL = (ListView)findViewById(R.id.patientList);
         ArrayList<String> data = new ArrayList<String>();
 
         try {
-            //File file = new File(FILENAME);
-            //String path = file.getAbsolutePath();
-            //System.out.println(path);
             FileInputStream fileInputStream= openFileInput(FILENAME);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
             String lines;
             while ((lines= bufferedReader.readLine())!=null) {
-                //System.out.println(lines);
                 data.add(lines);
                 stringBuffer.delete(0, stringBuffer.length());
 
             }
             System.out.println(data);
-            //patientInfo.setText(stringBuffer.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -65,21 +60,16 @@ public class MainActivity extends Activity {
         patientInfoL.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public void onItemClick(AdapterView<?> adapter, View v, int position,
-                                    long arg3)
-            {
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
                 String value = (String)adapter.getItemAtPosition(position);
                 System.out.println(value);
-                // assuming string and if you want to get the value on click of list item
-                // do what you intend to do on click of listview row
+                startPatientHome(v, value);
             }
         });
 
         testbutton.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
-                        //TextView testview = (TextView)findViewById(R.id.testview);
-                        //testview.setText("GG");
                         startPatientInfo(v);
                     }
                 }
@@ -88,6 +78,12 @@ public class MainActivity extends Activity {
 
     public void startPatientInfo(View view) {
         Intent intent = new Intent(this, Main2Activity.class);
+        startActivity(intent);
+    }
+
+    public void startPatientHome(View view, String info) {
+        Intent intent = new Intent(this, Main3Activity.class);
+        intent.putExtra("EXTRA_INFO", info);
         startActivity(intent);
     }
 }

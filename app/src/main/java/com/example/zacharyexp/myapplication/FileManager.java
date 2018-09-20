@@ -18,19 +18,17 @@ public class FileManager extends Activity {
     public static final String FILENAME = "patientlist.txt";
     final static String path = Environment.getDataDirectory().getAbsolutePath() + "/data/com.example.zacharyexp.myapplication/files/";
     final static String TAG = FileManager.class.getName();
+    ArrayList<String> names = new ArrayList<String>();
+    ArrayList<String> ages = new ArrayList<String>();
+    ArrayList<String> descriptions = new ArrayList<String>();
+    File file = new File(path + FILENAME);
 
     public FileManager() {
-        //ArrayList<String> data = new ArrayList<String>();
-        ArrayList<String> names = new ArrayList<String>();
-        ArrayList<String> ages = new ArrayList<String>();
-        ArrayList<String> descriptions = new ArrayList<String>();
+        int idCount = 1;
 
         String[] data;
 
         try {
-            //File file = new File(FILENAME);
-            //String path = file.getAbsolutePath();
-            //System.out.println(path);
             FileInputStream fileInputStream = new FileInputStream (new File(path + FILENAME));
             System.out.println("It works");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
@@ -40,7 +38,6 @@ public class FileManager extends Activity {
 
             while ((lines= bufferedReader.readLine())!=null) {
                 data = lines.split(" \\| ");
-                //data.add(lines);
                 stringBuffer.delete(0, stringBuffer.length());
 
                 System.out.println("Test 1");
@@ -61,11 +58,10 @@ public class FileManager extends Activity {
                 }
             }
 
-            System.out.println("Opened Manager");
             System.out.println(names);
             System.out.println(ages);
             System.out.println(descriptions);
-            //System.out.println(data);
+            fileInputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -73,9 +69,38 @@ public class FileManager extends Activity {
         }
     }
 
-    public void addEntry(String entry) {
-
+    public void addEntry(String newName, String newAge, String newDesc) {
+        names.add(newName);
+        ages.add(newAge);
+        descriptions.add(newDesc);
     }
 
-    //public String
+    public void save() {
+        try {
+            FileOutputStream outputStream = new FileOutputStream(file);
+            for(int i = 0; i < names.size(); i++) {
+                outputStream.write((names.get(i) + " | ").getBytes());
+                outputStream.write((ages.get(i) + " | ").getBytes());
+                outputStream.write((descriptions.get(i) + "\n").getBytes());
+                System.out.println("Saved");
+            }
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getName(int id) {
+        return names.get(id);
+    }
+
+    public String getAge(int id) {
+        return ages.get(id);
+    }
+
+    public String getDesc(int id) {
+        return descriptions.get(id);
+    }
+
+    //Add methods for getting ID, dates from calendar, medications, removing people, etc.
 }

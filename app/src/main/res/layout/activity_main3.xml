@@ -6,4 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".Main3Activity">
 
+    <TextView
+        android:id="@+id/patName"
+        android:layout_width="112dp"
+        android:layout_height="45dp"
+        android:text="Patient Name"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="28dp" />
+
+    <TextView
+        android:id="@+id/patAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Patient Age"
+        tools:layout_editor_absoluteX="222dp"
+        tools:layout_editor_absoluteY="42dp" />
+
+    <TextView
+        android:id="@+id/patDesc"
+        android:layout_width="236dp"
+        android:layout_height="37dp"
+        android:text="Patient Description"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="129dp" />
 </android.support.constraint.ConstraintLayout>
