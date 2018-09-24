@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
     public static final String FILENAME = "patientlist.txt";
 
     FileManager fm = new FileManager();
+    Patient p = new Patient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
