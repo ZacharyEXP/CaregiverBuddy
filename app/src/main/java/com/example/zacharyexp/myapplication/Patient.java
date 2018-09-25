@@ -1,15 +1,12 @@
 package com.example.zacharyexp.myapplication;
 
 import android.app.Activity;
-import android.os.Environment;
+import android.content.Context;
+import android.content.SharedPreferences;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Patient extends Activity implements Serializable {
     String patientName, patientDesc, weeklySchedule, patientPicPath;
@@ -21,115 +18,95 @@ public class Patient extends Activity implements Serializable {
     ArrayList<String> medDone = new ArrayList<String>();
     ArrayList<String> medDays = new ArrayList<String>();
     ArrayList<String> medPicPath = new ArrayList<String>();
-    int patientAge;
-    ArrayList<Integer> medAmount = new ArrayList<Integer>();;
+    int patientAge, patientID;
+    ArrayList<String> medAmount = new ArrayList<String>();;
 
-    public static final String FILENAME = "patientlist.txt";
-    final static String path = Environment.getDataDirectory().getAbsolutePath() + "/data/com.example.zacharyexp.myapplication/files/";
-    File file;
+    //SharedPreferences pref = getApplicationContext().getSharedPreferences("myPref", MODE_PRIVATE);
+    SharedPreferences pref; //= getSharedPreferences("myPref", MODE_PRIVATE);
+    SharedPreferences.Editor edit; //= pref.edit();
 
-    public Patient() {
-        /*patientName = "Test";
+    public Patient(Context c) {
+        //patientName = "Test";
+       // patientDesc = "Test Desc";
+       // weeklySchedule = "M/T/F";
+        //patientPicPath = "No path";
+        //patientAge = 77;
+        //medName.add("Penicillin");
+        //medName.add("Aspirin");
+        pref = c.getSharedPreferences("patientList", MODE_PRIVATE);
+        edit = pref.edit();
+    }
+
+    public Patient(Context c, int Id) {
+        patientName = "Test";
         patientDesc = "Test Desc";
         weeklySchedule = "M/T/F";
         patientPicPath = "No path";
-        patientAge = 77;*/
+        patientAge = 77;
+        medName.add("Penicillin");
+        medName.add("Aspirin");
+        patientID = Id;
+        pref = c.getSharedPreferences("ID" + Integer.toString(patientID), MODE_PRIVATE);
+        edit = pref.edit();
         load();
-        file = new File(path + "Test.txt");
+        save();
+    }
+
+    public Patient(Context c, String name) {
+        patientName = name;
+        pref = c.getSharedPreferences("patientList", MODE_PRIVATE);
+        try {
+            patientID = pref.getInt(patientName, -1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        pref = c.getSharedPreferences("ID" + Integer.toString(patientID), MODE_PRIVATE);
+        edit = pref.edit();
+        load();
         save();
     }
 
     public void save() {
         try {
-            FileOutputStream outputStream = new FileOutputStream(file);
-            outputStream.write(("#Patient Name" + "\n").getBytes());
-            outputStream.write((patientName + "\n").getBytes());
-            outputStream.write(("#Patient Age" + "\n").getBytes());
-            outputStream.write((Integer.toString(patientAge) + "\n").getBytes());
-            outputStream.write(("#Patient Description" + "\n").getBytes());
-            outputStream.write((patientDesc + "\n").getBytes());
-            outputStream.write(("#Weekly Schedule" + "\n").getBytes());
-            outputStream.write((weeklySchedule + "\n").getBytes());
-            outputStream.write(("#Task Descriptions" + "\n").getBytes());
-            for(int i = 0; i < taskDesc.size(); i++) {
-                outputStream.write((taskDesc.get(i) + "\n").getBytes());
-            }
-            outputStream.write(("#Task Starts" + "\n").getBytes());
-            for(int i = 0; i < taskStart.size(); i++) {
-                outputStream.write((taskStart.get(i) + "\n").getBytes());
-            }
-            outputStream.write(("#Tasks Done" + "\n").getBytes());
-            for(int i = 0; i < taskDone.size(); i++) {
-                outputStream.write((taskDone.get(i) + "\n").getBytes());
-            }
-            outputStream.write(("#Tasks Recurrence" + "\n").getBytes());
-            for(int i = 0; i < taskRecurrence.size(); i++) {
-                outputStream.write((taskRecurrence.get(i) + "\n").getBytes());
-            }
-            outputStream.write(("#Med Names" + "\n").getBytes());
-            for(int i = 0; i < medName.size(); i++) {
-                outputStream.write((medName.get(i) + "\n").getBytes());
-            }
-            outputStream.write(("#Med Amounts" + "\n").getBytes());
-            for(int i = 0; i < medAmount.size(); i++) {
-                outputStream.write((medAmount.get(i) + "\n").getBytes());
-            }
-            outputStream.write(("#Meds Done" + "\n").getBytes());
-            for(int i = 0; i < medDone.size(); i++) {
-                outputStream.write((medDone.get(i) + "\n").getBytes());
-            }
-            outputStream.write(("#Med Days" + "\n").getBytes());
-            for(int i = 0; i < medDays.size(); i++) {
-                outputStream.write((medDays.get(i) + "\n").getBytes());
-            }
-            outputStream.write(("#Med Pics Paths" + "\n").getBytes());
-            for(int i = 0; i < medPicPath.size(); i++) {
-                outputStream.write((medPicPath.get(i) + "\n").getBytes());
-            }
-            outputStream.write(("#Patient Pic Path" + "\n").getBytes());
-            outputStream.write((patientPicPath + "\n").getBytes());
-            outputStream.close();
+            edit.putString("Patient Name", patientName);
+            edit.putInt("Patient Age", patientAge);
+            edit.putString("Patient Desc", patientDesc);
+            edit.putInt("Patient ID", patientID);
+            edit.putString("Weekly Schedule", weeklySchedule);
+            edit.putStringSet("Task Desc", new HashSet<String>(taskDesc));
+            edit.putStringSet("Task Start", new HashSet<String>(taskStart));
+            edit.putStringSet("Task Done", new HashSet<String>(taskDone));
+            edit.putStringSet("Task Recurrence", new HashSet<String>(taskRecurrence));
+            edit.putStringSet("Med Name", new HashSet<String>(medName));
+            edit.putStringSet("Med Amount", new HashSet<String>(medAmount));
+            edit.putStringSet("Med Done", new HashSet<String>(medDone));
+            edit.putStringSet("Med Days", new HashSet<String>(medDays));
+            edit.putStringSet("Med Pic Path", new HashSet<String>(medPicPath));
+            edit.putString("Patient Pic Path", patientPicPath);
+            edit.apply();
         } catch (Exception e) {
             e.printStackTrace();
+            edit.apply();
         }
     }
 
     public void load() {
         try {
-            FileInputStream fileInputStream = new FileInputStream(new File(path + "Test.txt"));
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuffer stringBuffer = new StringBuffer();
-
-            String lines, temp;
-
-            while ((lines = bufferedReader.readLine())!= null) {
-                //data = lines.split(" \\| ");
-                stringBuffer.delete(0, stringBuffer.length());
-
-                System.out.println(lines);
-                if(lines.contains("#Patient Name")) {
-                    patientName = bufferedReader.readLine();
-                } else if(lines.contains("#Patient Age")) {
-                    patientAge = Integer.parseInt(bufferedReader.readLine());
-                } else if(lines.contains("#Patient Description")) {
-                    patientDesc = bufferedReader.readLine();
-                } else if(lines.contains("#Weekly Schedule")) {
-                    weeklySchedule = bufferedReader.readLine();
-                    System.out.println(weeklySchedule);
-                } else if(lines.contains("#Task Descriptions")) {
-                    bufferedReader.mark(500);
-                    temp = bufferedReader.readLine();
-                    while(!temp.contains("#Task Starts")) {
-                        taskDesc.add(temp);
-                        temp = bufferedReader.readLine();
-                    }
-                    bufferedReader.reset();
-                    System.out.println(temp);
-                }
-            }
-
-            fileInputStream.close();
+            patientName = pref.getString("Patient Name", null);
+            patientAge= pref.getInt("Patient Age", -1);
+            patientDesc = pref.getString("Patient Desc", null);
+            patientID = pref.getInt("Patient ID", -1);
+            weeklySchedule = pref.getString("Weekly Schedule", null);
+            taskDesc = new ArrayList<String>(pref.getStringSet("Task Desc", null));
+            taskStart= new ArrayList<String>(pref.getStringSet("Task Start", null));
+            taskDone = new ArrayList<String>(pref.getStringSet("Task Done", null));
+            taskRecurrence = new ArrayList<String>(pref.getStringSet("Task Recurrence", null));
+            medName = new ArrayList<String>(pref.getStringSet("Med Name", null));
+            medAmount = new ArrayList<String>(pref.getStringSet("Med Amount", null));
+            medDone = new ArrayList<String>(pref.getStringSet("Med Done", null));
+            medDays = new ArrayList<String>(pref.getStringSet("Med Days", null));
+            medPicPath = new ArrayList<String>(pref.getStringSet("Med Pic Path", null));
+            patientPicPath = pref.getString("Patient Pic Path", null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -172,7 +149,7 @@ public class Patient extends Activity implements Serializable {
         medName.add(name);
     }
 
-    public void addMedAmount(int amount) {
+    public void addMedAmount(String amount) {
         medAmount.add(amount);
     }
 
@@ -229,7 +206,7 @@ public class Patient extends Activity implements Serializable {
         return medName.get(index);
     }
 
-    public int getMedAmount(int index) {
+    public String getMedAmount(int index) {
         return medAmount.get(index);
     }
 
