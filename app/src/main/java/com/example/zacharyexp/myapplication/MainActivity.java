@@ -60,7 +60,8 @@ public class MainActivity extends Activity {
     }
 
     public void startPatientInfo(View view) {
-        Intent intent = new Intent(this, Main2Activity.class);
+        //Intent intent = new Intent(this, Main2Activity.class);
+        Intent intent = new Intent(this, ActivityTemplate.class);
         startActivity(intent);
     }
 
