@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Patient extends Activity implements Serializable {
+    int patientAge, patientID;
     String patientName, patientDesc, weeklySchedule, patientPicPath;
     ArrayList<String> taskDesc = new ArrayList<String>();
     ArrayList<String> taskStart = new ArrayList<String>();
@@ -18,26 +19,29 @@ public class Patient extends Activity implements Serializable {
     ArrayList<String> medDone = new ArrayList<String>();
     ArrayList<String> medDays = new ArrayList<String>();
     ArrayList<String> medPicPath = new ArrayList<String>();
-    int patientAge, patientID;
     ArrayList<String> medAmount = new ArrayList<String>();;
 
-    //SharedPreferences pref = getApplicationContext().getSharedPreferences("myPref", MODE_PRIVATE);
-    SharedPreferences pref; //= getSharedPreferences("myPref", MODE_PRIVATE);
-    SharedPreferences.Editor edit; //= pref.edit();
+    ArrayList<String> names = new ArrayList<String>();
+    ArrayList<String> ages = new ArrayList<String>();
+    ArrayList<String> pics = new ArrayList<String>();
+
+    SharedPreferences pref;
+    SharedPreferences.Editor edit;
+
+    SharedPreferences prefList;
+    SharedPreferences.Editor editList;
 
     public Patient(Context c) {
-        //patientName = "Test";
-       // patientDesc = "Test Desc";
-       // weeklySchedule = "M/T/F";
-        //patientPicPath = "No path";
-        //patientAge = 77;
-        //medName.add("Penicillin");
-        //medName.add("Aspirin");
-        pref = c.getSharedPreferences("patientList", MODE_PRIVATE);
-        edit = pref.edit();
+        prefList = c.getSharedPreferences("patientList", MODE_PRIVATE);
+        editList = prefList.edit();
+        loadList();
     }
 
     public Patient(Context c, int Id) {
+        prefList = c.getSharedPreferences("patientList", MODE_PRIVATE);
+        editList = prefList.edit();
+        loadList();
+
         patientName = "Test";
         patientDesc = "Test Desc";
         weeklySchedule = "M/T/F";
@@ -52,7 +56,7 @@ public class Patient extends Activity implements Serializable {
         save();
     }
 
-    public Patient(Context c, String name) {
+    /*public Patient(Context c, String name) {
         patientName = name;
         pref = c.getSharedPreferences("patientList", MODE_PRIVATE);
         try {
@@ -64,7 +68,7 @@ public class Patient extends Activity implements Serializable {
         edit = pref.edit();
         load();
         save();
-    }
+    }*/
 
     public void save() {
         try {
@@ -107,6 +111,28 @@ public class Patient extends Activity implements Serializable {
             medDays = new ArrayList<String>(pref.getStringSet("Med Days", null));
             medPicPath = new ArrayList<String>(pref.getStringSet("Med Pic Path", null));
             patientPicPath = pref.getString("Patient Pic Path", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveList() {
+        try {
+            editList.putStringSet("Name List", new HashSet<String>(names));
+            editList.putStringSet("Age List", new HashSet<String>(ages));
+            editList.putStringSet("Pic List", new HashSet<String>(pics));
+            editList.apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+            editList.apply();
+        }
+    }
+
+    public void loadList() {
+        try {
+            names = new ArrayList<String>(prefList.getStringSet("Name List", null));
+            ages = new ArrayList<String>(prefList.getStringSet("Age List", null));
+            pics = new ArrayList<String>(prefList.getStringSet("Pic List", null));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -169,6 +195,18 @@ public class Patient extends Activity implements Serializable {
         patientPicPath = path;
     }
 
+    public void addListName(String name) {
+        names.add(name);
+    }
+
+    public void addListAge(String age) {
+        ages.add(age);
+    }
+
+    public void addListPic(String pic) {
+        pics.add(pic);
+    }
+
     // Getters
     public String getPatientName() {
         return patientName;
@@ -224,5 +262,29 @@ public class Patient extends Activity implements Serializable {
 
     public String getPatientPicPath() {
         return patientPicPath;
+    }
+
+    public String getListName(int index) {
+        return names.get(index);
+    }
+
+    public String getListAge(int index) {
+        return ages.get(index);
+    }
+
+    public String getListPic(int index) {
+        return pics.get(index);
+    }
+
+    public ArrayList<String> getListNames() {
+        return names;
+    }
+
+    public ArrayList<String> getListAges() {
+        return ages;
+    }
+
+    public ArrayList<String> getListPics() {
+        return pics;
     }
 }

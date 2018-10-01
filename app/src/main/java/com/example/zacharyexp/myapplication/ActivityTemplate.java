@@ -37,7 +37,8 @@ public class ActivityTemplate extends Activity {
 
         // specify an adapter (see also next example)
         ArrayList<String> persons = new ArrayList<>(Arrays.asList("London", "Tokyo", "New York", "London2", "Tokyo2", "New York2", "London3", "Tokyo3"));
-        MyAdapter mAdapter = new MyAdapter(persons);
+        ArrayList<String> ages = new ArrayList<>(Arrays.asList("11", "22", "33", "44", "55", "66", "77", "88"));
+        MyAdapter mAdapter = new MyAdapter(persons, ages, persons);
         rv.setAdapter(mAdapter);
     }
     // ...
