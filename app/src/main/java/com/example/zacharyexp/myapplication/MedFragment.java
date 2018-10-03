@@ -1,34 +1,32 @@
 package com.example.zacharyexp.myapplication;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ActivityTemplate extends Activity {
+public class MedFragment extends Fragment {
     private RecyclerView rv;
 
-    String[] myDataset = new String[]{"1", "2", "3", "4"};
+    public MedFragment() {
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_med, container, false);
         //setContentView(R.layout.activity_template);
-        setContentView(R.layout.my_recycler_view);
 
-        rv = (RecyclerView)findViewById(R.id.rv);
+        rv = (RecyclerView)rootView.findViewById(R.id.rv);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
+        LinearLayoutManager llm = new LinearLayoutManager(rootView.getContext());
         rv.setLayoutManager(llm);
-        rv.setHasFixedSize(true);
+        //rv.setHasFixedSize(true);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -40,6 +38,7 @@ public class ActivityTemplate extends Activity {
         ArrayList<String> ages = new ArrayList<>(Arrays.asList("11", "22", "33", "44", "55", "66", "77", "88"));
         MedAdapter mAdapter = new MedAdapter(persons, ages, persons, ages, persons);
         rv.setAdapter(mAdapter);
+        return rootView;
     }
-    // ...
+
 }
