@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> {
-
     public static class PersonViewHolder extends RecyclerView.ViewHolder {
         // Rename var to abstract
         CardView cv;
@@ -30,21 +29,30 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     int position = (int) v.getTag();
+                    setName(patientNames.get(position));
+                    //setIndex(position);
                     System.out.println(position);
                 }
             });
         }
     }
 
-    ArrayList<String> patientNames;
+    public static ArrayList<String> patientNames;
     ArrayList<String> patientAges;
     ArrayList<String> patientPics;
+
+    int index = -1;
+    static String name;
 
     MyAdapter(ArrayList<String> names, ArrayList<String> ages, ArrayList<String> pics){
         patientNames = names;
         patientAges = ages;
         patientPics = pics;
     }
+
+    public static void setName(String s) {name = s;}
+
+    public String getName() {return name;}
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -53,7 +61,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> {
 
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.patient_card_view, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_patient, viewGroup, false);
         PersonViewHolder pvh = new PersonViewHolder(v);
         return pvh;
     }
@@ -120,7 +128,7 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.task_card_view, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_task, viewGroup, false);
         TaskViewHolder pvh = new TaskViewHolder(v);
         return pvh;
     }
@@ -191,7 +199,7 @@ class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedViewHolder> {
 
     @Override
     public MedViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.med_card_view, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_med, viewGroup, false);
         MedViewHolder pvh = new MedViewHolder(v);
         return pvh;
     }

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Patient extends Activity implements Serializable {
-    int patientAge, patientID;
+    // All variables are initialized here
+    int patientAge;
+    int patientID = -1;
     String patientName, patientDesc, weeklySchedule, patientPicPath;
     ArrayList<String> taskDesc = new ArrayList<String>();
     ArrayList<String> taskStart = new ArrayList<String>();
@@ -24,6 +26,7 @@ public class Patient extends Activity implements Serializable {
     ArrayList<String> names = new ArrayList<String>();
     ArrayList<String> ages = new ArrayList<String>();
     ArrayList<String> pics = new ArrayList<String>();
+    int highestId;
 
     SharedPreferences pref;
     SharedPreferences.Editor edit;
@@ -31,24 +34,25 @@ public class Patient extends Activity implements Serializable {
     SharedPreferences prefList;
     SharedPreferences.Editor editList;
 
+    Context temp;
+
+    // Default Constructor, used when program first loads. Loads patientlist
     public Patient(Context c) {
         prefList = c.getSharedPreferences("patientList", MODE_PRIVATE);
         editList = prefList.edit();
+        temp = c;
+        //saveList();
         loadList();
     }
 
+    // Main Constructor, used when loading a patient.
     public Patient(Context c, int Id) {
         prefList = c.getSharedPreferences("patientList", MODE_PRIVATE);
         editList = prefList.edit();
+        temp = c;
+        //saveList();
         loadList();
 
-        patientName = "Test";
-        patientDesc = "Test Desc";
-        weeklySchedule = "M/T/F";
-        patientPicPath = "No path";
-        patientAge = 77;
-        medName.add("Penicillin");
-        medName.add("Aspirin");
         patientID = Id;
         pref = c.getSharedPreferences("ID" + Integer.toString(patientID), MODE_PRIVATE);
         edit = pref.edit();
@@ -56,20 +60,7 @@ public class Patient extends Activity implements Serializable {
         save();
     }
 
-    /*public Patient(Context c, String name) {
-        patientName = name;
-        pref = c.getSharedPreferences("patientList", MODE_PRIVATE);
-        try {
-            patientID = pref.getInt(patientName, -1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        pref = c.getSharedPreferences("ID" + Integer.toString(patientID), MODE_PRIVATE);
-        edit = pref.edit();
-        load();
-        save();
-    }*/
-
+    // Saves all patient data, overwrites any previous values
     public void save() {
         try {
             edit.putString("Patient Name", patientName);
@@ -94,6 +85,7 @@ public class Patient extends Activity implements Serializable {
         }
     }
 
+    // Loads all patient data into variables
     public void load() {
         try {
             patientName = pref.getString("Patient Name", null);
@@ -116,23 +108,39 @@ public class Patient extends Activity implements Serializable {
         }
     }
 
+    // Saves all basic patient info to use when selecting a patient
     public void saveList() {
         try {
             editList.putStringSet("Name List", new HashSet<String>(names));
             editList.putStringSet("Age List", new HashSet<String>(ages));
             editList.putStringSet("Pic List", new HashSet<String>(pics));
+            if(patientName != null) {
+                if(patientID == -1) {
+                    patientID = highestId + 1;
+                    highestId++;
+                }
+                editList.putInt(patientName, patientID);
+            }
+            editList.putInt("Highest ID", highestId);
             editList.apply();
+
+            pref = temp.getSharedPreferences("ID" + Integer.toString(patientID), MODE_PRIVATE);
+            edit = pref.edit();
+            save();
         } catch (Exception e) {
             e.printStackTrace();
             editList.apply();
         }
     }
 
+    // Loads all basic patient info for patient selection
     public void loadList() {
         try {
             names = new ArrayList<String>(prefList.getStringSet("Name List", null));
             ages = new ArrayList<String>(prefList.getStringSet("Age List", null));
             pics = new ArrayList<String>(prefList.getStringSet("Pic List", null));
+            highestId = prefList.getInt("Highest ID", -1);
+            patientID = prefList.getInt(patientName, -1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -286,5 +294,9 @@ public class Patient extends Activity implements Serializable {
 
     public ArrayList<String> getListPics() {
         return pics;
+    }
+
+    public int getIdFromName(String name) {
+        return prefList.getInt(name, -1);
     }
 }

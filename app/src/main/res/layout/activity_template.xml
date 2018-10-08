@@ -7,7 +7,7 @@ android:padding="16dp">
 
 <!-- Here is the inserted layout -->
     <include
-        layout="@layout/patient_card_view"
+        layout="@layout/card_view_patient"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp" />

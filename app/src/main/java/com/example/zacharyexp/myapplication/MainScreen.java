@@ -1,6 +1,6 @@
 package com.example.zacharyexp.myapplication;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class Main6Activity extends AppCompatActivity {
+public class MainScreen extends AppCompatActivity {
 
     private String[] mNavigationDrawerItemTitles;
     private DrawerLayout mDrawerLayout;
@@ -23,14 +23,20 @@ public class Main6Activity extends AppCompatActivity {
     private CharSequence mTitle;
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
 
+    Patient p;
+    Context c;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main6);
+        setContentView(R.layout.main_screen);
         mTitle = mDrawerTitle = getTitle();
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        c = getApplicationContext();
+        p = new Patient(c, getIntent().getIntExtra("PATIENT_ID", -1));
 
         setupToolbar();
 
@@ -92,7 +98,7 @@ public class Main6Activity extends AppCompatActivity {
             mDrawerLayout.closeDrawer(mDrawerList);
 
         } else {
-            Log.e("MainActivity", "Error in creating fragment");
+            Log.e("PatientSelect", "Error in creating fragment");
         }
     }
 
