@@ -6,12 +6,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainScreen extends AppCompatActivity {
 
@@ -26,6 +29,12 @@ public class MainScreen extends AppCompatActivity {
     Patient p;
     Context c;
 
+    CardView cv;
+    TextView personName;
+    TextView personAge;
+    TextView personDesc;
+    ImageView personPhoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +44,19 @@ public class MainScreen extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
+        cv = (CardView)findViewById(R.id.cvPatient);
+        personName = (TextView)findViewById(R.id.person_name);
+        personAge = (TextView)findViewById(R.id.person_age);
+        personPhoto = (ImageView)findViewById(R.id.person_photo);
+        personDesc = (TextView)findViewById(R.id.desc);
+
         c = getApplicationContext();
         p = new Patient(c, getIntent().getIntExtra("PATIENT_ID", -1));
+
+        personName.setText(p.getPatientName());
+        personAge.setText(Integer.toString(p.getPatientAge()));
+        personDesc.setText(p.getPatientDesc());
+        personPhoto.setImageResource(R.drawable.ic_launcher_background);
 
         setupToolbar();
 

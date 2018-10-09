@@ -10,49 +10,57 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> {
-    public static class PersonViewHolder extends RecyclerView.ViewHolder {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> {
+    public class PersonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Rename var to abstract
         CardView cv;
         TextView personName;
         TextView personAge;
         ImageView personPhoto;
 
-        PersonViewHolder(final View itemView) {
+        CustomListener cl;
+
+        PersonViewHolder(final View itemView, CustomListener listener) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cvPatient);
             personName = (TextView)itemView.findViewById(R.id.person_name);
             personAge = (TextView)itemView.findViewById(R.id.person_age);
             personPhoto = (ImageView) itemView.findViewById(R.id.person_photo);
+            cl = listener;
             System.out.println("PersonViewHolder init");
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    int position = (int) v.getTag();
-                    setName(patientNames.get(position));
-                    //setIndex(position);
-                    System.out.println(position);
-                }
-            });
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            cl.onClick(view, getAdapterPosition());
+            setName((String)personName.getText());
+            System.out.println(getAdapterPosition());
         }
     }
 
-    public static ArrayList<String> patientNames;
+    ArrayList<String> patientNames;
     ArrayList<String> patientAges;
     ArrayList<String> patientPics;
 
     int index = -1;
     static String name;
 
-    MyAdapter(ArrayList<String> names, ArrayList<String> ages, ArrayList<String> pics){
+    CustomListener cl;
+
+    MyAdapter(ArrayList<String> names, ArrayList<String> ages, ArrayList<String> pics, CustomListener li){
         patientNames = names;
         patientAges = ages;
         patientPics = pics;
+        cl = li;
     }
 
     public static void setName(String s) {name = s;}
 
     public String getName() {return name;}
+
+    public String getName(int index) {return patientNames.get(index);}
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -62,13 +70,14 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> {
     @Override
     public PersonViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_patient, viewGroup, false);
-        PersonViewHolder pvh = new PersonViewHolder(v);
+        PersonViewHolder pvh = new PersonViewHolder(v, cl);
         return pvh;
     }
 
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         personViewHolder.cv.setTag(i);
+        System.out.println(i);
         personViewHolder.personName.setText(patientNames.get(i));
         personViewHolder.personAge.setText(patientAges.get(i));
         personViewHolder.personPhoto.setImageResource(R.drawable.ic_launcher_background);
@@ -83,7 +92,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> {
 }
 
 class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
-    public static class TaskViewHolder extends RecyclerView.ViewHolder {
+    public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Rename var to abstract
         CardView cv;
         TextView taskName;
@@ -91,21 +100,26 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
         TextView taskRecur;
         TextView taskFin;
 
-        TaskViewHolder(final View itemView) {
+        CustomListener cl;
+
+        TaskViewHolder(final View itemView, CustomListener listener) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cvTask);
             taskName = (TextView)itemView.findViewById(R.id.task_desc);
             taskSt = (TextView)itemView.findViewById(R.id.task_start);
             taskRecur = (TextView) itemView.findViewById(R.id.task_recur);
             taskFin = (TextView)itemView.findViewById(R.id.task_done);
+            cl = listener;
             System.out.println("TaskViewHolder init");
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    int position = (int) v.getTag();
-                    System.out.println(position);
-                }
-            });
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            cl.onClick(view, getAdapterPosition());
+            //setName(patientNames.get(getAdapterPosition()));
+            System.out.println(getAdapterPosition());
         }
     }
 
@@ -114,11 +128,14 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
     ArrayList<String> taskRecurrence;
     ArrayList<String> taskDone;
 
-    TaskAdapter(ArrayList<String> descs, ArrayList<String> starts, ArrayList<String> recur, ArrayList<String> done){
+    CustomListener cl;
+
+    TaskAdapter(ArrayList<String> descs, ArrayList<String> starts, ArrayList<String> recur, ArrayList<String> done, CustomListener li){
         taskDesc = descs;
         taskStart = starts;
         taskRecurrence = recur;
         taskDone = done;
+        cl = li;
     }
 
     @Override
@@ -129,7 +146,7 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_task, viewGroup, false);
-        TaskViewHolder pvh = new TaskViewHolder(v);
+        TaskViewHolder pvh = new TaskViewHolder(v, cl);
         return pvh;
     }
 
@@ -150,7 +167,7 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 }
 
 class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedViewHolder> {
-    public static class MedViewHolder extends RecyclerView.ViewHolder {
+    public class MedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // Rename var to abstract
         CardView cv;
         TextView medName;
@@ -159,7 +176,9 @@ class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedViewHolder> {
         TextView medAmount;
         ImageView medPic;
 
-        MedViewHolder(final View itemView) {
+        CustomListener cl;
+
+        MedViewHolder(final View itemView, CustomListener listener) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cvMed);
             medName = (TextView)itemView.findViewById(R.id.med_name);
@@ -167,14 +186,16 @@ class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedViewHolder> {
             medDay = (TextView) itemView.findViewById(R.id.med_day);
             medAmount = (TextView)itemView.findViewById(R.id.med_amount);
             medPic = (ImageView)itemView.findViewById(R.id.med_photo);
-            System.out.println("TaskViewHolder init");
+            cl = listener;
+            System.out.println("MedViewHolder init");
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    int position = (int) v.getTag();
-                    System.out.println(position);
-                }
-            });
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            cl.onClick(view, getAdapterPosition());
+            System.out.println(getAdapterPosition());
         }
     }
 
@@ -184,12 +205,15 @@ class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedViewHolder> {
     ArrayList<String> medPicPaths;
     ArrayList<String> medAmounts;
 
-    MedAdapter(ArrayList<String> names, ArrayList<String> done, ArrayList<String> days, ArrayList<String> pics, ArrayList<String> amount){
+    CustomListener cl;
+
+    MedAdapter(ArrayList<String> names, ArrayList<String> done, ArrayList<String> days, ArrayList<String> pics, ArrayList<String> amount, CustomListener li){
         medNames = names;
         medsDone = done;
         medDays = days;
         medPicPaths = pics;
         medAmounts = amount;
+        cl = li;
     }
 
     @Override
@@ -200,7 +224,7 @@ class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedViewHolder> {
     @Override
     public MedViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_med, viewGroup, false);
-        MedViewHolder pvh = new MedViewHolder(v);
+        MedViewHolder pvh = new MedViewHolder(v, cl);
         return pvh;
     }
 

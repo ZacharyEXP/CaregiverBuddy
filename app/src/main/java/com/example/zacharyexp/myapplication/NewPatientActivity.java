@@ -25,9 +25,9 @@ public class NewPatientActivity extends Activity {
         p = new Patient(c);
 
         Button button2 = (Button)findViewById(R.id.button2);
-        info = (EditText)findViewById(R.id.editText);
-        name = (EditText)findViewById(R.id.editText2);
-        age = (EditText)findViewById(R.id.editText3);
+        info = (EditText)findViewById(R.id.patient_desc);
+        name = (EditText)findViewById(R.id.patient_name);
+        age = (EditText)findViewById(R.id.patient_age);
 
         button2.setOnClickListener(
                 new Button.OnClickListener(){
@@ -42,6 +42,7 @@ public class NewPatientActivity extends Activity {
                         p.setPatientAge(Integer.parseInt(ageS));
                         p.addListPic(infoS);
                         p.setPatientPicPath(infoS);
+                        p.setPatientDesc(infoS);
                         p.saveList();
 
                         startPatientManagement(v);

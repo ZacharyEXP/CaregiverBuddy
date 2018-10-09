@@ -30,6 +30,10 @@ public class ActivityTemplate extends Activity {
         rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
 
+        CustomListener cl  = (View c, int position) -> {
+
+        };
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
 
@@ -38,7 +42,7 @@ public class ActivityTemplate extends Activity {
         // specify an adapter (see also next example)
         ArrayList<String> persons = new ArrayList<>(Arrays.asList("London", "Tokyo", "New York", "London2", "Tokyo2", "New York2", "London3", "Tokyo3"));
         ArrayList<String> ages = new ArrayList<>(Arrays.asList("11", "22", "33", "44", "55", "66", "77", "88"));
-        MedAdapter mAdapter = new MedAdapter(persons, ages, persons, ages, persons);
+        MedAdapter mAdapter = new MedAdapter(persons, ages, persons, ages, persons, cl);
         rv.setAdapter(mAdapter);
     }
     // ...

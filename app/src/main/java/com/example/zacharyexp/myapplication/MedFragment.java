@@ -13,6 +13,7 @@ import java.util.Arrays;
 
 public class MedFragment extends Fragment {
     private RecyclerView rv;
+    CustomListener cl;
 
     public MedFragment() {
     }
@@ -26,6 +27,10 @@ public class MedFragment extends Fragment {
 
         LinearLayoutManager llm = new LinearLayoutManager(rootView.getContext());
         rv.setLayoutManager(llm);
+
+        CustomListener cl  = (View c, int position) -> {
+
+        };
         //rv.setHasFixedSize(true);
 
         // use this setting to improve performance if you know that changes
@@ -36,7 +41,7 @@ public class MedFragment extends Fragment {
         // specify an adapter (see also next example)
         ArrayList<String> persons = new ArrayList<>(Arrays.asList("London", "Tokyo", "New York", "London2", "Tokyo2", "New York2", "London3", "Tokyo3"));
         ArrayList<String> ages = new ArrayList<>(Arrays.asList("11", "22", "33", "44", "55", "66", "77", "88"));
-        MedAdapter mAdapter = new MedAdapter(persons, ages, persons, ages, persons);
+        MedAdapter mAdapter = new MedAdapter(persons, ages, persons, ages, persons, cl);
         rv.setAdapter(mAdapter);
         return rootView;
     }
