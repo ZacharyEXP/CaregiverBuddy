@@ -1,5 +1,6 @@
 package com.example.zacharyexp.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,8 @@ import java.util.Arrays;
 public class MedFragment extends Fragment {
     private RecyclerView rv;
     CustomListener cl;
+    Patient p;
+    Context c;
 
     public MedFragment() {
     }
@@ -21,27 +24,35 @@ public class MedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_drawer, container, false);
-        //setContentView(R.layout.activity_template);
+
+        c = getContext();
+        p = new Patient(c, getActivity().getIntent().getIntExtra("PATIENT_ID", -1));
 
         rv = (RecyclerView)rootView.findViewById(R.id.rv);
 
         LinearLayoutManager llm = new LinearLayoutManager(rootView.getContext());
         rv.setLayoutManager(llm);
 
+        //FloatingActionButton fab = findViewById(R.id.fab);
+        //fab.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+        //                .setAction("Action", null).show();
+        //    }
+        //});
+
         CustomListener cl  = (View c, int position) -> {
 
         };
         //rv.setHasFixedSize(true);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-
-        // use a linear layout manager
-
-        // specify an adapter (see also next example)
-        ArrayList<String> persons = new ArrayList<>(Arrays.asList("London", "Tokyo", "New York", "London2", "Tokyo2", "New York2", "London3", "Tokyo3"));
-        ArrayList<String> ages = new ArrayList<>(Arrays.asList("11", "22", "33", "44", "55", "66", "77", "88"));
-        MedAdapter mAdapter = new MedAdapter(persons, ages, persons, ages, persons, cl);
+        ArrayList<String> medNames = p.getMedNames();
+        ArrayList<String> medsDone = p.getMedsDone();
+        ArrayList<String> medDays = p.getMedsDays();
+        ArrayList<String> medPics= p.getMedPicPaths();
+        ArrayList<String> medAmounts = p.getMedAmounts();
+        MedAdapter mAdapter = new MedAdapter(medNames, medsDone, medDays, medPics, medAmounts, cl);
         rv.setAdapter(mAdapter);
         return rootView;
     }

@@ -284,6 +284,40 @@ public class Patient extends Activity implements Serializable {
         return pics.get(index);
     }
 
+    public ArrayList<String> getTaskDescs() {
+        return medName;
+    }
+
+    public ArrayList<String> getTaskStarts() {
+        return medAmount;
+    }
+
+    public ArrayList<String> getTasksDone() {
+        return medDone;
+    }
+
+    public ArrayList<String> getTaskRecurrences() { return medDays; }
+
+    public ArrayList<String> getMedNames() {
+        return medName;
+    }
+
+    public ArrayList<String> getMedAmounts() {
+        return medAmount;
+    }
+
+    public ArrayList<String> getMedsDone() {
+        return medDone;
+    }
+
+    public ArrayList<String> getMedsDays() {
+        return medDays;
+    }
+
+    public ArrayList<String> getMedPicPaths() {
+        return medPicPath;
+    }
+
     public ArrayList<String> getListNames() {
         return names;
     }
