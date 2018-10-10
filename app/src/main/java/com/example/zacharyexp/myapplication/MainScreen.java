@@ -1,6 +1,8 @@
 package com.example.zacharyexp.myapplication;
 
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -49,6 +51,14 @@ public class MainScreen extends AppCompatActivity {
         personAge = (TextView)findViewById(R.id.person_age);
         personPhoto = (ImageView)findViewById(R.id.person_photo);
         personDesc = (TextView)findViewById(R.id.desc);
+
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.open_dialog);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectItem(4);
+            }
+        });
 
         c = getApplicationContext();
         p = new Patient(c, getIntent().getIntExtra("PATIENT_ID", -1));
@@ -104,6 +114,8 @@ public class MainScreen extends AppCompatActivity {
             case 3:
                 //fragment = new TableFragment();
                 break;
+            case 4:
+                fragment = new DialogFragment();
             default:
                 break;
         }
