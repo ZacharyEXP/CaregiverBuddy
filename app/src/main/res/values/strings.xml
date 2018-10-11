@@ -20,4 +20,5 @@
         <item>Medication List</item>
         <item>Weekly Task List</item>
     </string-array>
+    <string name="title_activity_test">test</string>
 </resources>

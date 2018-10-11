@@ -19,6 +19,10 @@
         <activity android:name=".NewPatientActivity" />
         <activity android:name=".ActivityTemplate" />
         <activity android:name=".MainScreen" />
+        <activity
+            android:name=".test"
+            android:label="@string/title_activity_test"
+            android:theme="@style/myAppTheme"></activity>
     </application>
 
 </manifest>

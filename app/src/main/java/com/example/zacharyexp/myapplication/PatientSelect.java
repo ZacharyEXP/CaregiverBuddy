@@ -69,7 +69,7 @@ public class PatientSelect extends Activity {
     }
 
     public void startPatientInfo(View view) {
-        Intent intent = new Intent(this, NewPatientActivity.class);
+        Intent intent = new Intent(this, test.class);
         startActivity(intent);
     }
 

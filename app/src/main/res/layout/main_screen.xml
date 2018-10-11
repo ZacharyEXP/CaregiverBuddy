@@ -5,7 +5,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/myAppTheme">
+    android:theme="@style/myAppTheme"
+    android:background="?android:attr/colorBackground">
 
 
     <!--<TextView
@@ -38,7 +39,7 @@
                 layout="@layout/toolbar" />
         </LinearLayout>
 
-        <include
+        <!-- <include
             android:id="@+id/patient_card"
             layout="@layout/card_view_patient" />
 
@@ -47,22 +48,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/patient_card"
-            android:text="" />
-
+            android:text="" /> -->
 
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/open_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:src="@drawable/ic_drawer"
-            android:layout_margin="16dp"
-            android:visibility="visible" />
+            <include
+                android:id="@+id/patient_card"
+                layout="@layout/card_view_patient" />
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/patient_card"
+                android:text="" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/open_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:src="@android:drawable/ic_menu_add"
+                android:layout_margin="16dp"
+                android:visibility="gone" />
+        </FrameLayout>
+
 
     </LinearLayout>
 

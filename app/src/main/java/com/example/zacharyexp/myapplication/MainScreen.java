@@ -1,22 +1,22 @@
 package com.example.zacharyexp.myapplication;
 
 import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.PopupWindow;
 
 public class MainScreen extends AppCompatActivity {
 
@@ -31,42 +31,37 @@ public class MainScreen extends AppCompatActivity {
     Patient p;
     Context c;
 
-    CardView cv;
-    TextView personName;
-    TextView personAge;
-    TextView personDesc;
-    ImageView personPhoto;
+    int position = -1;
+
+    Fragment fragment;
+    BioFragment frag;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
+
+        fragmentManager = getSupportFragmentManager();
+
+        frag = new BioFragment();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
+
         mTitle = mDrawerTitle = getTitle();
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        cv = (CardView)findViewById(R.id.cvPatient);
-        personName = (TextView)findViewById(R.id.person_name);
-        personAge = (TextView)findViewById(R.id.person_age);
-        personPhoto = (ImageView)findViewById(R.id.person_photo);
-        personDesc = (TextView)findViewById(R.id.desc);
-
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.open_dialog);
+        /*FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.open_dialog);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectItem(4);
+                openDialog();
             }
-        });
+        });*/
 
         c = getApplicationContext();
         p = new Patient(c, getIntent().getIntExtra("PATIENT_ID", -1));
-
-        personName.setText(p.getPatientName());
-        personAge.setText(Integer.toString(p.getPatientAge()));
-        personDesc.setText(p.getPatientDesc());
-        personPhoto.setImageResource(R.drawable.ic_launcher_background);
 
         setupToolbar();
 
@@ -85,7 +80,6 @@ public class MainScreen extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         setupDrawerToggle();
-
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -98,6 +92,7 @@ public class MainScreen extends AppCompatActivity {
     }
 
     private void selectItem(int position) {
+        frag.removeView();
 
         Fragment fragment = null;
 
@@ -121,7 +116,6 @@ public class MainScreen extends AppCompatActivity {
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
             mDrawerList.setItemChecked(position, true);
@@ -166,5 +160,21 @@ public class MainScreen extends AppCompatActivity {
         mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.app_name, R.string.app_name);
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         mDrawerToggle.syncState();
+    }
+
+    void openDialog() {
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_med, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = false; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
     }
 }
