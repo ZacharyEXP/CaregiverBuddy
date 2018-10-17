@@ -1,6 +1,8 @@
 package com.example.zacharyexp.myapplication;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,10 +35,11 @@ public class MainScreen extends AppCompatActivity {
 
     int position = -1;
 
-    Fragment fragment;
-    BioFragment frag;
+    //Fragment fragment;
+    //BioFragment frag;
     FragmentManager fragmentManager;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,33 +47,27 @@ public class MainScreen extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        frag = new BioFragment();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
+        //frag = new BioFragment();
+        //fragmentManager.beginTransaction().replace(R.id.content_frame, frag).commit();
+        //fragmentManager.beginTransaction().addToBackStack(null).commit();
 
         mTitle = mDrawerTitle = getTitle();
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        /*FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.open_dialog);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialog();
-            }
-        });*/
-
         c = getApplicationContext();
         p = new Patient(c, getIntent().getIntExtra("PATIENT_ID", -1));
 
         setupToolbar();
 
-        DataModel[] drawerItem = new DataModel[4];
+        DataModel[] drawerItem = new DataModel[5];
 
-        drawerItem[0] = new DataModel(R.drawable.ic_drawer, "Health History");
-        drawerItem[1] = new DataModel(R.drawable.ic_drawer, "Medication List");
-        drawerItem[2] = new DataModel(R.drawable.ic_drawer, "Daily Task List");
-        drawerItem[3] = new DataModel(R.drawable.ic_drawer, "Monthly Task List");
+        drawerItem[0] = new DataModel(R.drawable.ic_drawer, "Patient Bio");
+        drawerItem[1] = new DataModel(R.drawable.ic_drawer, "Health History");
+        drawerItem[2] = new DataModel(R.drawable.ic_drawer, "Medication List");
+        drawerItem[3] = new DataModel(R.drawable.ic_drawer, "Daily Task List");
+        drawerItem[4] = new DataModel(R.drawable.ic_drawer, "Monthly Task List");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -80,6 +77,8 @@ public class MainScreen extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         setupDrawerToggle();
+
+        selectItem(0);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -92,25 +91,24 @@ public class MainScreen extends AppCompatActivity {
     }
 
     private void selectItem(int position) {
-        frag.removeView();
-
         Fragment fragment = null;
 
         switch (position) {
             case 0:
-                fragment = new HealthFragment();
+                fragment = new BioFragment();
                 break;
             case 1:
-                fragment = new MedFragment();
+                fragment = new HealthFragment();
                 break;
             case 2:
-                fragment = new TaskFragment();
+                fragment = new MedFragment();
                 break;
             case 3:
-                //fragment = new TableFragment();
+                fragment = new TaskFragment();
                 break;
             case 4:
-                fragment = new DialogFragment();
+                fragment = new TaskFragment();
+                break;
             default:
                 break;
         }

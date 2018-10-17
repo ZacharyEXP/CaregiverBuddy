@@ -35,14 +35,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="8dp"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
     <!--app:layout_constraintTop_toBottomOf="@+id/calendarView"/>-->
 
-<!--<CalendarView
+    <!--<CalendarView
 android:id="@+id/calendarView"
 android:layout_width="192dp"
 android:layout_height="185dp"
@@ -75,4 +74,24 @@ app:layout_constraintTop_toBottomOf="@+id/multiAutoCompleteTextView" />-->
         android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/patient_name"
         app:layout_constraintTop_toBottomOf="@+id/patient_name" />
+
+    <com.dpro.widgets.WeekdaysPicker
+        android:id="@+id/weekdays"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patient_desc"
+        app:sunday_first_day="true" />
+
+    <Button
+        android:id="@+id/button_choose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="Choose Photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekdays" />
 </android.support.constraint.ConstraintLayout>

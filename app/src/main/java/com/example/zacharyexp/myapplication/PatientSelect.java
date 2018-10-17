@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -25,6 +27,7 @@ public class PatientSelect extends Activity {
     private RecyclerView rv;
     MyAdapter mAdapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +72,7 @@ public class PatientSelect extends Activity {
     }
 
     public void startPatientInfo(View view) {
-        Intent intent = new Intent(this, test.class);
+        Intent intent = new Intent(this, NewPatientActivity.class);
         startActivity(intent);
     }
 

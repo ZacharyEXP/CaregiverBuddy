@@ -2,7 +2,12 @@ package com.example.zacharyexp.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.zip.Inflater;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class MedFragment extends Fragment {
@@ -29,10 +35,14 @@ public class MedFragment extends Fragment {
     Context c;
 
     LayoutInflater in;
+    Uri selectedImage;
+
+    String photo;
 
     public MedFragment() {
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,19 +98,44 @@ public class MedFragment extends Fragment {
         EditText medName = (EditText)popupView.findViewById(R.id.med_name);
         EditText medAmount = (EditText)popupView.findViewById(R.id.med_amount);
         EditText medDays = (EditText)popupView.findViewById(R.id.med_days);
+        Button choosePhoto = (Button)popupView.findViewById(R.id.button_choose);
         Button submit = (Button)popupView.findViewById(R.id.submit);
+
+        choosePhoto.setOnClickListener(
+                v -> {
+                    Intent pickPhoto = new Intent(Intent.ACTION_OPEN_DOCUMENT,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(pickPhoto , 1);
+                }
+        );
 
         submit.setOnClickListener(
                 v -> {
-                    p.addMedName(medName.getText().toString());
-                    p.addMedAmount(medAmount.getText().toString());
-                    p.addMedDays(medDays.getText().toString());
-                    p.addMedDone("No");
-                    p.addMedPicPath("Default");
+                    p.addMed(new Med(medName.getText().toString(), "Not Done", medDays.getText().toString(), photo, medAmount.getText().toString()));
                     p.save();
 
                     popupView.setVisibility(View.GONE);
+                    update();
                 }
         );
+    }
+
+    void update() {
+        ArrayList<String> medNames = p.getMedNames();
+        ArrayList<String> medsDone = p.getMedsDone();
+        ArrayList<String> medDays = p.getMedsDays();
+        ArrayList<String> medPics= p.getMedPicPaths();
+        ArrayList<String> medAmounts = p.getMedAmounts();
+        MedAdapter mAdapter = new MedAdapter(medNames, medsDone, medDays, medPics, medAmounts, cl);
+        rv.setAdapter(mAdapter);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        if(resultCode == RESULT_OK){
+            selectedImage = imageReturnedIntent.getData();
+            System.out.println(selectedImage.toString());
+            photo = selectedImage.toString();
+        }
     }
 }

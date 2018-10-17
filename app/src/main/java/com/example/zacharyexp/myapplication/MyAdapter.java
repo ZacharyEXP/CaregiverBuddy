@@ -1,5 +1,6 @@
 package com.example.zacharyexp.myapplication;
 
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> {
@@ -34,9 +37,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> 
 
         @Override
         public void onClick(View view) {
-            cl.onClick(view, getAdapterPosition());
-            setName((String)personName.getText());
-            System.out.println(getAdapterPosition());
+            try {
+                cl.onClick(view, getAdapterPosition());
+                System.out.println(getAdapterPosition());
+                setName((String)personName.getText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -80,7 +87,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.PersonViewHolder> 
         System.out.println(i);
         personViewHolder.personName.setText(patientNames.get(i));
         personViewHolder.personAge.setText(patientAges.get(i));
-        personViewHolder.personPhoto.setImageResource(R.drawable.ic_launcher_background);
+        try {
+            personViewHolder.personPhoto.setImageURI(Uri.parse(patientPics.get(i)));
+            android.view.ViewGroup.LayoutParams layoutParams = personViewHolder.personPhoto.getLayoutParams();
+            layoutParams.width = 300;
+            layoutParams.height = 300;
+            personViewHolder.personPhoto.setLayoutParams(layoutParams);
+            //medViewHolder.medPic.setHeight(30);
+            //medViewHolder.medPic.setMaxWidth(30);
+            //LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(100, 100);
+            //iv.setLayoutParams(layoutParams);
+        } catch (Exception e) {
+            e.printStackTrace();
+            personViewHolder.personPhoto.setImageResource(R.drawable.ic_launcher_background);
+        }
         //personViewHolder.personPhoto.setImageResource(patientPics.get(i));
     }
 
@@ -117,9 +137,12 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
         @Override
         public void onClick(View view) {
-            cl.onClick(view, getAdapterPosition());
-            //setName(patientNames.get(getAdapterPosition()));
-            System.out.println(getAdapterPosition());
+            try {
+                cl.onClick(view, getAdapterPosition());
+                System.out.println(getAdapterPosition());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -194,8 +217,12 @@ class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedViewHolder> {
 
         @Override
         public void onClick(View view) {
-            cl.onClick(view, getAdapterPosition());
-            System.out.println(getAdapterPosition());
+            try {
+                cl.onClick(view, getAdapterPosition());
+                System.out.println(getAdapterPosition());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -235,8 +262,21 @@ class MedAdapter extends RecyclerView.Adapter<MedAdapter.MedViewHolder> {
         medViewHolder.medDay.setText(medDays.get(i));
         medViewHolder.medAmount.setText(medAmounts.get(i));
         medViewHolder.medDone.setText(medsDone.get(i));
-        medViewHolder.medPic.setImageResource(R.drawable.ic_launcher_background);
-        //personViewHolder.personPhoto.setImageResource(medPicPaths.get(i));
+        //medViewHolder.medPic.setImageResource(R.drawable.ic_launcher_background);
+        try {
+            medViewHolder.medPic.setImageURI(Uri.parse(medPicPaths.get(i)));
+            android.view.ViewGroup.LayoutParams layoutParams = medViewHolder.medPic.getLayoutParams();
+            layoutParams.width = 300;
+            layoutParams.height = 300;
+            medViewHolder.medPic.setLayoutParams(layoutParams);
+            //medViewHolder.medPic.setHeight(30);
+            //medViewHolder.medPic.setMaxWidth(30);
+            //LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(100, 100);
+            //iv.setLayoutParams(layoutParams);
+        } catch (Exception e) {
+            e.printStackTrace();
+            medViewHolder.medPic.setImageResource(R.drawable.ic_launcher_background);
+        }
     }
 
     @Override
