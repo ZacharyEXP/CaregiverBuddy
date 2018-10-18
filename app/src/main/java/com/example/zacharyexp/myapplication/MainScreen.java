@@ -1,9 +1,9 @@
 package com.example.zacharyexp.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -101,13 +101,19 @@ public class MainScreen extends AppCompatActivity {
                 fragment = new HealthFragment();
                 break;
             case 2:
-                fragment = new MedFragment();
+                //fragment = new MedFragment();
+                Intent intent2 = new Intent(this, DrugActivity.class);
+                startActivity(intent2);
                 break;
             case 3:
-                fragment = new TaskFragment();
+                //fragment = new TaskFragment();
+                Intent intent3 = new Intent(this, ChoreActivity.class);
+                startActivity(intent3);
                 break;
             case 4:
-                fragment = new TaskFragment();
+                //fragment = new TaskFragment();
+                Intent intent4 = new Intent(this, ChoreActivity.class);
+                startActivity(intent4);
                 break;
             default:
                 break;

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+
+    app:cardElevation="1dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/card_cover_image"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cover_chore_picture"
+            android:scaleType="fitXY"
+            android:layout_margin="1dp"/>
+
+        <TextView
+            android:id="@+id/card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="SampleTitle"
+            android:layout_toRightOf="@id/card_cover_image"
+            android:textColor="@color/blackFonce"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/card_subtitle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_title"
+            android:text="@string/card_subtitle_string_text"
+            android:layout_toRightOf="@id/card_cover_image"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:id="@+id/subtitle_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/card_subtitle_text"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="5dp"
+            android:layout_alignBaseline="@id/card_subtitle_text"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/start_date_card"
+            android:text=""
+            android:layout_below="@id/card_subtitle_text"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/card_cover_image"
+            android:layout_marginTop="5dp"
+            android:textSize="10sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/between_date_card"
+            android:text="@string/card_between"
+            android:layout_alignBaseline="@id/start_date_card"
+            android:layout_toRightOf="@id/start_date_card"
+            android:layout_marginLeft="3dp"
+            android:textSize="10sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/end_date_card"
+            android:text=""
+            android:layout_alignBaseline="@id/start_date_card"
+            android:layout_toRightOf="@id/between_date_card"
+            android:layout_marginLeft="3dp"
+            android:textSize="10sp"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

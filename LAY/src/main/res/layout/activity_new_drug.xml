@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/medecine_cover_photo"
+            android:layout_width="380dp"
+            android:layout_height="180dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/cover_medicine_picture" />
+        <!--This last methods disable the blanks of the margins  -->
+
+        <EditText
+            android:id="@+id/edit_name_drug"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/medecine_cover_photo"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:hint="@string/hint_drug_name"
+            android:inputType="textCapSentences" />
+
+        <EditText
+            android:id="@+id/edit_lab_name"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/edit_name_drug"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/edit_name_drug"
+            android:hint="@string/hint_lab_name"
+            android:inputType="textCapWords" />
+
+        <TextView
+            android:id="@+id/text_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_name_drug"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/text_start"
+            android:textColor="@color/blackFonce"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/text_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_start"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/text_end"
+            android:textColor="@color/blackFonce"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/text_start"
+            android:layout_marginStart="35dp"
+            android:layout_toRightOf="@id/text_start"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/text_end"
+            android:layout_marginStart="35dp"
+            android:layout_toRightOf="@id/text_start"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/text_frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_end"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="45dp"
+            android:text="@string/text_frequency"
+            android:textColor="@color/blackFonce"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/text_start_frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_frequency"
+            android:layout_alignBaseline="@id/text_frequency"
+            android:layout_marginLeft="25dp"
+            android:textColor="@color/blackFonce"
+            android:textSize="18sp"
+            android:text="@string/text_start_frequency"
+            />
+
+        <EditText
+            android:id="@+id/edit_frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_start_frequency"
+            android:layout_alignBaseline="@id/text_frequency"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/blackFonce"
+            android:inputType="number"
+            android:text="1" />
+
+
+        <Spinner
+            android:id="@+id/spinner_frequency_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/edit_frequency"
+            android:layout_alignBaseline="@id/edit_frequency"
+            android:layout_marginLeft="20dp"
+            android:prompt="@string/spinner_prompt_frequency"
+            android:entries="@array/spinner_frequency_selector"
+            />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp"
+            android:src="@drawable/ic_done"
+            app:backgroundTint="#ffffff"
+            android:clickable="true"
+            app:fabSize="normal"
+            />
+
+        <TextView
+            android:id="@+id/text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_frequency"
+            android:layout_marginTop="30dp"
+            android:text="@string/text_when"
+            android:textSize="18sp"
+            android:textColor="@color/blackFonce"
+            android:layout_marginStart="25dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_time1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/text_time"
+            android:layout_alignBaseline="@id/text_time"
+            android:layout_marginLeft="15dp"
+            android:entries="@array/spinner_time1"
+            android:prompt="@string/spinner_prompt_time1"
+            />
+
+        <Spinner
+            android:id="@+id/spinner_time2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/spinner_time1"
+            android:layout_alignBaseline="@id/text_time"
+            android:layout_marginRight="10dp"
+            android:entries="@array/spinner_time2"
+            android:prompt="@string/spinner_prompt_time2"
+            />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_pick_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/medecine_cover_photo"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/ic_add_a_photo"
+        android:clickable="true"
+        />
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,38 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
-    <string name="textview">Click that</string>
-    <string name="testbutton">Enter New Patient</string>
-    <string name="title_activity_main5">Main5Activity</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_example">Example action</string>
-
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_main6">Main6Activity</string>
-
-    <string-array name="navigation_drawer_items_array">
-        <item>Patient Bio</item>
-        <item>Health History</item>
-        <item>Medication List</item>
-        <item>Daily Task List</item>
-        <item>Weekly Task List</item>
-    </string-array>
-    <string name="title_activity_test">test</string>
-    <string-array name="recurrence">
-        <item>Every week</item>
-        <item>Every odd week</item>
-        <item>Every even week</item>
-    </string-array>
+    <string name="app_name">LAY - Today</string>
     <string name="nothing">Nothing to show :[</string>
-    <string name="hint_drug_name">Drug Name</string>
+    <string name="hint_drug_name">Name</string>
     <string name="hint_lab_name">Laboratory</string>
-    <string name="hint_chore_name">Chore Name</string>
-    <string name="hint_type_name">Chore Type</string>
     <string name="text_start">Start</string>
     <string name="text_end">End</string>
     <string name="button_ok">OK</string>
