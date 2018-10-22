@@ -19,7 +19,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:scaleType="fitXY"
-            android:src="@drawable/cover_medicine_picture" />
+            android:src="@drawable/cover_medicine_picture"
+            android:contentDescription="TODO" />
         <!--This last methods disable the blanks of the margins  -->
 
         <EditText
@@ -29,24 +30,24 @@
             android:layout_below="@+id/medecine_cover_photo"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
-            android:hint="@string/hint_chore_name"
+            android:hint="@string/hint_drug_name"
             android:inputType="textCapSentences" />
 
         <EditText
             android:id="@+id/edit_lab_name"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/edit_name_chore"
+            android:layout_alignBaseline="@id/edit_name_drug"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/edit_name_chore"
-            android:hint="@string/hint_type_name"
+            android:layout_toRightOf="@id/edit_name_drug"
+            android:hint="@string/hint_lab_name"
             android:inputType="textCapWords" />
 
         <TextView
             android:id="@+id/text_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_name_chore"
+            android:layout_below="@id/edit_name_drug"
             android:layout_marginStart="25dp"
             android:layout_marginTop="35dp"
             android:text="@string/text_start"

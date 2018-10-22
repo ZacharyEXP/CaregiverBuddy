@@ -112,7 +112,7 @@ public class MainScreen extends AppCompatActivity {
                 break;
             case 4:
                 //fragment = new TaskFragment();
-                Intent intent4 = new Intent(this, ChoreActivity.class);
+                Intent intent4 = new Intent(this, ChoreMonthActivity.class);
                 startActivity(intent4);
                 break;
             default:

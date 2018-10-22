@@ -4,6 +4,8 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
+        <item name="floatingActionButtonStyle">@style/Widget.Design.FloatingActionButton</item>
     </style>
 
     <style name="myAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -13,6 +15,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="coordinatorLayoutStyle">@style/Widget.Support.CoordinatorLayout</item>
+        <item name="floatingActionButtonStyle">@style/Widget.Design.FloatingActionButton</item>
     </style>
 
     <style name="myAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

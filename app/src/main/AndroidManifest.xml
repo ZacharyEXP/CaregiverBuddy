@@ -23,11 +23,9 @@
         <activity android:name=".NewDrug" />
         <activity android:name=".ChoreActivity" />
         <activity android:name=".NewChore" />
-        <activity
-            android:name=".test"
-            android:label="@string/title_activity_test"
-            android:theme="@style/myAppTheme"></activity>
+        <activity android:name=".ChoreMonthActivity" />
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
