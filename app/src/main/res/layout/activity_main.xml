@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+
+        <Button
+            android:layout_width="5dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ic_portrait"
+            android:gravity="right|bottom"
+            android:onClick="openBio"
+            android:outlineAmbientShadowColor="@color/materialGrey"
+            android:text="Patient Biography" />
+
+        <Button
+            android:layout_width="5dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ic_heart"
+            android:gravity="right|bottom"
+            android:onClick="openHealth"
+            android:outlineAmbientShadowColor="@color/materialGrey"
+            android:text="Health History" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+
+        <Button
+            android:layout_width="5dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ic_medicine"
+            android:gravity="right|bottom"
+            android:onClick="openMedicine"
+            android:outlineAmbientShadowColor="@color/materialGrey"
+            android:text="Medication List" />
+
+        <Button
+            android:layout_width="5dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ic_tasks"
+            android:gravity="right|bottom"
+            android:onClick="openTasks"
+            android:outlineAmbientShadowColor="@color/gray_bbbbbb"
+            android:text="Daily Tasks" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+
+        <Button
+            android:layout_width="5dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ic_calendar"
+            android:gravity="right|bottom"
+            android:onClick="openCalendar"
+            android:outlineAmbientShadowColor="@color/materialGrey"
+            android:text="Calendar Planner" />
+
+        <Button
+            android:layout_width="5dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ic_add"
+            android:gravity="right|bottom"
+            android:outlineAmbientShadowColor="@color/black_80000000"
+            android:text="Temp" />
+    </LinearLayout>
+</LinearLayout>

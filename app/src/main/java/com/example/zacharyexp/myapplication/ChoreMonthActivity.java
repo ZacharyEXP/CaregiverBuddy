@@ -1,7 +1,9 @@
 package com.example.zacharyexp.myapplication;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +16,7 @@ import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
@@ -31,9 +34,9 @@ import static com.kelin.calendarlistview.library.CalendarHelper.getCalendarByYea
 
 public class ChoreMonthActivity extends RxAppCompatActivity {
     public static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("yyyyMMdd");
-    public static final SimpleDateFormat YEAR_MONTH_FORMAT = new SimpleDateFormat("MM/yyyy");
+    public static final SimpleDateFormat YEAR_MONTH_FORMAT = new SimpleDateFormat("yyyy-MM");
 
-    private TreeMap<String, List<ChoreService.Chores.StoriesBean>> listTreeMap = new TreeMap<>();
+    private TreeMap<String, List<Chore>> listTreeMap = new TreeMap<>();
 
     private CalendarListView calendarListView;
     private CalendarListAdapter calendarListAdapter;
@@ -41,6 +44,7 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
 
     private Handler handler = new Handler();
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,7 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
         calendarListView.setCalendarListViewAdapter(calendarItemAdapter, calendarListAdapter);
 
         Calendar calendar = Calendar.getInstance();
+        System.out.println(calendar);
         calendar.add(Calendar.MONTH, -7);
         loadChoresList(DAY_FORMAT.format(calendar.getTime()));
         //System.out.println();
@@ -63,6 +68,7 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
 
         // deal with refresh and load more event.
         calendarListView.setOnListPullListener(new CalendarListView.onListPullListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onRefresh() {
                 String date = listTreeMap.firstKey();
@@ -72,6 +78,7 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
                 loadChoresList(DAY_FORMAT.format(calendar.getTime()));
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onLoadMore() {
                 String date = listTreeMap.lastKey();
@@ -101,15 +108,16 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void loadChoresList(String date) {
         Calendar calendar = getCalendarByYearMonthDay(date);
         String key = CalendarHelper.YEAR_MONTH_FORMAT.format(calendar.getTime());
 
         // just not care about how data to create.
-        Random random = new Random();
-        final List<String> set = new ArrayList<>();
-        while (set.size() < 5) {
-            int i = random.nextInt(29);
+        //Random random = new Random();
+        /*List<String> set = new ArrayList<>();
+        int i = 1;
+        while (set.size() < 32) {
             if (i > 0) {
                 if (!set.contains(key + "-" + i)) {
                     if (i < 10) {
@@ -119,9 +127,62 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
                     }
                 }
             }
-        }
+            i++;
+        }*/
 
-        Observable<Notification<ChoreService.Chores>> newsListOb =
+        //ChoreTools ct = new ChoreService.Chores(getApplicationContext());
+        //ArrayList<Chore> temp = ChoreTools.readAnArray(getApplicationContext());
+        List<Chore> ch = new ArrayList<Chore>();
+        ch = ChoreTools.readAnArray(getApplicationContext());
+        listTreeMap.clear();
+        for(Chore chore : ch) {
+            String day = ChoreTools.dateToStringValue(chore.getStartDate());
+            System.out.println(day);
+            if (listTreeMap.get(day) != null ) {
+                List<Chore> list = new ArrayList<Chore>();
+                list = listTreeMap.get(day);
+                // System.out.println(listTreeMap);
+                list.add(chore);
+                //listTreeMap.put(day, list);
+                listTreeMap.replace(day, list);
+                //System.out.println(listTreeMap);
+            } else {
+                List<Chore> list = new ArrayList<Chore>();
+                list.add(chore);
+                listTreeMap.put(day, list);
+                //System.out.println(listTreeMap);
+            }
+        }
+        /*for(int j = 0; j < 32; j++) {
+            String day = set.get(j);
+            if (ch.size() != 0) {
+                for (int k = 0; k < ch.size(); k++) {
+                    if (listTreeMap.get(day) != null) {
+                        if(ChoreTools.dateToStringValue(ch.get(k).getStartDate()).equals(day)) {
+                            List<Chore> list = listTreeMap.get(day);
+                            // System.out.println(listTreeMap);
+                            list.add(ch.get(k));
+                        } else {
+
+                        }
+                    } else {
+                        if(ChoreTools.dateToStringValue(ch.get(k).getStartDate()).equals(day)) {
+                            List<Chore> list = new ArrayList<Chore>();
+                            list.add(ch.get(k));
+                            listTreeMap.put(day, list);
+                        } else {
+
+                        }
+                    }
+                }
+            }
+        }*/
+
+        calendarListAdapter.setDateDataMap(listTreeMap);
+        calendarListAdapter.notifyDataSetChanged();
+        calendarItemAdapter.notifyDataSetChanged();
+
+        /*Observable<Notification<ChoreService.Chores>> newsListOb =
                 RetrofitProvider.getInstance().create(ChoreService.class)
                         .getChoresList(date)
                         .subscribeOn(Schedulers.io())
@@ -134,7 +195,7 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
             public void handleError(Throwable e) {
                 Log.w("Error", e);
             }
-        });*/
+        });
 
         newsListOb.filter(Notification::isOnNext)
                 .map(n -> n.getValue())
@@ -177,11 +238,11 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
                     //calendarListAdapter.setDateDataMap(listTreeMap);
                     //calendarListAdapter.notifyDataSetChanged();
                     //calendarItemAdapter.notifyDataSetChanged();
-                });
+                });*/
     }
 
     private void loadCalendarData(String date) {
-        new Thread() {
+        /*new Thread() {
             @Override
             public void run() {
                 try {
@@ -210,8 +271,38 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
                 }
             }
 
-        }.start();
+        }.start();*/
 
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sleep(1000);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Random random = new Random();
+                            if (date.equals(calendarListView.getCurrentSelectedDate())) {
+                                for (String d : listTreeMap.keySet()) {
+                                    if (date.equals(d)) {
+                                        ChoreCalendarItemModel customCalendarItemModel = calendarItemAdapter.getDayModelList().get(d);
+                                        if (customCalendarItemModel != null) {
+                                            customCalendarItemModel.setNewsCount(listTreeMap.get(d).size());
+                                            customCalendarItemModel.setFav(random.nextBoolean());
+                                        }
+
+                                    }
+                                }
+                                calendarItemAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }.start();
     }
 
     public static Calendar getCalendarByYearMonthDay(String yearMonthDay) {

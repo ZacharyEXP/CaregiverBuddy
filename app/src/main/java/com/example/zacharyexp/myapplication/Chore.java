@@ -1,6 +1,9 @@
 package com.example.zacharyexp.myapplication;
 
+import android.os.AsyncTask;
 import android.util.Log;
+
+import com.kelin.calendarlistview.library.CalendarListView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,8 +29,6 @@ public class Chore implements Serializable{
     //Time in the frequency
     private String absoluteTime;
     private String relativeTime;
-
-
 
 
     //Relative time integer reference
@@ -80,8 +81,8 @@ public class Chore implements Serializable{
         Calendar thisEndDate = (Calendar) this.getEndDate().clone();
 
         //Converting calendars date to integers
-        int startDateInt = DrugTools.dateToInteger(thisStartDate);
-        int currentDateInt = DrugTools.dateToInteger(Calendar.getInstance());
+        int startDateInt = ChoreTools.dateToInteger(thisStartDate);
+        int currentDateInt = ChoreTools.dateToInteger(Calendar.getInstance());
 
         //Date used in the process
         Calendar targetDate = thisStartDate;
@@ -97,28 +98,28 @@ public class Chore implements Serializable{
 
             while(targetDate.compareTo(thisEndDate) < 0){
                 targetDate.add(Calendar.DAY_OF_MONTH, this.timesPerFrequency);
-                matchingDates.add(DrugTools.dateToInteger(targetDate));
+                matchingDates.add(ChoreTools.dateToInteger(targetDate));
             }
         }else if(this.frequency.equals("Week")){
             Log.i("appAction","The Chore object frequency is set to 'Week'.");
 
             while (targetDate.compareTo(thisEndDate) < 0){
                 targetDate.add(Calendar.DAY_OF_MONTH, this.timesPerFrequency * 7);
-                matchingDates.add(DrugTools.dateToInteger(targetDate));
+                matchingDates.add(ChoreTools.dateToInteger(targetDate));
             }
         }else if(this.frequency.equals("Month")){
             Log.i("appAction","The Chore object frequency is set to 'Month'.");
 
             while (targetDate.compareTo(thisEndDate) < 0){
                 targetDate.add(Calendar.MONTH, this.timesPerFrequency);
-                matchingDates.add(DrugTools.dateToInteger(targetDate));
+                matchingDates.add(ChoreTools.dateToInteger(targetDate));
             }
         }else if(this.frequency.equals("Year")){
             Log.i("appAction","The Chore object frequency is set to 'Year'.");
 
             while (targetDate.compareTo(thisEndDate) < 0){
                 targetDate.add(Calendar.YEAR, this.timesPerFrequency);
-                matchingDates.add(DrugTools.dateToInteger(targetDate));
+                matchingDates.add(ChoreTools.dateToInteger(targetDate));
             }
         }
 
@@ -177,8 +178,8 @@ public class Chore implements Serializable{
 
 
     //***Setters***
-    public void setChoreName(String drugName) {
-        this.choreName = drugName;
+    public void setChoreName(String choreName) {
+        this.choreName = choreName;
     }
 
     public void setTypeName(String laboratoryName) {
@@ -217,9 +218,9 @@ public class Chore implements Serializable{
 
     //***ToString***
     public String toString(){
-        return "\n>>>>>Drug Object<<<<<<\n"
-                +"-Drug Name = " + this.choreName + "\n"
-                +"-Laboratory Name = " + this.typeName + "\n"
+        return "\n>>>>>Chroe Object<<<<<<\n"
+                +"-Chore Name = " + this.choreName + "\n"
+                +"-Type Name = " + this.typeName + "\n"
                 +"-Start Date = " + this.startDate + "\n"
                 +"-End Date = " + this.endDate + "\n"
                 +"-Times per Frequency = " + this.timesPerFrequency + "\n"

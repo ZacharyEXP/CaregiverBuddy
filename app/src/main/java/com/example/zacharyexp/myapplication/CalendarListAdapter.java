@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TreeMap;
 
-public class CalendarListAdapter extends BaseCalendarListAdapter<ChoreService.Chores.StoriesBean> {
+public class CalendarListAdapter extends BaseCalendarListAdapter<Chore> {
     public CalendarListAdapter(Context context) {
         super(context);
     }
@@ -22,7 +22,7 @@ public class CalendarListAdapter extends BaseCalendarListAdapter<ChoreService.Ch
     @Override
     public View getSectionHeaderView(String date, View convertView, ViewGroup parent) {
         HeaderViewHolder headerViewHolder;
-        List<ChoreService.Chores.StoriesBean> modelList = dateDataMap.get(date);
+        List<Chore> modelList = dateDataMap.get(date);
         if (convertView != null) {
             headerViewHolder = (HeaderViewHolder) convertView.getTag();
         } else {
@@ -46,7 +46,7 @@ public class CalendarListAdapter extends BaseCalendarListAdapter<ChoreService.Ch
     }
 
     @Override
-    public View getItemView(ChoreService.Chores.StoriesBean model, String date, int pos, View convertView, ViewGroup parent) {
+    public View getItemView(Chore model, String date, int pos, View convertView, ViewGroup parent) {
         ContentViewHolder contentViewHolder;
         if (convertView != null) {
             contentViewHolder = (ContentViewHolder) convertView.getTag();
@@ -59,7 +59,7 @@ public class CalendarListAdapter extends BaseCalendarListAdapter<ChoreService.Ch
             convertView.setTag(contentViewHolder);
         }
 
-        contentViewHolder.titleTextView.setText(model.getTitle());
+        contentViewHolder.titleTextView.setText(model.getChoreName());
         contentViewHolder.timeTextView.setText(date);
 //        GenericDraweeHierarchy hierarchy = GenericDraweeHierarchyBuilder.newInstance(convertView.getResources())
 //                .setRoundingParams(RoundingParams.asCircle())

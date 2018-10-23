@@ -18,7 +18,7 @@ import java.util.Calendar;
 * A class containing all tools for converting, processing values ...
 */
 public class ChoreTools {
-
+    public static final String PATH = "/data/user/0/com.example.zacharyexp.myapplication/files/";
     //Text button converter from string to calendar
     public static Calendar stringConverterToDate (String buttonText){
 
@@ -62,7 +62,7 @@ public class ChoreTools {
         Log.i("appAction","Reading Chore container ...");
         ArrayList tempContainer = new ArrayList();
         try {
-            FileInputStream fileInputStream = context.openFileInput("chore");
+            FileInputStream fileInputStream = context.openFileInput("chores");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             tempContainer = (ArrayList) objectInputStream.readObject();
             objectInputStream.close();

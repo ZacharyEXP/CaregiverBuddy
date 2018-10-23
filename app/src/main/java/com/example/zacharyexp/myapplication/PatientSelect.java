@@ -77,7 +77,8 @@ public class PatientSelect extends Activity {
     }
 
     public void startPatientHome(View view, int id) {
-        Intent intent = new Intent(this, MainScreen.class);
+        //Intent intent = new Intent(this, MainScreen.class);
+        Intent intent = new Intent(this, MainSelect.class);
         intent.putExtra("PATIENT_ID", id);
         startActivity(intent);
     }

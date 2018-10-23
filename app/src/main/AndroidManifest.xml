@@ -19,6 +19,7 @@
         <activity android:name=".NewPatientActivity" />
         <activity android:name=".ActivityTemplate" />
         <activity android:name=".MainScreen" />
+        <activity android:name=".MainSelect" />
         <activity android:name=".DrugActivity" />
         <activity android:name=".NewDrug" />
         <activity android:name=".ChoreActivity" />

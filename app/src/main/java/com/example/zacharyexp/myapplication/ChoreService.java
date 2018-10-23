@@ -1,6 +1,9 @@
 package com.example.zacharyexp.myapplication;
 
+import android.content.Context;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.http.GET;
@@ -8,12 +11,21 @@ import retrofit2.http.Path;
 import rx.Observable;
 
 public interface ChoreService {
-    @GET("/api/4/news/before/{chores}")
-    public Observable<Chores> getChoresList(@Path("chores") String date);
+    //@GET("/api/4/news/before/{chores}")
+    //public Observable<Chores> getChoresList(@Path("chores") String date);
 
-    public class Chores extends Chore {
+    public class Chores {
 
-        public Chores(String s) {
+        public Chores(Context c) {
+            ChoreTools ct = new ChoreTools();
+            ArrayList<Chore> ch = ct.readAnArray(c);
+            int i = 0;
+            for(Chore chore : ch) {
+                stories.add(new StoriesBean(new StoriesBean.ExtraField(false, "")));
+                stories.get(i).setTitle(chore.getChoreName());
+                setDate(ct.dateToStringValue(chore.getStartDate()));
+                i++;
+            }
             //super();
             //date = "nn";
         }
@@ -32,6 +44,10 @@ public interface ChoreService {
 
         public List<StoriesBean> getStories() {
             return stories;
+        }
+
+        public StoriesBean getStories(int i) {
+            return stories.get(i);
         }
 
         public void setStories(List<StoriesBean> stories) {
