@@ -31,7 +31,7 @@ import static com.kelin.calendarlistview.library.CalendarHelper.getCalendarByYea
 
 public class ChoreMonthActivity extends RxAppCompatActivity {
     public static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("yyyyMMdd");
-    public static final SimpleDateFormat YEAR_MONTH_FORMAT = new SimpleDateFormat("yyyyMM");
+    public static final SimpleDateFormat YEAR_MONTH_FORMAT = new SimpleDateFormat("MM/yyyy");
 
     private TreeMap<String, List<ChoreService.Chores.StoriesBean>> listTreeMap = new TreeMap<>();
 
@@ -58,6 +58,7 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -7);
         loadChoresList(DAY_FORMAT.format(calendar.getTime()));
+        //System.out.println();
         //actionBar.setTitle(YEAR_MONTH_FORMAT.format(calendar.getTime()));
 
         // deal with refresh and load more event.
@@ -142,8 +143,10 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
                 .doOnNext(i -> {
                     int index = random.nextInt(5);
                     String day = set.get(index);
+                    System.out.println(day);
                     if (listTreeMap.get(day) != null) {
                         List<ChoreService.Chores.StoriesBean> list = listTreeMap.get(day);
+                        System.out.println(listTreeMap);
                         list.add(i);
                     } else {
                         List<ChoreService.Chores.StoriesBean> list = new ArrayList<ChoreService.Chores.StoriesBean>();

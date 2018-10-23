@@ -203,7 +203,8 @@ public class ChoreTools {
 
     //convert a calendar to an hexadecimal value
     public static String dateToStringValue(Calendar calendar){
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(calendar.getTime());
     }
 

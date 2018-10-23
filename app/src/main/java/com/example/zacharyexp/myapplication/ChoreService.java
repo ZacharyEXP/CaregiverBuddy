@@ -11,7 +11,12 @@ public interface ChoreService {
     @GET("/api/4/news/before/{chores}")
     public Observable<Chores> getChoresList(@Path("chores") String date);
 
-    public class Chores {
+    public class Chores extends Chore {
+
+        public Chores(String s) {
+            //super();
+            //date = "nn";
+        }
 
         private String date;
 
@@ -97,6 +102,10 @@ public interface ChoreService {
 
             public void setExtraField(ExtraField extraField) {
                 this.extraField = extraField;
+            }
+
+            public String toString(){
+                return title + id;
             }
 
             public static class ExtraField  implements Serializable {
