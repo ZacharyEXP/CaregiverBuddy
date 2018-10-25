@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.kelin.calendarlistview.library.BaseCalendarItemAdapter;
 import com.kelin.calendarlistview.library.BaseCalendarItemModel;
 
+import java.util.TreeMap;
+
 public class CalendarItemAdapter extends BaseCalendarItemAdapter<ChoreCalendarItemModel> {
+    protected TreeMap<String, ChoreCalendarItemModel> dayModelList = new TreeMap<>();
     public CalendarItemAdapter(Context context) {
         super(context);
     }
@@ -61,5 +64,19 @@ public class CalendarItemAdapter extends BaseCalendarItemAdapter<ChoreCalendarIt
 
 
         return view;
+    }
+
+    @Override
+    public TreeMap<String, ChoreCalendarItemModel> getDayModelList() {
+        return dayModelList;
+    }
+
+    @Override
+    public void setDayModelList(TreeMap<String, ChoreCalendarItemModel> dayModelList) {
+        this.dayModelList = dayModelList;
+        indexToTimeMap.clear();
+        for (String time : this.dayModelList.keySet()) {
+            indexToTimeMap.add(time);
+        }
     }
 }

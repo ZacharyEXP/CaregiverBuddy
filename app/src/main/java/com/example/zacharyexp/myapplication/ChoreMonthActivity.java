@@ -31,18 +31,23 @@ import rx.plugins.RxJavaPlugins;
 import rx.schedulers.Schedulers;
 
 import static com.kelin.calendarlistview.library.CalendarHelper.getCalendarByYearMonthDay;
+import static java.lang.Thread.sleep;
 
 public class ChoreMonthActivity extends RxAppCompatActivity {
-    public static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("yyyyMMdd");
+    public static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat YEAR_MONTH_FORMAT = new SimpleDateFormat("yyyy-MM");
 
-    private TreeMap<String, List<Chore>> listTreeMap = new TreeMap<>();
+    private TreeMap<String, List<Chore>> listTreeMapChore = new TreeMap<>();
+    private TreeMap<String, List<Drug>> listTreeMapDrug = new TreeMap<>();
 
     private CalendarListView calendarListView;
     private CalendarListAdapter calendarListAdapter;
     private CalendarItemAdapter calendarItemAdapter;
 
     private Handler handler = new Handler();
+
+    private List<Chore> ch;
+    private List<Drug> dr;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -62,7 +67,11 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         System.out.println(calendar);
         calendar.add(Calendar.MONTH, -7);
+        System.out.println("Start 1");
+        ch = ChoreTools.readAnArray(getApplicationContext());
+        dr = DrugTools.readAnArray(getApplicationContext());
         loadChoresList(DAY_FORMAT.format(calendar.getTime()));
+        System.out.println("Start 2");
         //System.out.println();
         //actionBar.setTitle(YEAR_MONTH_FORMAT.format(calendar.getTime()));
 
@@ -71,22 +80,38 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onRefresh() {
-                String date = listTreeMap.firstKey();
+                String date = listTreeMapChore.firstKey();
                 Calendar calendar = getCalendarByYearMonthDay(date);
                 calendar.add(Calendar.MONTH, -1);
                 calendar.set(Calendar.DAY_OF_MONTH, 1);
+                System.out.println("Refresh 1");
+                ch = ChoreTools.readAnArray(getApplicationContext());
+                dr = DrugTools.readAnArray(getApplicationContext());
                 loadChoresList(DAY_FORMAT.format(calendar.getTime()));
+                System.out.println("Refresh 2");
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onLoadMore() {
+
+            }
+            /*@RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onLoadMore() {
                 String date = listTreeMap.lastKey();
                 Calendar calendar = getCalendarByYearMonthDay(date);
                 calendar.add(Calendar.MONTH, 1);
                 calendar.set(Calendar.DAY_OF_MONTH, 1);
+                System.out.println("Load 1");
+                ch = ChoreTools.readAnArray(getApplicationContext());
                 loadChoresList(DAY_FORMAT.format(calendar.getTime()));
-            }
+                System.out.println("Load 2");
+                try {
+                    sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }*/
         });
 
         //
@@ -110,6 +135,7 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void loadChoresList(String date) {
+        System.out.println("Test 1");
         Calendar calendar = getCalendarByYearMonthDay(date);
         String key = CalendarHelper.YEAR_MONTH_FORMAT.format(calendar.getTime());
 
@@ -132,24 +158,43 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
 
         //ChoreTools ct = new ChoreService.Chores(getApplicationContext());
         //ArrayList<Chore> temp = ChoreTools.readAnArray(getApplicationContext());
-        List<Chore> ch = new ArrayList<Chore>();
-        ch = ChoreTools.readAnArray(getApplicationContext());
-        listTreeMap.clear();
+        //List<Chore> ch = new ArrayList<Chore>();
+        //ch = ChoreTools.readAnArray(getApplicationContext());
+        listTreeMapChore.clear();
         for(Chore chore : ch) {
             String day = ChoreTools.dateToStringValue(chore.getStartDate());
             System.out.println(day);
-            if (listTreeMap.get(day) != null ) {
+            if (listTreeMapChore.get(day) != null ) {
                 List<Chore> list = new ArrayList<Chore>();
-                list = listTreeMap.get(day);
+                list = listTreeMapChore.get(day);
                 // System.out.println(listTreeMap);
                 list.add(chore);
                 //listTreeMap.put(day, list);
-                listTreeMap.replace(day, list);
+                listTreeMapChore.replace(day, list);
                 //System.out.println(listTreeMap);
             } else {
                 List<Chore> list = new ArrayList<Chore>();
                 list.add(chore);
-                listTreeMap.put(day, list);
+                listTreeMapChore.put(day, list);
+                //System.out.println(listTreeMap);
+            }
+        }
+        listTreeMapDrug.clear();
+        for(Drug drug : dr) {
+            String day = DrugTools.dateToStringValue(drug.getStartDate());
+            System.out.println(day);
+            if (listTreeMapDrug.get(day) != null ) {
+                List<Drug> list = new ArrayList<Drug>();
+                list = listTreeMapDrug.get(day);
+                // System.out.println(listTreeMap);
+                list.add(drug);
+                //listTreeMap.put(day, list);
+                listTreeMapDrug.replace(day, list);
+                //System.out.println(listTreeMap);
+            } else {
+                List<Drug> list = new ArrayList<Drug>();
+                list.add(drug);
+                listTreeMapDrug.put(day, list);
                 //System.out.println(listTreeMap);
             }
         }
@@ -178,9 +223,12 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
             }
         }*/
 
-        calendarListAdapter.setDateDataMap(listTreeMap);
+        System.out.println("Test 2");
+        calendarListAdapter.setDateDataMap(listTreeMapChore, listTreeMapDrug);
+        //calendarListAdapter.setDateDataMap(listTreeMapDrug, 0);
         calendarListAdapter.notifyDataSetChanged();
         calendarItemAdapter.notifyDataSetChanged();
+        System.out.println("Test 3");
 
         /*Observable<Notification<ChoreService.Chores>> newsListOb =
                 RetrofitProvider.getInstance().create(ChoreService.class)
@@ -283,12 +331,12 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
                         public void run() {
                             Random random = new Random();
                             if (date.equals(calendarListView.getCurrentSelectedDate())) {
-                                for (String d : listTreeMap.keySet()) {
+                                for (String d : listTreeMapChore.keySet()) {
                                     if (date.equals(d)) {
                                         ChoreCalendarItemModel customCalendarItemModel = calendarItemAdapter.getDayModelList().get(d);
                                         if (customCalendarItemModel != null) {
-                                            customCalendarItemModel.setNewsCount(listTreeMap.get(d).size());
-                                            customCalendarItemModel.setFav(random.nextBoolean());
+                                            customCalendarItemModel.setNewsCount(listTreeMapChore.get(d).size());
+                                            //customCalendarItemModel.setFav(random.nextBoolean());
                                         }
 
                                     }

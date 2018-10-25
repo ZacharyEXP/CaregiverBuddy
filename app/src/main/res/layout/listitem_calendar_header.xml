@@ -14,14 +14,13 @@
         android:gravity="center_vertical"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
-        android:textStyle="bold"
-        tools:text="05" />
+        android:textStyle="bold" />
 
-    <View
+    <!--<View
         android:layout_width="2px"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:background="@android:color/white"></View>
+        android:background="@android:color/white"></View>-->
 
 
     <TextView
@@ -30,8 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:textColor="#333333"
-        android:textSize="20sp"
-        tools:text="2016.07" />
+        android:textSize="20sp" />
 
 
     <LinearLayout
