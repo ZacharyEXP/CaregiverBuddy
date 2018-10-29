@@ -327,6 +327,7 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
                 try {
                     sleep(1000);
                     handler.post(new Runnable() {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
                         @Override
                         public void run() {
                             Random random = new Random();
@@ -335,7 +336,7 @@ public class ChoreMonthActivity extends RxAppCompatActivity {
                                     if (date.equals(d)) {
                                         ChoreCalendarItemModel customCalendarItemModel = calendarItemAdapter.getDayModelList().get(d);
                                         if (customCalendarItemModel != null) {
-                                            customCalendarItemModel.setNewsCount(listTreeMapChore.get(d).size());
+                                            customCalendarItemModel.setNewsCount(listTreeMapChore.get(d).size() + listTreeMapDrug.get(d).size());
                                             //customCalendarItemModel.setFav(random.nextBoolean());
                                         }
 

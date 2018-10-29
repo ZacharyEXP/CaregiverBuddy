@@ -69,11 +69,11 @@ public class CalendarListAdapter extends BaseCalendarListAdapter<Chore> {
             } catch (Exception e) {
 
             }
-            try {
-                pos += dateDataMapDrug.get(key).size() + 1;
-            } catch (Exception e) {
+            //try {
+              //  pos += dateDataMapDrug.get(key).size() + 1;
+            //} catch (Exception e) {
 
-            }
+            //}
         }
     }
 

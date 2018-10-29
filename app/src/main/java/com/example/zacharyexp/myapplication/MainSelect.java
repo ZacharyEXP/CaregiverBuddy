@@ -33,7 +33,7 @@ public class MainSelect extends AppCompatActivity {
     }
 
     public void openCalendar(View v) {
-        Intent intent = new Intent(this, ChoreMonthActivity.class);
+        Intent intent = new Intent(this, NewCalendar.class);
         startActivity(intent);
     }
 }

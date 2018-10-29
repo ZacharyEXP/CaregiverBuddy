@@ -25,6 +25,7 @@
         <activity android:name=".ChoreActivity" />
         <activity android:name=".NewChore" />
         <activity android:name=".ChoreMonthActivity" />
+        <activity android:name=".NewCalendar" />
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

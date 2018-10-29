@@ -1,6 +1,8 @@
 package com.example.zacharyexp.myapplication;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 import com.kelin.calendarlistview.library.BaseCalendarItemAdapter;
 import com.kelin.calendarlistview.library.BaseCalendarItemModel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 public class CalendarItemAdapter extends BaseCalendarItemAdapter<ChoreCalendarItemModel> {
@@ -66,9 +70,32 @@ public class CalendarItemAdapter extends BaseCalendarItemAdapter<ChoreCalendarIt
         return view;
     }
 
-    @Override
-    public TreeMap<String, ChoreCalendarItemModel> getDayModelList() {
-        return dayModelList;
+    //@Override
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public TreeMap<String, ChoreCalendarItemModel> getDayModelList(Context c) {
+        ////
+        List<Chore> ch = ChoreTools.readAnArray(c);
+        TreeMap<String, ChoreCalendarItemModel> listTreeMapChore = new TreeMap<>();
+        for(Chore chore : ch) {
+            String day = ChoreTools.dateToStringValue(chore.getStartDate());
+            System.out.println(day);
+            if (listTreeMapChore.get(day) != null ) {
+                List<ChoreCalendarItemModel> list = new ArrayList<ChoreCalendarItemModel>();
+                //list = listTreeMapChore.get(day);
+                // System.out.println(listTreeMap);
+                //list.add(new ChoreCalendarItemModel(chore));
+                //listTreeMap.put(day, list);
+                //listTreeMapChore.put(day, new ChoreCalendarItemModel(chore));
+                //System.out.println(listTreeMap);
+            } else {
+                List<ChoreCalendarItemModel> list = new ArrayList<ChoreCalendarItemModel>();
+                //listTreeMapChore.put(day, new ChoreCalendarItemModel(chore));
+                //listTreeMapChore.put(day, list);
+                //System.out.println(listTreeMap);
+            }
+        }
+        ////
+        return listTreeMapChore;
     }
 
     @Override
