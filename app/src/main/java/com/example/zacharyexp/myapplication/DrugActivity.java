@@ -41,7 +41,7 @@ public class DrugActivity extends AppCompatActivity {
         Log.i("appAction","Drugs container length : " + drugsList.size());
 
         //Delete old elements
-        DrugTools.deleteDrugBeforeADate(drugsList, Calendar.getInstance());
+        //DrugTools.deleteDrugBeforeADate(drugsList, Calendar.getInstance());
 
         //Set areHappeningToday list with the drugs which should be taken on this day by the user
         Log.i("appAction", "Setting areHappeningToday list from the drugs of the stored file ...");

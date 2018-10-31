@@ -30,9 +30,11 @@
         <item>Every odd week</item>
         <item>Every even week</item>
     </string-array>
-    <string name="nothing">Nothing to show :[</string>
+    <string name="nothing">Nothing to show yet</string>
     <string name="hint_drug_name">Drug Name</string>
     <string name="hint_lab_name">Laboratory</string>
+    <string name="hint_health_name">Health Name</string>
+    <string name="hint_typeH_name">Health Type</string>
     <string name="hint_chore_name">Chore Name</string>
     <string name="hint_type_name">Chore Type</string>
     <string name="text_start">Start</string>

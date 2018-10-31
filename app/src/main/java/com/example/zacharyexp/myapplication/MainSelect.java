@@ -13,13 +13,16 @@ public class MainSelect extends AppCompatActivity {
     }
 
     public void openBio(View v){
-        Intent intent = new Intent(this, DrugActivity.class);
-        //startActivity(intent);
+        int id = getIntent().getIntExtra("PATIENT_ID", -1);
+        Intent intent = new Intent(this, BioActivity.class);
+        intent.putExtra("PATIENT_ID", id);
+        System.out.println("#" + id);
+        startActivity(intent);
     }
 
     public void openHealth(View v) {
-        Intent intent = new Intent(this, DrugActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(this, HealthActivity.class);
+        startActivity(intent);
     }
 
     public void openMedicine(View v) {

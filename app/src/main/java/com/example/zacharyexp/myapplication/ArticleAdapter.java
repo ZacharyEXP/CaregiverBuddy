@@ -12,10 +12,18 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * 适配器
@@ -29,12 +37,14 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
     private List<Drug> dr;
     List<String> titles;
     LinkedHashMap<String, List<Article>> map;
+    LinkedHashMap<String, Integer> posMap;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArticleAdapter(Context context) {
         super(context);
         mLoader = Glide.with(context.getApplicationContext());
         map = new LinkedHashMap<>();
+        posMap = new LinkedHashMap<>();
         titles = new ArrayList<>();
 
         int id = 0;
@@ -44,6 +54,13 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
 
         for(Chore chore : ch) {
             String day = ChoreTools.dateToStringValue(chore.getStartDate());
+            if(posMap.get(day) != null) {
+                if(posMap.get(day) > id) {
+                    posMap.replace(day, id);
+                }
+            } else {
+                posMap.put(day, id);
+            }
             System.out.println(day);
             if (map.get(day) != null ) {
                 List<Article> list = new ArrayList<Article>();
@@ -74,6 +91,13 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
 
         for(Drug drug : dr) {
             String day = DrugTools.dateToStringValue(drug.getStartDate());
+            if(posMap.get(day) != null) {
+                if(posMap.get(day) > id) {
+                    posMap.replace(day, id);
+                }
+            } else {
+                posMap.put(day, id);
+            }
             System.out.println(day);
             if (map.get(day) != null ) {
                 List<Article> list = new ArrayList<Article>();
@@ -108,12 +132,68 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
         //titles.add("每周热点");
         //titles.add("最高评论");
 
+        map = sortByKeys(map);
+
+        int i = 0;
+        posMap = new LinkedHashMap<>();
+        for(String key : map.keySet()) {
+            if(map.get(key).size() > 1) {
+                posMap.put(key, i);
+            } else {
+                posMap.put(key, i);
+            }
+            i += map.get(key).size();
+        }
+
+
+        //posMap = sortByKeys(posMap);
+        Collections.sort(titles);
+
         resetGroups(map,titles);
     }
 
     public List<String> getTitles(){return titles;}
 
     public LinkedHashMap<String, List<Article>> getMap() {return map;}
+
+    public LinkedHashMap<String, Integer> getPosMap() {return posMap;}
+
+    public LinkedHashMap<String , List<Article>> sortByKeys(LinkedHashMap<String ,List<Article>> mapK)
+    {
+        // create a List of keys of the map and sort it
+        List<String> keys = new ArrayList<String>(mapK.keySet());
+        List<Date> keyDates = new ArrayList<Date>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        for(String string : keys) {
+            try {
+                keyDates.add(dateFormat.parse(string));
+                System.out.println(dateFormat.parse(string));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        Collections.sort(keyDates);
+        System.out.println(keyDates);
+
+        // create an empty insertion-ordered LinkedHashMap
+        LinkedHashMap<String, List<Article>> linkedHashMap = new LinkedHashMap<>();
+
+        // for every key in the sorted list, insert key-value
+        // pair in LinkedHashMap
+        for (Date key: keyDates) {
+            linkedHashMap.put((String) dateFormat.format(key), mapK.get(dateFormat.format(key)));
+            System.out.println(dateFormat.format(key));
+        }
+
+        System.out.println(linkedHashMap);
+
+        return linkedHashMap;
+    }
+
+    public int getPos(String date) {
+        System.out.println(posMap.get(date));
+        return posMap.get(date);
+    }
 
     @Override
     protected RecyclerView.ViewHolder onCreateDefaultViewHolder(ViewGroup parent, int type) {

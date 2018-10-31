@@ -80,6 +80,7 @@ public class PatientSelect extends Activity {
         //Intent intent = new Intent(this, MainScreen.class);
         Intent intent = new Intent(this, MainSelect.class);
         intent.putExtra("PATIENT_ID", id);
+        System.out.println("#" + id);
         startActivity(intent);
     }
 

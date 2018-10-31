@@ -44,6 +44,8 @@ public class NewCalendar extends BaseActivity implements
 
         ArticleAdapter aa;
 
+        LinearLayoutManager llm;
+
         public static void show(Context context) {
             context.startActivity(new Intent(context, NewCalendar.class));
         }
@@ -85,6 +87,20 @@ public class NewCalendar extends BaseActivity implements
                 }
             });
 
+            findViewById(R.id.new_chore_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    newChore();
+                }
+            });
+
+            findViewById(R.id.new_drug_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    newDrug();
+                }
+            });
+
             mCalendarLayout = (CalendarLayout) findViewById(R.id.calendarLayout);
             mCalendarView.setOnYearChangeListener(this);
             mCalendarView.setOnCalendarSelectListener(this);
@@ -94,7 +110,8 @@ public class NewCalendar extends BaseActivity implements
             mTextLunar.setText("");
             mTextCurrentDay.setText(String.valueOf(mCalendarView.getCurDay()));
             mRecyclerView = (GroupRecyclerView) findViewById(R.id.recyclerView);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            llm = new LinearLayoutManager(this);
+            mRecyclerView.setLayoutManager(llm);
             mRecyclerView.addItemDecoration(new GroupItemDecoration<String,Article>());
             aa = new ArticleAdapter(this);
             mRecyclerView.setAdapter(aa);
@@ -111,10 +128,10 @@ public class NewCalendar extends BaseActivity implements
             //List<String> list = aa.getTitles();
             LinkedHashMap<String, List<Article>> mapArt = aa.getMap();
             for(List<Article> articles : mapArt.values()) {
-                for(Article article : articles) {
-                    map.put(getSchemeCalendar(article.getYear(), article.getMonth() + 1, article.getDay() ,0xFF40db25, "T").toString(),
-                            getSchemeCalendar(article.getYear(), article.getMonth() + 1, article.getDay() ,0xFF40db25, "T"));
-                }
+                //for(Article article : articles) {
+                    map.put(getSchemeCalendar(articles.get(0).getYear(), articles.get(0).getMonth() + 1, articles.get(0).getDay() ,0xFF40db25, "T").toString(),
+                            getSchemeCalendar(articles.get(0).getYear(), articles.get(0).getMonth() + 1, articles.get(0).getDay() ,0xFF40db25, "T"));
+                //}
             }
             mCalendarView.setSchemeDate(map);
 
@@ -151,6 +168,14 @@ public class NewCalendar extends BaseActivity implements
             mTextYear.setText(String.valueOf(calendar.getYear()));
             mTextLunar.setText("");
             System.out.println("Clicked");
+            try {
+                System.out.println(String.valueOf(calendar.getYear()) + "-" + String.valueOf(calendar.getMonth()) + "-" + String.valueOf(calendar.getDay()));
+                llm.scrollToPositionWithOffset(aa.getPos(String.valueOf(calendar.getYear()) + "-" + String.valueOf(calendar.getMonth()) + "-" + String.valueOf(calendar.getDay())), 2);
+                //mRecyclerView.scrollToPosition(aa.getPos(String.valueOf(calendar.getYear()) + "-" + String.valueOf(calendar.getMonth()) + "-" + String.valueOf(calendar.getDay())));
+            } catch (Exception e) {
+                //e.printStackTrace();
+                System.out.println("Error moving");
+            }
             //mTextLunar.setText(calendar.getLunar());
             mYear = calendar.getYear();
         }
@@ -160,4 +185,13 @@ public class NewCalendar extends BaseActivity implements
             mTextMonthDay.setText(String.valueOf(year));
         }
 
+        public void newChore() {
+            Intent intent = new Intent(this, NewChore.class);
+            startActivity(intent);
+        }
+
+        public void newDrug() {
+            Intent intent = new Intent(this, NewDrug.class);
+            startActivity(intent);
+        }
     }

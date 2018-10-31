@@ -20,54 +20,54 @@ Started on March, 7th 2017
 
  */
 
-public class ChoreActivity extends AppCompatActivity {
+public class HealthActivity extends AppCompatActivity {
     //Recycler view references
     private RecyclerView mainRecycler;
     private RecyclerView.LayoutManager mainRecyclerLayout;
 
-    //chore containers
-    static ArrayList<Chore> choresList = new ArrayList<>();
-    static ArrayList<Chore> areHappeningToday = new ArrayList<>();
+    //health containers
+    static ArrayList<Health> healthList = new ArrayList<>();
+    static ArrayList<Health> areHappeningToday = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("appAction","=====SERVICE STARTS=====");
-        Log.i("appAction","Launching choreActivity ...");
+        Log.i("appAction","Launching healthActivity ...");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chore);
+        setContentView(R.layout.activity_health);
 
-        //Import chore container from file
-        Log.i("appAction","Grabbing chores Array container");
-        choresList = ChoreTools.readAnArray(getApplicationContext());
-        Log.i("appAction","Chores container length : " + choresList.size());
+        //Import health container from file
+        Log.i("appAction","Grabbing ealth Array container");
+        healthList = HealthTools.readAnArray(getApplicationContext());
+        Log.i("appAction","Health container length : " + healthList.size());
 
         //Delete old elements
-        //ChoreTools.deleteChoreBeforeADate(choresList, Calendar.getInstance());
+        //HealthTools.deleteHealthBeforeADate(healthsList, Calendar.getInstance());
 
-        //Set areHappeningToday list with the chores which should be taken on this day by the user
-        Log.i("appAction", "Setting areHappeningToday list from the chores of the stored file ...");
+        //Set areHappeningToday list with the healths which should be taken on this day by the user
+        Log.i("appAction", "Setting areHappeningToday list from the healths of the stored file ...");
 
-        for (int i = 0; i < choresList.size(); i++){
-            if (choresList.get(i).isHappeningToday()){
-                areHappeningToday.add(choresList.get(i));
+        for (int i = 0; i < healthList.size(); i++){
+            if (healthList.get(i).isHappeningToday()){
+                areHappeningToday.add(healthList.get(i));
             }
         }
         Log.i("appAction", "areHappeningToday list size : " + areHappeningToday.size());
 
 
         //Importing Floating Action button
-        FloatingActionButton newChoreButton = (FloatingActionButton) findViewById(R.id.new_chore_button);
+        FloatingActionButton newHealthButton = (FloatingActionButton) findViewById(R.id.new_health_button);
 
-        //Setting the newchoreButton click listener
-        newChoreButton.setOnClickListener(
-            new FloatingActionButton.OnClickListener(){
-                public void onClick(View v){
+        //Setting the newhealthButton click listener
+        newHealthButton.setOnClickListener(
+                new FloatingActionButton.OnClickListener(){
+                    public void onClick(View v){
 
-                    //Setting the new activity
-                    Intent i = new Intent (getApplicationContext(),NewChore.class);
-                    startActivity(i);
+                        //Setting the new activity
+                        Intent i = new Intent (getApplicationContext(),NewHealth.class);
+                        startActivity(i);
+                    }
                 }
-            }
         );
 
     }
@@ -77,12 +77,12 @@ public class ChoreActivity extends AppCompatActivity {
         super.onResume();
 
         //Sort list
-        areHappeningToday = ChoreTools.choreContainerSorter(areHappeningToday);
+        areHappeningToday = HealthTools.healthContainerSorter(areHappeningToday);
 
         //--Description statement--
         StringBuilder stringBuilder = new StringBuilder();
-        for (Chore chore : areHappeningToday){
-            stringBuilder.append("'" + chore.getRelativeTimeDescriber() + "', ");
+        for (Health health : areHappeningToday){
+            stringBuilder.append("'" + health.getRelativeTimeDescriber() + "', ");
         }
         Log.i("appAction", "List state AreHappeningToday : " + stringBuilder.toString());
         //-- --
@@ -100,14 +100,14 @@ public class ChoreActivity extends AppCompatActivity {
         mainRecyclerLayout = new LinearLayoutManager(this);
         mainRecycler.setLayoutManager(mainRecyclerLayout);
 
-        mainRecycler.setAdapter(new ChoreRecyclerAdapter(areHappeningToday));
+        mainRecycler.setAdapter(new HealthRecyclerAdapter(areHappeningToday));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("appAction", "onDestroy list length : " + choresList.size());
-        ChoreTools.writeAnArray(choresList, getApplicationContext());
+        Log.i("appAction", "onDestroy list length : " + healthList.size());
+        HealthTools.writeAnArray(healthList, getApplicationContext());
         Log.i("appAction", "ArrayList saved !");
     }
 }
