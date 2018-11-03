@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dpro.widgets.WeekdaysPicker;
+
 public class BioActivity extends AppCompatActivity implements View.OnClickListener {
     Patient p;
     Context c;
@@ -30,6 +32,7 @@ public class BioActivity extends AppCompatActivity implements View.OnClickListen
     ImageView personPhoto;
     RelativeLayout rl;
     Button edit;
+    WeekdaysPicker wd;
 
     View rootView;
     //LayoutInflater in;
@@ -56,6 +59,8 @@ public class BioActivity extends AppCompatActivity implements View.OnClickListen
         personPhoto = (ImageView)findViewById(R.id.person_photo);
         rl = (RelativeLayout)findViewById(R.id.patLayout);
         edit = (Button)findViewById(R.id.edit);
+        wd = (WeekdaysPicker)findViewById(R.id.pat_weekdays);
+
 
         System.out.println(p.getPatientName());
         personName.setText(p.getPatientName());
@@ -74,6 +79,7 @@ public class BioActivity extends AppCompatActivity implements View.OnClickListen
             e.printStackTrace();
             personPhoto.setImageResource(R.drawable.ic_launcher_background);
         }
+        wd.setSelectedDays(p.getWeeklySchedule());
     }
 
     @Override

@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.StringJoiner;
 import java.util.StringTokenizer;
 
@@ -20,7 +24,7 @@ public class Patient extends Activity implements Serializable {
     int patientAge;
     int patientID = -1;
     String patientName, patientDesc, patientPicPath;
-    List<String> weeklySchedule;
+    List<Integer> weeklySchedule;
 
     ArrayList<Task> tasks= new ArrayList<Task>();
     ArrayList<Med> meds = new ArrayList<Med>();
@@ -97,9 +101,14 @@ public class Patient extends Activity implements Serializable {
             edit.putInt("Highest Task", highestTask);
             edit.putInt("Highest Med", highestMed);
             edit.putString("Patient Pic Path", patientPicPath);
-            if(weeklySchedule != null) {
-                edit.putStringSet("Weekly Schedule", new HashSet<String>(weeklySchedule));
-            }
+            //if(weeklySchedule != null) {
+                //edit.putStringSet("Weekly Schedule", new HashSet<String>(weeklySchedule));
+                StringBuilder str = new StringBuilder();
+                for (int i = 0; i < weeklySchedule.size(); i++) {
+                    str.append(weeklySchedule.get(i)).append(",");
+                }
+                edit.putString("Weekly Schedule", str.toString());
+            //}
             edit.apply();
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,11 +146,21 @@ public class Patient extends Activity implements Serializable {
             }
 
             patientPicPath = pref.getString("Patient Pic Path", null);
-            weeklySchedule = (List<String>)pref.getStringSet("Weekly Schedule", null);
+            String savedString = pref.getString("Weekly Schedule", null);
+            System.out.println(savedString);
+            StringTokenizer st = new StringTokenizer(savedString, ",");
+            weeklySchedule = new ArrayList<Integer>();
+            while(st.hasMoreTokens()) {
+                weeklySchedule.add(Integer.parseInt(st.nextToken()));
+                //System.out.println(weeklySchedule);
+                //System.out.println
+            }
+            //System.out.println(weeklySchedule);
+            //weeklySchedule = (List<Integer>)pref.getIntS("Weekly Schedule", null);
         } catch (NullPointerException e) {
-
+            e.printStackTrace();
         } catch (ClassCastException e) {
-
+            e.printStackTrace();
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -250,7 +269,7 @@ public class Patient extends Activity implements Serializable {
         patientAge = age;
     }
 
-    public void setWeeklySchedule(List<String> s) {
+    public void setWeeklySchedule(List<Integer> s) {
         weeklySchedule = s;
     }
 
@@ -291,7 +310,7 @@ public class Patient extends Activity implements Serializable {
         return patientAge;
     }
 
-    public List<String> getWeeklySchedule() {
+    public List<Integer> getWeeklySchedule() {
         return weeklySchedule;
     }
 

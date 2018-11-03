@@ -33,6 +33,7 @@ import java.util.TreeMap;
 public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
     private RequestManager mLoader;
 
+    String temp1, temp2, temp3, temp4;
     private List<Chore> ch;
     private List<Drug> dr;
     List<String> titles;
@@ -54,10 +55,11 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
 
         for(Chore chore : ch) {
             String day = ChoreTools.dateToStringValue(chore.getStartDate());
+
             if(posMap.get(day) != null) {
-                if(posMap.get(day) > id) {
+                //if(posMap.get(day) > id) {
                     posMap.replace(day, id);
-                }
+                //}
             } else {
                 posMap.put(day, id);
             }
@@ -91,10 +93,11 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
 
         for(Drug drug : dr) {
             String day = DrugTools.dateToStringValue(drug.getStartDate());
+
             if(posMap.get(day) != null) {
-                if(posMap.get(day) > id) {
+                //if(posMap.get(day) > id) {
                     posMap.replace(day, id);
-                }
+                //}
             } else {
                 posMap.put(day, id);
             }
@@ -103,6 +106,7 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
                 List<Article> list = new ArrayList<Article>();
                 list = map.get(day);
                 // System.out.println(listTreeMap);
+
                 list.add(create(drug.getDrugName(), drug.getLaboratoryName(), "https://image.freepik.com/free-icon/pill_318-42938.jpg",
                         drug.getStartDate().get(Calendar.YEAR), drug.getStartDate().get(Calendar.MONTH), drug.getStartDate().get(Calendar.DAY_OF_MONTH), id));
                 //listTreeMap.put(day, list);
@@ -137,11 +141,7 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
         int i = 0;
         posMap = new LinkedHashMap<>();
         for(String key : map.keySet()) {
-            if(map.get(key).size() > 1) {
-                posMap.put(key, i);
-            } else {
-                posMap.put(key, i);
-            }
+            posMap.put(key, i);
             i += map.get(key).size();
         }
 
@@ -181,8 +181,11 @@ public class ArticleAdapter extends GroupRecyclerAdapter<String, Article> {
         // for every key in the sorted list, insert key-value
         // pair in LinkedHashMap
         for (Date key: keyDates) {
-            linkedHashMap.put((String) dateFormat.format(key), mapK.get(dateFormat.format(key)));
-            System.out.println(dateFormat.format(key));
+            Calendar c = Calendar.getInstance();
+            c.setTime(key);
+
+            linkedHashMap.put(ChoreTools.dateToStringValue(c), mapK.get(ChoreTools.dateToStringValue(c)));
+            System.out.println(ChoreTools.dateToStringValue(c));
         }
 
         System.out.println(linkedHashMap);

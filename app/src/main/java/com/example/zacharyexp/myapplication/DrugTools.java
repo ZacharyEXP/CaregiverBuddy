@@ -202,9 +202,20 @@ public class DrugTools {
     }
 
     //convert a calendar to an hexadecimal value
-    public static String dateToStringValue(Calendar calendar){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.format(calendar.getTime());
+    public static String dateToStringValue(Calendar calendar) {
+        String temp1, temp2;
+        if (calendar.get(Calendar.MONTH) < 9) {
+            temp1 = "0" + Integer.toString(calendar.get(Calendar.MONTH) + 1);
+        } else {
+            temp1 = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+        }
+        if (calendar.get(Calendar.DAY_OF_MONTH) < 9) {
+            temp2 = "0" + Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+        } else {
+            temp2 = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+        }
+        String day = Integer.toString(calendar.get(Calendar.YEAR)) + "-" + temp1 + "-" + temp2;
+        return day;
     }
 
 }

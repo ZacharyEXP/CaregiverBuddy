@@ -169,8 +169,20 @@ public class NewCalendar extends BaseActivity implements
             mTextLunar.setText("");
             System.out.println("Clicked");
             try {
-                System.out.println(String.valueOf(calendar.getYear()) + "-" + String.valueOf(calendar.getMonth()) + "-" + String.valueOf(calendar.getDay()));
-                llm.scrollToPositionWithOffset(aa.getPos(String.valueOf(calendar.getYear()) + "-" + String.valueOf(calendar.getMonth()) + "-" + String.valueOf(calendar.getDay())), 2);
+                String temp1, temp2;
+                if(calendar.getMonth() < 10) {
+                    temp1 = "0" + Integer.toString(calendar.getMonth());
+                } else {
+                    temp1 = Integer.toString(calendar.getMonth());
+                }
+                if(calendar.getDay() < 10) {
+                    temp2 = "0" + Integer.toString(calendar.getDay());
+                } else {
+                    temp2 = Integer.toString(calendar.getDay());
+                }
+                String day = Integer.toString(calendar.getYear()) + "-" + temp1 + "-" + temp2;
+                System.out.println(day + "$$");
+                llm.scrollToPositionWithOffset(aa.getPos(day), 2);
                 //mRecyclerView.scrollToPosition(aa.getPos(String.valueOf(calendar.getYear()) + "-" + String.valueOf(calendar.getMonth()) + "-" + String.valueOf(calendar.getDay())));
             } catch (Exception e) {
                 //e.printStackTrace();

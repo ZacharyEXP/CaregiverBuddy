@@ -24,7 +24,7 @@ public class NewPatientActivity extends Activity {
     public String nameS, ageS, infoS;
     public EditText info, name, age;
     public WeekdaysPicker weekdaysPicker;
-    public List<String> daysS;
+    public List<Integer> daysS;
     Patient p;
 
     Uri selectedImage;
@@ -66,7 +66,7 @@ public class NewPatientActivity extends Activity {
                         nameS = name.getText().toString();
                         ageS = age.getText().toString();
                         infoS = info.getText().toString();
-                        daysS = weekdaysPicker.getSelectedDaysText();
+                        daysS = weekdaysPicker.getSelectedDays();
 
                         p.addListName(nameS);
                         p.setPatientName(nameS);
