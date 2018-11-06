@@ -15,73 +15,79 @@
             android:id="@+id/card_cover_image"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/cover_medicine_picture"
+            android:layout_margin="1dp"
             android:scaleType="fitXY"
-            android:layout_margin="1dp"/>
+            android:src="@drawable/cover_medicine_picture" />
 
         <TextView
             android:id="@+id/card_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="SampleTitle"
-            android:layout_toRightOf="@id/card_cover_image"
-            android:textColor="@color/blackFonce"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            />
+            android:layout_toRightOf="@id/card_cover_image"
+            android:text="SampleTitle"
+            android:textColor="@color/blackFonce"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/card_subtitle_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/card_title"
-            android:text="@string/card_subtitle_string_text"
-            android:layout_toRightOf="@id/card_cover_image"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            />
+            android:layout_toRightOf="@id/card_cover_image"
+            android:text="@string/card_subtitle_string_text" />
 
         <TextView
             android:id="@+id/subtitle_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/card_subtitle_text"
+            android:layout_alignBaseline="@id/card_subtitle_text"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="5dp"
-            android:layout_alignBaseline="@id/card_subtitle_text"
-            />
+            android:layout_toRightOf="@id/card_subtitle_text" />
 
         <TextView
+            android:id="@+id/start_date_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/start_date_card"
-            android:text=""
             android:layout_below="@id/card_subtitle_text"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/card_cover_image"
             android:layout_marginTop="5dp"
-            android:textSize="10sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/between_date_card"
-            android:text="@string/card_between"
-            android:layout_alignBaseline="@id/start_date_card"
-            android:layout_toRightOf="@id/start_date_card"
-            android:layout_marginLeft="3dp"
-            android:textSize="10sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/end_date_card"
+            android:layout_toRightOf="@id/card_cover_image"
             android:text=""
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/between_date_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/start_date_card"
-            android:layout_toRightOf="@id/between_date_card"
             android:layout_marginLeft="3dp"
-            android:textSize="10sp"/>
+            android:layout_toRightOf="@id/start_date_card"
+            android:text="@string/card_between"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/end_date_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/start_date_card"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@id/between_date_card"
+            android:text=""
+            android:textSize="10sp" />
+
+        <ImageButton
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@mipmap/ic_trash" />
 
     </RelativeLayout>
 

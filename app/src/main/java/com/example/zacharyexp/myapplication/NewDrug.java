@@ -13,16 +13,23 @@ import android.widget.Spinner;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NewDrug extends AppCompatActivity {
 
-
+    ArrayList<Drug> drugsList = new ArrayList<>();
+    //ArrayList<Drug> areHappeningToday = new ArrayList<>();
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_drug);
+
+        drugsList.clear();
+        //areHappeningToday.clear();
+
+        drugsList = DrugTools.readAnArray(getApplicationContext());
 
         //Importing all components from UI
         final EditText drugName = (EditText) findViewById(R.id.edit_name_drug);
@@ -100,16 +107,17 @@ public class NewDrug extends AppCompatActivity {
                         Log.i("appAction",drug.toString());
 
                         //Adding this new object to container
+                        drugsList.add(drug);
                         DrugActivity.drugsList.add(drug);
                         Log.i("appAction","List length : " + DrugActivity.drugsList.size());
 
                         //Write ArrayList container to the internal storage
-                        DrugTools.writeAnArray(DrugActivity.drugsList, getApplicationContext());
+                        DrugTools.writeAnArray(drugsList, getApplicationContext());
 
                         //Determine if the new drug has to be taken on this day
                         if (drug.isHappeningToday()){
                             Log.i("appAction","Drug has to be taken today !");
-                            DrugActivity.areHappeningToday.add(drug);
+                            //DrugActivity.areHappeningToday.add(drug);
                         }
 
                         //Close activity

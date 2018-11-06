@@ -20,14 +20,16 @@ Started on March, 7th 2017
 
  */
 
-public class HealthActivity extends AppCompatActivity {
+public class HealthActivity extends AppCompatActivity implements HealthRecyclerAdapter.OnItemClicked{
     //Recycler view references
     private RecyclerView mainRecycler;
     private RecyclerView.LayoutManager mainRecyclerLayout;
+    private HealthRecyclerAdapter mainAdapter;
 
     //health containers
     static ArrayList<Health> healthList = new ArrayList<>();
-    static ArrayList<Health> areHappeningToday = new ArrayList<>();
+
+    int healthType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class HealthActivity extends AppCompatActivity {
         Log.i("appAction","Launching healthActivity ...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
+
+        healthType = getIntent().getIntExtra("HEALTH_TYPE", -1);
 
         //Import health container from file
         Log.i("appAction","Grabbing ealth Array container");
@@ -47,12 +51,6 @@ public class HealthActivity extends AppCompatActivity {
         //Set areHappeningToday list with the healths which should be taken on this day by the user
         Log.i("appAction", "Setting areHappeningToday list from the healths of the stored file ...");
 
-        for (int i = 0; i < healthList.size(); i++){
-            if (healthList.get(i).isHappeningToday()){
-                areHappeningToday.add(healthList.get(i));
-            }
-        }
-        Log.i("appAction", "areHappeningToday list size : " + areHappeningToday.size());
 
 
         //Importing Floating Action button
@@ -65,6 +63,7 @@ public class HealthActivity extends AppCompatActivity {
 
                         //Setting the new activity
                         Intent i = new Intent (getApplicationContext(),NewHealth.class);
+                        i.putExtra("HEALTH_TYPE", healthType);
                         startActivity(i);
                     }
                 }
@@ -77,18 +76,12 @@ public class HealthActivity extends AppCompatActivity {
         super.onResume();
 
         //Sort list
-        areHappeningToday = HealthTools.healthContainerSorter(areHappeningToday);
+        healthList = HealthTools.healthContainerSorter(healthList);
 
-        //--Description statement--
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Health health : areHappeningToday){
-            stringBuilder.append("'" + health.getRelativeTimeDescriber() + "', ");
-        }
-        Log.i("appAction", "List state AreHappeningToday : " + stringBuilder.toString());
         //-- --
 
         //Disable "nothing to show" TextView if the list is empty
-        if (!areHappeningToday.isEmpty()){
+        if (!healthList.isEmpty()){
             findViewById(R.id.text_nothing).setVisibility(View.GONE);
         }
 
@@ -100,7 +93,11 @@ public class HealthActivity extends AppCompatActivity {
         mainRecyclerLayout = new LinearLayoutManager(this);
         mainRecycler.setLayoutManager(mainRecyclerLayout);
 
-        mainRecycler.setAdapter(new HealthRecyclerAdapter(areHappeningToday));
+        mainAdapter = new HealthRecyclerAdapter(healthList, healthType);
+
+        mainAdapter.setOnClick(HealthActivity.this);
+
+        mainRecycler.setAdapter(mainAdapter);
     }
 
     @Override
@@ -109,5 +106,13 @@ public class HealthActivity extends AppCompatActivity {
         Log.i("appAction", "onDestroy list length : " + healthList.size());
         HealthTools.writeAnArray(healthList, getApplicationContext());
         Log.i("appAction", "ArrayList saved !");
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        healthList.remove(position);
+        mainAdapter = new HealthRecyclerAdapter(healthList, healthType);
+        mainAdapter.setOnClick(HealthActivity.this);
+        mainRecycler.setAdapter(mainAdapter);
     }
 }

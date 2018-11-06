@@ -27,7 +27,8 @@ public class Health implements Serializable{
     private String absoluteTime;
     private String relativeTime;
 
-
+    private int healthType;
+    private String dataEntry;
 
 
     //Relative time integer reference
@@ -53,6 +54,7 @@ public class Health implements Serializable{
         frequency = "Day";
         absoluteTime = "Breakfast";
         relativeTime = "Before";
+        healthType = -1;
     }
 
     public Health(String cHealthName, String cTypeName, Calendar cStartDate, Calendar cEndDate, Integer cTimesPerFrequency, String cFrequency, String cAbsoluteTime, String cRelativeTime){
@@ -211,6 +213,22 @@ public class Health implements Serializable{
 
     public void setRelativeTimeDescriber(int relativeTimeDescriber) {
         this.relativeTimeDescriber = relativeTimeDescriber;
+    }
+
+    public int getHealthType() {
+        return healthType;
+    }
+
+    public void setHealthType(int healthType) {
+        this.healthType = healthType;
+    }
+
+    public String getDataEntry() {
+        return dataEntry;
+    }
+
+    public void setDataEntry(String dataEntry) {
+        this.dataEntry = dataEntry;
     }
 
 

@@ -20,14 +20,15 @@ Started on March, 7th 2017
 
  */
 
-public class ChoreActivity extends AppCompatActivity {
+public class ChoreActivity extends AppCompatActivity implements ChoreRecyclerAdapter.OnItemClicked{
     //Recycler view references
     private RecyclerView mainRecycler;
     private RecyclerView.LayoutManager mainRecyclerLayout;
+    private ChoreRecyclerAdapter mainAdapter;
 
     //chore containers
     static ArrayList<Chore> choresList = new ArrayList<>();
-    static ArrayList<Chore> areHappeningToday = new ArrayList<>();
+    //static ArrayList<Chore> areHappeningToday = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class ChoreActivity extends AppCompatActivity {
         Log.i("appAction","Launching choreActivity ...");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chore);
+        choresList.clear();
+        //areHappeningToday.clear();
 
         //Import chore container from file
         Log.i("appAction","Grabbing chores Array container");
@@ -47,12 +50,12 @@ public class ChoreActivity extends AppCompatActivity {
         //Set areHappeningToday list with the chores which should be taken on this day by the user
         Log.i("appAction", "Setting areHappeningToday list from the chores of the stored file ...");
 
-        for (int i = 0; i < choresList.size(); i++){
-            if (choresList.get(i).isHappeningToday()){
-                areHappeningToday.add(choresList.get(i));
-            }
-        }
-        Log.i("appAction", "areHappeningToday list size : " + areHappeningToday.size());
+        //for (int i = 0; i < choresList.size(); i++){
+            ///if (choresList.get(i).isHappeningToday()){
+                //areHappeningToday.add(choresList.get(i));
+            //}
+        //}
+        //Log.i("appAction", "areHappeningToday list size : " + areHappeningToday.size());
 
 
         //Importing Floating Action button
@@ -76,19 +79,22 @@ public class ChoreActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        choresList.clear();
+
+        choresList = ChoreTools.readAnArray(getApplicationContext());
         //Sort list
-        areHappeningToday = ChoreTools.choreContainerSorter(areHappeningToday);
+        choresList = ChoreTools.choreContainerSorter(choresList);
 
         //--Description statement--
         StringBuilder stringBuilder = new StringBuilder();
-        for (Chore chore : areHappeningToday){
-            stringBuilder.append("'" + chore.getRelativeTimeDescriber() + "', ");
-        }
+        //for (Chore chore : areHappeningToday){
+            //stringBuilder.append("'" + chore.getRelativeTimeDescriber() + "', ");
+        //}
         Log.i("appAction", "List state AreHappeningToday : " + stringBuilder.toString());
         //-- --
 
         //Disable "nothing to show" TextView if the list is empty
-        if (!areHappeningToday.isEmpty()){
+        if (!choresList.isEmpty()){
             findViewById(R.id.text_nothing).setVisibility(View.GONE);
         }
 
@@ -100,7 +106,11 @@ public class ChoreActivity extends AppCompatActivity {
         mainRecyclerLayout = new LinearLayoutManager(this);
         mainRecycler.setLayoutManager(mainRecyclerLayout);
 
-        mainRecycler.setAdapter(new ChoreRecyclerAdapter(areHappeningToday));
+        mainAdapter = new ChoreRecyclerAdapter(choresList);
+
+        mainAdapter.setOnClick(ChoreActivity.this);
+
+        mainRecycler.setAdapter(mainAdapter);
     }
 
     @Override
@@ -109,5 +119,13 @@ public class ChoreActivity extends AppCompatActivity {
         Log.i("appAction", "onDestroy list length : " + choresList.size());
         ChoreTools.writeAnArray(choresList, getApplicationContext());
         Log.i("appAction", "ArrayList saved !");
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        choresList.remove(position);
+        mainAdapter = new ChoreRecyclerAdapter(choresList);
+        mainAdapter.setOnClick(ChoreActivity.this);
+        mainRecycler.setAdapter(mainAdapter);
     }
 }

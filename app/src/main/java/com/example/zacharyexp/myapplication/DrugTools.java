@@ -9,9 +9,13 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 
 /*
@@ -137,16 +141,47 @@ public class DrugTools {
         StringBuilder before = new StringBuilder();
         StringBuilder after = new StringBuilder();
 
+        /*for(Drug drug : mainArray) {
+            if(result.size() != 0) {
+                for (Drug d : result) {
+                    if (drug.getStartDate().before(d.getStartDate())) {
+                        result.add(result.indexOf(d), drug);
+                    }
+                }
+            } else {
+                result.add(drug);
+            }
+        }*/
+
+
+        List<String> keys = new ArrayList<String>();
+        List<Date> keyDates = new ArrayList<Date>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        for(Drug drug : mainArray) {
+            try {
+                keyDates.add(drug.getStartDate().getTime());
+                //System.out.println(dateFormat.parse(string));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        Collections.sort(keyDates);
+
         //--Description statement--
-        for (Drug drug : mainArray){
-            before.append("'" + drug.getRelativeTimeDescriber() + "', ");
+        for (Date date: keyDates){
+            for(Drug drug : mainArray) {
+                if(drug.getStartDate().getTime().equals(date)) {
+                    result.add(drug);
+                }
+            }
+            //before.append("'" + drug.getRelativeTimeDescriber() + "', ");
         }
 
-        Log.i("appAction", "List state BEFORE : " + before.toString());
+        //Log.i("appAction", "List state BEFORE : " + before.toString());
 
 
         //Case the array is empty
-        if (mainArray.isEmpty()){
+        /*if (mainArray.isEmpty()){
             Log.i("appAction","Drug container is Empty !");
         }else{
 
@@ -177,7 +212,7 @@ public class DrugTools {
             after.append("'" + drug.getRelativeTimeDescriber() + "', ");
         }
 
-        Log.i("appAction", "List state AFTER : " + after.toString());
+        Log.i("appAction", "List state AFTER : " + after.toString());*/
 
         return result;
     }

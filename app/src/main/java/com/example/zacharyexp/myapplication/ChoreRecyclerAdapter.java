@@ -12,6 +12,11 @@ import java.util.ArrayList;
 public class ChoreRecyclerAdapter extends RecyclerView.Adapter<ChoreRecyclerViewHolder> {
 
     ArrayList<Chore> choreContainer = new ArrayList<>();
+    private OnItemClicked onClick;
+
+    public interface OnItemClicked {
+        void onItemClick(int position);
+    }
 
     //Data constructor from list
     public ChoreRecyclerAdapter(ArrayList<Chore> chores){
@@ -29,6 +34,21 @@ public class ChoreRecyclerAdapter extends RecyclerView.Adapter<ChoreRecyclerView
     public void onBindViewHolder (ChoreRecyclerViewHolder choreRecyclerViewHolder, int position){
         Chore chore = choreContainer.get(position);
         choreRecyclerViewHolder.bind(chore);
+        choreRecyclerViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //onClick.onItemClick(position);
+                choreRecyclerViewHolder.enableDelete();
+                choreRecyclerViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        choreRecyclerViewHolder.disableDelete();
+                        onClick.onItemClick(position);
+                    }
+                });
+                return false;
+            }
+        });
     }
 
 
@@ -36,5 +56,10 @@ public class ChoreRecyclerAdapter extends RecyclerView.Adapter<ChoreRecyclerView
     @Override
     public int getItemCount() {
         return choreContainer.size();
+    }
+
+    public void setOnClick(OnItemClicked onClick)
+    {
+        this.onClick=onClick;
     }
 }

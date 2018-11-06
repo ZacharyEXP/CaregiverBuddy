@@ -13,16 +13,21 @@ import android.widget.Spinner;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NewChore extends AppCompatActivity {
 
-
+    ArrayList<Chore> ch = new ArrayList<>();
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_chore);
+
+        ch.clear();
+
+        ch = ChoreTools.readAnArray(getApplicationContext());
 
         //Importing all components from UI
         final EditText choreName = (EditText) findViewById(R.id.edit_name_chore);
@@ -100,17 +105,18 @@ public class NewChore extends AppCompatActivity {
                         Log.i("appAction",chore.toString());
 
                         //Adding this new object to container
+                        ch.add(chore);
                         ChoreActivity.choresList.add(chore);
                         Log.i("appAction","List length : " + ChoreActivity.choresList.size());
 
                         //Write ArrayList container to the internal storage
-                        ChoreTools.writeAnArray(ChoreActivity.choresList, getApplicationContext());
+                        ChoreTools.writeAnArray(ch, getApplicationContext());
 
                         //Determine if the new chore has to be taken on this day
-                        if (chore.isHappeningToday()){
-                            Log.i("appAction","Chore has to be taken today !");
-                            ChoreActivity.areHappeningToday.add(chore);
-                        }
+                        //if (chore.isHappeningToday()){
+                            //Log.i("appAction","Chore has to be taken today !");
+                            //ChoreActivity.areHappeningToday.add(chore);
+                        //}
 
                         //Close activity
                         Log.i("appAction","Close new chore activity intent");

@@ -21,7 +21,7 @@ public class MainSelect extends AppCompatActivity {
     }
 
     public void openHealth(View v) {
-        Intent intent = new Intent(this, HealthActivity.class);
+        Intent intent = new Intent(this, HealthSelectActivity.class);
         startActivity(intent);
     }
 

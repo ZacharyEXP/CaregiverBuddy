@@ -129,10 +129,22 @@ public class NewCalendar extends BaseActivity implements
             LinkedHashMap<String, List<Article>> mapArt = aa.getMap();
             for(List<Article> articles : mapArt.values()) {
                 //for(Article article : articles) {
-                    map.put(getSchemeCalendar(articles.get(0).getYear(), articles.get(0).getMonth() + 1, articles.get(0).getDay() ,0xFF40db25, "T").toString(),
-                            getSchemeCalendar(articles.get(0).getYear(), articles.get(0).getMonth() + 1, articles.get(0).getDay() ,0xFF40db25, "T"));
+                    //map.put(getSchemeCalendar(articles.get(0).getYear(), articles.get(0).getMonth() + 1, articles.get(0).getDay() ,0xFF40db25, "T").toString(),
+                            //getSchemeCalendar(articles.get(0).getYear(), articles.get(0).getMonth() + 1, articles.get(0).getDay() ,0xFF40db25, "T"));
                 //}
+                for(Article article : articles) {
+                    int temp = article.getMonth() + 1;
+                    String m = (temp < 10 ? "0" + temp: Integer.toString(temp));
+                    int temp2 = article.getDay();
+                    String d = (temp2 < 10 ? "0" + temp2: Integer.toString(temp2));
+                //map.put(getSchemeCalendar(article.getYear(), article.getMonth() + 1, article.getDay() ,0xFF40db25, "T").toString(),
+                    map.put(article.getYear() + "" + m + "" + d,
+                        getSchemeCalendar(article.getYear(), article.getMonth() + 1, article.getDay() ,0xFF40db25, "假"));
+                    System.out.println(article.getYear() + "-" + m + "-" + d);
+                }
             }
+            //map.put(getSchemeCalendar(year, month, 3, 0xFF40db25, "假").toString(),
+                    //getSchemeCalendar(year, month, 3, 0xFF40db25, "假"));
             mCalendarView.setSchemeDate(map);
 
         }
@@ -141,6 +153,21 @@ public class NewCalendar extends BaseActivity implements
         @Override
         public void onClick(View v) {
 
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        @Override
+        protected void onResume() {
+            super.onResume();
+            //initView();
+            //mRecyclerView.removeAllViews();
+            //mRecyclerView.setLayoutManager(llm);
+            //mRecyclerView.addItemDecoration(new GroupItemDecoration<String,Article>());
+            ArticleAdapter bb = new ArticleAdapter(this);
+            aa = bb;
+            mRecyclerView.setAdapter(aa);
+            mRecyclerView.notifyDataSetChanged();
+            initData();
         }
 
         @SuppressWarnings("all")
@@ -159,9 +186,13 @@ public class NewCalendar extends BaseActivity implements
 
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @SuppressLint("SetTextI18n")
         @Override
         public void onCalendarSelect(Calendar calendar, boolean isClick) {
+            //aa = new ArticleAdapter(this);
+            //mRecyclerView.setAdapter(aa);
+            //mRecyclerView.notifyDataSetChanged();
             mTextLunar.setVisibility(View.VISIBLE);
             mTextYear.setVisibility(View.VISIBLE);
             mTextMonthDay.setText(calendar.getMonth() + "/" + calendar.getDay());

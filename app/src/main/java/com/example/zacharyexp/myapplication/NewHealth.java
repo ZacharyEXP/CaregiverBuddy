@@ -23,7 +23,10 @@ import java.util.Calendar;
 
 public class NewHealth extends AppCompatActivity {
 
+    int healthType;
+    String typeName;
 
+    EditText hr, sys, dia, glu, food, weight, sleep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +35,22 @@ public class NewHealth extends AppCompatActivity {
 
         //Importing all components from UI
         //final EditText healthName = (EditText) findViewById(R.id.edit_name_health);
-        final Spinner healthName = (Spinner) findViewById(R.id.edit_name_health);
-        final EditText typeName = (EditText) findViewById(R.id.edit_type_name);
+        final TextView healthName = (TextView) findViewById(R.id.edit_name_health);
+        //final EditText typeName = (EditText) findViewById(R.id.edit_type_name);
 
-        final Button buttonStartDate = (Button) findViewById(R.id.button_start_date);
-        final Button buttonEndDate = (Button) findViewById(R.id.button_end_date);
+        //final Button buttonStartDate = (Button) findViewById(R.id.button_start_date);
+        //final Button buttonEndDate = (Button) findViewById(R.id.button_end_date);
 
-        final EditText timesPerFrequency = (EditText) findViewById(R.id.edit_frequency);
-        final Spinner frequencySelector = (Spinner) findViewById(R.id.spinner_frequency_selector);
+        //final EditText timesPerFrequency = (EditText) findViewById(R.id.edit_frequency);
+        //final Spinner frequencySelector = (Spinner) findViewById(R.id.spinner_frequency_selector);
 
-        final Spinner absoluteTime = (Spinner) findViewById(R.id.spinner_time2);
-        final Spinner relativeTime = (Spinner) findViewById(R.id.spinner_time1);
+        //final Spinner absoluteTime = (Spinner) findViewById(R.id.spinner_time2);
+        //final Spinner relativeTime = (Spinner) findViewById(R.id.spinner_time1);
 
         FloatingActionButton okButton = (FloatingActionButton) findViewById(R.id.fab_ok);
         LinearLayout l_layout = (LinearLayout) findViewById(R.id.health_var);
+
+        healthType = getIntent().getIntExtra("HEALTH_TYPE", -1);
 
 
         //Initialise the current date
@@ -54,78 +59,123 @@ public class NewHealth extends AppCompatActivity {
         String format = dateFormat.format(currentCalendar.getTime());
 
         //Setting current date to the button's text
-        buttonStartDate.setText(format);
-        buttonEndDate.setText(format);
+        //buttonStartDate.setText(format);
+        //buttonEndDate.setText(format);
 
-        healthName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (healthType) {
+            case 0:
+                l_layout.removeAllViews();
+                typeName = "Heart Rate";
+                healthName.setText(typeName);
 
-                switch (position) {
-                    case 0:
-                        l_layout.removeAllViews();
+                hr = new EditText(getApplicationContext());
+                hr.setInputType(InputType.TYPE_CLASS_NUMBER);
+                hr.setWidth(170);
+                hr.setGravity(Gravity.LEFT);
 
-                        EditText hr = new EditText(getApplicationContext());
-                        hr.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        hr.setWidth(170);
-                        hr.setGravity(Gravity.LEFT);
+                TextView bpm = new TextView(getApplicationContext());
+                bpm.setGravity(Gravity.CENTER);
+                bpm.setText("BPM");
 
-                        TextView bpm = new TextView(getApplicationContext());
-                        bpm.setGravity(Gravity.CENTER);
-                        bpm.setText("BPM");
+                l_layout.addView(hr);
+                l_layout.addView(bpm);
+                break;
+            case 1:
+                l_layout.removeAllViews();
+                typeName = "Blood Pressure";
+                healthName.setText(typeName);
 
-                        l_layout.addView(hr);
-                        l_layout.addView(bpm);
-                        break;
-                    case 1:
-                        l_layout.removeAllViews();
+                sys = new EditText(getApplicationContext());
+                sys.setInputType(InputType.TYPE_CLASS_NUMBER);
+                sys.setGravity(Gravity.CENTER);
+                sys.setWidth(150);
+                sys.setHint("Sys");
 
-                        EditText sys = new EditText(getApplicationContext());
-                        sys.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        sys.setGravity(Gravity.CENTER);
-                        sys.setWidth(150);
-                        sys.setHint("Sys");
+                TextView sep = new TextView(getApplicationContext());
+                sep.setGravity(Gravity.CENTER);
+                sep.setText("/");
 
-                        TextView sep = new TextView(getApplicationContext());
-                        sep.setGravity(Gravity.CENTER);
-                        sep.setText("/");
+                dia = new EditText(getApplicationContext());
+                dia.setInputType(InputType.TYPE_CLASS_NUMBER);
+                dia.setGravity(Gravity.CENTER);
+                dia.setWidth(150);
+                dia.setHint("Dia");
 
-                        EditText dia = new EditText(getApplicationContext());
-                        dia.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        dia.setGravity(Gravity.CENTER);
-                        dia.setWidth(150);
-                        dia.setHint("Dia");
+                l_layout.addView(sys);
+                l_layout.addView(sep);
+                l_layout.addView(dia);
+                break;
+            case 2:
+                l_layout.removeAllViews();
+                typeName = "Glucose";
+                healthName.setText(typeName);
 
-                        l_layout.addView(sys);
-                        l_layout.addView(sep);
-                        l_layout.addView(dia);
-                        break;
-                    case 2:
-                        l_layout.removeAllViews();
+                glu = new EditText(getApplicationContext());
+                glu.setInputType(InputType.TYPE_CLASS_NUMBER);
+                glu.setWidth(170);
+                glu.setGravity(Gravity.LEFT);
 
-                        EditText glu = new EditText(getApplicationContext());
-                        glu.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        glu.setWidth(170);
-                        glu.setGravity(Gravity.LEFT);
+                TextView mgdl = new TextView(getApplicationContext());
+                mgdl.setGravity(Gravity.CENTER);
+                mgdl.setText("mg/dL");
 
-                        TextView mgdl = new TextView(getApplicationContext());
-                        mgdl.setGravity(Gravity.CENTER);
-                        mgdl.setText("mg/dL");
+                l_layout.addView(glu);
+                l_layout.addView(mgdl);
+                break;
+            case 3:
+                l_layout.removeAllViews();
+                typeName = "Food";
+                healthName.setText(typeName);
 
-                        l_layout.addView(glu);
-                        l_layout.addView(mgdl);
-                        break;
-                }
-            }
+                food = new EditText(getApplicationContext());
+                food.setInputType(InputType.TYPE_CLASS_NUMBER);
+                food.setWidth(170);
+                food.setGravity(Gravity.LEFT);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                TextView cal = new TextView(getApplicationContext());
+                cal.setGravity(Gravity.CENTER);
+                cal.setText("Calories");
 
-                // sometimes you need nothing here
-            }
-        });
+                l_layout.addView(food);
+                l_layout.addView(cal);
+                break;
+            case 4:
+                l_layout.removeAllViews();
+                typeName = "Weight";
+                healthName.setText(typeName);
+
+                weight = new EditText(getApplicationContext());
+                weight.setInputType(InputType.TYPE_CLASS_NUMBER);
+                weight.setWidth(170);
+                weight.setGravity(Gravity.LEFT);
+
+                TextView lbs = new TextView(getApplicationContext());
+                lbs.setGravity(Gravity.CENTER);
+                lbs.setText("lbs");
+
+                l_layout.addView(weight);
+                l_layout.addView(lbs);
+                break;
+            case 5:
+                l_layout.removeAllViews();
+                typeName = "Sleep";
+                healthName.setText(typeName);
+
+                sleep = new EditText(getApplicationContext());
+                sleep.setInputType(InputType.TYPE_CLASS_NUMBER);
+                sleep.setWidth(170);
+                sleep.setGravity(Gravity.LEFT);
+
+                TextView hours = new TextView(getApplicationContext());
+                hours.setGravity(Gravity.CENTER);
+                hours.setText("hours of sleep");
+
+                l_layout.addView(sleep);
+                l_layout.addView(hours);
+                break;
+    }
         //Buttons listeners
-        buttonStartDate.setOnClickListener(
+        /*buttonStartDate.setOnClickListener(
                 new Button.OnClickListener(){
                     public void onClick(View v){
                         //set marker text
@@ -148,7 +198,7 @@ public class NewHealth extends AppCompatActivity {
 
                     }
                 }
-        );
+        );*/
 
 
         //okButton action
@@ -156,21 +206,43 @@ public class NewHealth extends AppCompatActivity {
                 new FloatingActionButton.OnClickListener(){
                     public void onClick (View v){
                         //Getting the values of the user
-                        final Calendar startDay = HealthTools.stringConverterToDate(buttonStartDate.getText().toString());
-                        final Calendar endDay = HealthTools.stringConverterToDate(buttonEndDate.getText().toString());
+                        //final Calendar startDay = HealthTools.stringConverterToDate(buttonStartDate.getText().toString());
+                        //final Calendar endDay = HealthTools.stringConverterToDate(buttonEndDate.getText().toString());
 
 
                         //Creating new Health object with values selected by user
                         Health health = new Health();
-                        health.setHealthName(healthName.getSelectedItem().toString());
-                        health.setTypeName(typeName.getText().toString());
-                        health.setStartDate(startDay);
-                        health.setEndDate(endDay);
-                        health.setTimesPerFrequency(Integer.parseInt(timesPerFrequency.getText().toString()));
-                        health.setFrequency(frequencySelector.getSelectedItem().toString());
-                        health.setAbsoluteTime(absoluteTime.getSelectedItem().toString());
-                        health.setRelativeTime(relativeTime.getSelectedItem().toString());
-                        health.setRelativeTimeDescriber(HealthTools.relativeTimeToInt(health));
+                        health.setHealthName(healthName.getText().toString());
+                        health.setHealthType(healthType);
+                        health.setTypeName(typeName);
+                        switch (healthType){
+                            case 0:
+                                health.setDataEntry(hr.getText().toString() + " BPM");
+                                break;
+                            case 1:
+                                health.setDataEntry(sys.getText().toString() + "/" + dia.getText().toString());
+                                break;
+                            case 2:
+                                health.setDataEntry(glu.getText().toString() + " mg/dL");
+                                break;
+                            case 3:
+                                health.setDataEntry(food.getText().toString() + " Calories");
+                                break;
+                            case 4:
+                                health.setDataEntry(weight.getText().toString() + " lbs");
+                                break;
+                            case 5:
+                                health.setDataEntry(sleep.getText().toString() + " hours of sleep");
+                                break;
+                        }
+
+                        health.setStartDate(Calendar.getInstance());
+                        health.setEndDate(Calendar.getInstance());
+                        //health.setTimesPerFrequency(Integer.parseInt(timesPerFrequency.getText().toString()));
+                       // health.setFrequency(frequencySelector.getSelectedItem().toString());
+                        //health.setAbsoluteTime(absoluteTime.getSelectedItem().toString());
+                        //health.setRelativeTime(relativeTime.getSelectedItem().toString());
+                        //health.setRelativeTimeDescriber(HealthTools.relativeTimeToInt(health));
                         Log.i("appAction","Creating new Health object");
                         Log.i("appAction",health.toString());
 
@@ -181,11 +253,7 @@ public class NewHealth extends AppCompatActivity {
                         //Write ArrayList container to the internal storage
                         HealthTools.writeAnArray(HealthActivity.healthList, getApplicationContext());
 
-                        //Determine if the new health has to be taken on this day
-                        if (health.isHappeningToday()){
-                            Log.i("appAction","Health has to be taken today !");
-                            HealthActivity.areHappeningToday.add(health);
-                        }
+                        //Determine if the new health has to be taken on this da
 
                         //Close activity
                         Log.i("appAction","Close new health activity intent");

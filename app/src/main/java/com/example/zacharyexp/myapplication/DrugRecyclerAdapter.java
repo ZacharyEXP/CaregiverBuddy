@@ -11,6 +11,12 @@ import java.util.ArrayList;
 public class DrugRecyclerAdapter extends RecyclerView.Adapter<DrugRecyclerViewHolder> {
 
     ArrayList<Drug> drugContainer = new ArrayList<>();
+    private OnItemClicked onClick;
+
+    public interface OnItemClicked {
+        void onItemClick(int position);
+    }
+
 
     //Data constructor from list
     public DrugRecyclerAdapter(ArrayList<Drug> drugs){
@@ -28,8 +34,27 @@ public class DrugRecyclerAdapter extends RecyclerView.Adapter<DrugRecyclerViewHo
     public void onBindViewHolder (DrugRecyclerViewHolder drugRecyclerViewHolder, int position){
         Drug drug = drugContainer.get(position);
         drugRecyclerViewHolder.bind(drug);
+        drugRecyclerViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //onClick.onItemClick(position);
+                drugRecyclerViewHolder.enableDelete();
+                drugRecyclerViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        drugRecyclerViewHolder.disableDelete();
+                        onClick.onItemClick(position);
+                    }
+                });
+                return false;
+            }
+        });
     }
 
+    public void setOnClick(OnItemClicked onClick)
+    {
+        this.onClick=onClick;
+    }
 
 
     @Override

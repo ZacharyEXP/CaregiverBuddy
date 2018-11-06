@@ -12,6 +12,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 
 /*
@@ -137,8 +140,31 @@ public class ChoreTools {
         StringBuilder before = new StringBuilder();
         StringBuilder after = new StringBuilder();
 
+        List<String> keys = new ArrayList<String>();
+        List<Date> keyDates = new ArrayList<Date>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        for(Chore chore : mainArray) {
+            try {
+                keyDates.add(chore.getStartDate().getTime());
+                //System.out.println(dateFormat.parse(string));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        Collections.sort(keyDates);
+
         //--Description statement--
-        for (Chore chore : mainArray){
+        for (Date date: keyDates){
+            for(Chore chore : mainArray) {
+                if(chore.getStartDate().getTime().equals(date)) {
+                    result.add(chore);
+                }
+            }
+            //before.append("'" + drug.getRelativeTimeDescriber() + "', ");
+        }
+
+        //--Description statement--
+        /*for (Chore chore : mainArray){
             before.append("'" + chore.getRelativeTimeDescriber() + "', ");
         }
 
@@ -177,7 +203,7 @@ public class ChoreTools {
             after.append("'" + chore.getRelativeTimeDescriber() + "', ");
         }
 
-        Log.i("appAction", "List state AFTER : " + after.toString());
+        Log.i("appAction", "List state AFTER : " + after.toString());*/
 
         return result;
     }

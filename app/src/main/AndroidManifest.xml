@@ -29,6 +29,7 @@
         <activity android:name=".ChoreMonthActivity" />
         <activity android:name=".NewCalendar" />
         <activity android:name=".BioActivity" />
+        <activity android:name=".HealthSelectActivity" />
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

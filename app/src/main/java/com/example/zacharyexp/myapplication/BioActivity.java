@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,9 +30,14 @@ public class BioActivity extends AppCompatActivity implements View.OnClickListen
     TextView personName;
     TextView personAge;
     TextView personDesc;
+    EditText personNameEdit;
+    EditText personAgeEdit;
+    EditText personDescEdit;
     ImageView personPhoto;
     RelativeLayout rl;
-    Button edit;
+    Button editPhoto;
+    Button editBio;
+    Button editBioSubmit;
     WeekdaysPicker wd;
 
     View rootView;
@@ -55,17 +61,124 @@ public class BioActivity extends AppCompatActivity implements View.OnClickListen
         //cv = (CardView)findViewById(R.id.cvPatient);
         personName = (TextView)findViewById(R.id.person_name);
         personAge = (TextView)findViewById(R.id.person_age);
-        personDesc= (TextView)findViewById(R.id.person_desc);
+        personDesc = (TextView)findViewById(R.id.person_desc);
+        personNameEdit = (EditText) findViewById(R.id.person_name_edit);
+        personAgeEdit = (EditText) findViewById(R.id.person_age_edit);
+        personDescEdit = (EditText) findViewById(R.id.person_desc_edit);
+        personNameEdit.setVisibility(View.GONE);
+        personAgeEdit.setVisibility(View.GONE);
+        personDescEdit.setVisibility(View.GONE);
         personPhoto = (ImageView)findViewById(R.id.person_photo);
         rl = (RelativeLayout)findViewById(R.id.patLayout);
-        edit = (Button)findViewById(R.id.edit);
+        editPhoto = (Button)findViewById(R.id.edit_photo);
         wd = (WeekdaysPicker)findViewById(R.id.pat_weekdays);
+        editBio = (Button)findViewById(R.id.edit_bio);
+        editBioSubmit = (Button)findViewById(R.id.edit_bio_confirm);
+        editBioSubmit.setVisibility(View.GONE);
 
 
         System.out.println(p.getPatientName());
         personName.setText(p.getPatientName());
         personAge.setText(Integer.toString(p.getPatientAge()));
         personDesc.setText(p.getPatientDesc());
+
+        editBio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                personName.setVisibility(View.GONE);
+                personNameEdit.setVisibility(View.VISIBLE);
+                personNameEdit.setText(personName.getText());
+                personAge.setVisibility(View.GONE);
+                personAgeEdit.setVisibility(View.VISIBLE);
+                personAgeEdit.setText(personAge.getText());
+                personDesc.setVisibility(View.GONE);
+                personDescEdit.setVisibility(View.VISIBLE);
+                personDescEdit.setText(personDesc.getText());
+                wd.setEditable(true);
+                editBio.setVisibility(View.GONE);
+                editBioSubmit.setVisibility(View.VISIBLE);
+            }
+        });
+
+        editBioSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                personNameEdit.setVisibility(View.GONE);
+                personName.setVisibility(View.VISIBLE);
+                personName.setText(personNameEdit.getText());
+                personAgeEdit.setVisibility(View.GONE);
+                personAge.setVisibility(View.VISIBLE);
+                personAge.setText(personAgeEdit.getText());
+                personDescEdit.setVisibility(View.GONE);
+                personDesc.setVisibility(View.VISIBLE);
+                personDesc.setText(personDescEdit.getText());
+                wd.setEditable(false);
+                editBioSubmit.setVisibility(View.GONE);
+                editBio.setVisibility(View.VISIBLE);
+
+                p.setPatientName(personNameEdit.getText().toString());
+                p.setPatientAge(Integer.parseInt(personAge.getText().toString()));
+                p.setPatientDesc(personDescEdit.getText().toString());
+                p.setWeeklySchedule(wd.getSelectedDays());
+                p.save();
+            }
+        });
+
+        /*personName.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                personName.setVisibility(View.GONE);
+                personNameEdit.setVisibility(View.VISIBLE);
+                personNameEdit.setText(personName.getText());
+                personAge.setVisibility(View.GONE);
+                personAgeEdit.setVisibility(View.VISIBLE);
+                personAgeEdit.setText(personAge.getText());
+                personDesc.setVisibility(View.GONE);
+                personDescEdit.setVisibility(View.VISIBLE);
+                personDescEdit.setText(personDesc.getText());
+                wd.setEditable(true);
+                return false;
+            }
+        });
+        personAge.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                personName.setVisibility(View.GONE);
+                personNameEdit.setVisibility(View.VISIBLE);
+                personNameEdit.setText(personName.getText());
+                personAge.setVisibility(View.GONE);
+                personAgeEdit.setVisibility(View.VISIBLE);
+                personAgeEdit.setText(personAge.getText());
+                personDesc.setVisibility(View.GONE);
+                personDescEdit.setVisibility(View.VISIBLE);
+                personDescEdit.setText(personDesc.getText());
+                wd.setEditable(true);
+                return false;
+            }
+        });
+        personDesc.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                personName.setVisibility(View.GONE);
+                personNameEdit.setVisibility(View.VISIBLE);
+                personNameEdit.setText(personName.getText());
+                personAge.setVisibility(View.GONE);
+                personAgeEdit.setVisibility(View.VISIBLE);
+                personAgeEdit.setText(personAge.getText());
+                personDesc.setVisibility(View.GONE);
+                personDescEdit.setVisibility(View.VISIBLE);
+                personDescEdit.setText(personDesc.getText());
+                wd.setEditable(true);
+                return false;
+            }
+        });
+        wd.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                wd.setEditable(true);
+                return false;
+            }
+        });*/
         //personPhoto.setImageResource(R.drawable.ic_launcher_background);
         //personPhoto.setImageResource(p.getPatientPicPath());
 
@@ -87,7 +200,7 @@ public class BioActivity extends AppCompatActivity implements View.OnClickListen
 
         switch(view.getId())
         {
-            case R.id.edit:
+            case R.id.edit_photo:
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(galleryIntent, PICK_IMAGE);
                 break;
