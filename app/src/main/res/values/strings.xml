@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Caregiver Buddy</string>
     <string name="textview">Click that</string>
     <string name="testbutton">Enter New Patient</string>
     <string name="title_activity_main5">Main5Activity</string>
@@ -131,4 +131,21 @@
         <item>三十</item>
         <item>T</item>
     </string-array>
+
+    <string name="lorem_ipsum_short">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </string>
+    <string name="lorem_ipsum_long">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </string>
+
+    <string name="title_following">Following</string>
+    <string name="toolbar_bio">Bio</string>
+    <string name="toolbar_details">Details</string>
+    <string name="time">15</string>
+    <string name="question">Question</string>
+    <string name="timeup">Time\'s Up!!</string>
+    <string name="play_again">Play again</string>
+    <string name="wrongans">Sorry!!! Wrong Answer</string>
+    <string name="correct">Correct</string>
+    <string name="next">Next</string>
+    <string name="Quit">Quit</string>
 </resources>

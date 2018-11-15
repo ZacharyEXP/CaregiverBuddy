@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.zacharyexp.myapplication">
+    package="com.govst.zacharyexp.caregiverbuddy">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/myAppTheme">
-        <activity android:name=".PatientSelect">
+        <!--<activity android:name=".PatientSelect">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>-->
+        <activity android:name=".PatientSelectNew">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +36,14 @@
         <activity android:name=".ChoreMonthActivity" />
         <activity android:name=".NewCalendar" />
         <activity android:name=".BioActivity" />
+        <activity android:name=".BioNewActivity" />
         <activity android:name=".HealthSelectActivity" />
+        <activity android:name=".QuizMainActivity" />
+        <activity android:name=".GameWon" />
+        <activity android:name=".QuizActivity" />
+        <activity android:name=".InsertQuestionsActivity" />
+        <activity android:name=".PlayAgain" />
+        <activity android:name=".TimeUp" />
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

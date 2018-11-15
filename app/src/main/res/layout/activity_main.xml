@@ -8,81 +8,193 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:orientation="horizontal"
-        android:layout_weight="1" >
+        android:layout_height="10dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
-        <Button
-            android:layout_width="5dip"
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/ic_portrait"
-            android:gravity="right|bottom"
-            android:onClick="openBio"
-            android:outlineAmbientShadowColor="@color/materialGrey"
-            android:text="Patient Biography" />
+            android:layout_weight="1">
 
-        <Button
-            android:layout_width="5dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/ic_heart"
-            android:gravity="right|bottom"
-            android:onClick="openHealth"
-            android:outlineAmbientShadowColor="@color/materialGrey"
-            android:text="Health History" />
+            <ImageButton
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:padding="20dp"
+                android:background="@drawable/bg_rounded_button"
+                android:gravity="right|bottom"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:onClick="openBio"
+                android:outlineAmbientShadowColor="@color/materialGrey"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_profile2"
+                android:text="Patient Biography" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="15dp"
+                android:text="Patient Biography" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:padding="20dp"
+                android:background="@drawable/bg_rounded_button"
+                android:gravity="right|bottom"
+                android:maxHeight="40dp"
+                android:maxWidth="40dp"
+                android:onClick="openHealth"
+                android:outlineAmbientShadowColor="@color/materialGrey"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_heart"
+                android:text="Health History" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="15dp"
+                android:text="Health History" />
+        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_height="10dip"
         android:orientation="horizontal"
         android:layout_weight="1" >
 
-        <Button
-            android:layout_width="5dip"
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/ic_medicine"
-            android:gravity="right|bottom"
-            android:onClick="openMedicine"
-            android:outlineAmbientShadowColor="@color/materialGrey"
-            android:text="Medication List" />
+            android:layout_weight="1">
 
-        <Button
-            android:layout_width="5dip"
+            <ImageButton
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:padding="20dp"
+                android:background="@drawable/bg_rounded_button"
+                android:gravity="right|bottom"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:onClick="openMedicine"
+                android:outlineAmbientShadowColor="@color/materialGrey"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_medicine" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="15dp"
+                android:text="Medication List" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/ic_tasks"
-            android:gravity="right|bottom"
-            android:onClick="openTasks"
-            android:outlineAmbientShadowColor="@color/gray_bbbbbb"
-            android:text="Daily Tasks" />
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:padding="20dp"
+                android:background="@drawable/bg_rounded_button"
+                android:gravity="right|bottom"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:onClick="openTasks"
+                android:outlineAmbientShadowColor="@color/materialGrey"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_tasks" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="15dp"
+                android:text="Daily Tasks" />
+        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_height="10dip"
         android:orientation="horizontal"
-        android:layout_weight="1" >
+        android:layout_weight="1">
 
-        <Button
-            android:layout_width="5dip"
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/ic_calendar"
-            android:gravity="right|bottom"
-            android:onClick="openCalendar"
-            android:outlineAmbientShadowColor="@color/materialGrey"
-            android:text="Calendar Planner" />
+            android:layout_weight="1">
 
-        <Button
-            android:layout_width="5dip"
+            <ImageButton
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:padding="20dp"
+                android:background="@drawable/bg_rounded_button"
+                android:gravity="right|bottom"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:onClick="openCalendar"
+                android:outlineAmbientShadowColor="@color/materialGrey"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_calendar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="15dp"
+                android:text="Calendar Planner" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/ic_add"
-            android:gravity="right|bottom"
-            android:outlineAmbientShadowColor="@color/black_80000000"
-            android:text="Temp" />
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:padding="20dp"
+                android:background="@drawable/bg_rounded_button"
+                android:gravity="right|bottom"
+                android:maxHeight="50dp"
+                android:maxWidth="50dp"
+                android:onClick="openGame"
+                android:outlineAmbientShadowColor="@color/materialGrey"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_controller"
+                android:text="Patient Biography" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="15dp"
+                android:text="Brain Game" />
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>
