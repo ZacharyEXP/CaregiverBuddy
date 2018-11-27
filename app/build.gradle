@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.zacharyexp.myapplication"
+        applicationId "com.govst.zacharyexp.caregiverbuddy"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
@@ -49,4 +49,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.0'
     implementation 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
     implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

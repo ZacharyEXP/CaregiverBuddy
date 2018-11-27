@@ -26,6 +26,14 @@ public class Patient extends Activity implements Serializable {
     String patientName, patientDesc, patientPicPath;
     List<Integer> weeklySchedule;
 
+    String sex, emergencyNum;
+    String contactS = "";
+    String foodS = "";
+    String actS = "";
+    ArrayList<String> contacts = new ArrayList<String>();
+    ArrayList<String> prefFood = new ArrayList<String>();
+    ArrayList<String> prefAct = new ArrayList<String>();
+
     ArrayList<Task> tasks= new ArrayList<Task>();
     ArrayList<Med> meds = new ArrayList<Med>();
 
@@ -72,9 +80,44 @@ public class Patient extends Activity implements Serializable {
     }
 
     // Saves all patient data, overwrites any previous values
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void save() {
         highestTask = 0;
         highestMed = 0;
+
+        StringJoiner contactSJ = new StringJoiner("|");
+        StringJoiner foodSJ = new StringJoiner("|");
+        StringJoiner actSJ = new StringJoiner("|");
+
+        if(contacts.size() > 0) {
+            for (String n : contacts) {
+                contactSJ.add(n);
+            }
+        }
+        if(prefFood.size() > 0) {
+            for (String n : prefFood) {
+                foodSJ.add(n);
+            }
+        }
+        if(prefAct.size() > 0) {
+            for (String n : prefAct) {
+                actSJ.add(n);
+            }
+        }
+
+        contactS = contactSJ.toString();
+        foodS = foodSJ.toString();
+        actS = actSJ.toString();
+
+        edit.putString("Pref Contacts", contactS);
+        edit.putString("Pref Food", foodS);
+        edit.putString("Pref Activities", actS);
+
+        System.out.println(actS);
+
+        edit.putString("Patient Sex", sex);
+        edit.putString("Patient Emergency Num", emergencyNum);
+
         try {
             edit.putString("Patient Name", patientName);
             edit.putInt("Patient Age", patientAge);
@@ -153,8 +196,55 @@ public class Patient extends Activity implements Serializable {
             while(st.hasMoreTokens()) {
                 weeklySchedule.add(Integer.parseInt(st.nextToken()));
                 //System.out.println(weeklySchedule);
-                //System.out.println
+                //System.out.println();
             }
+
+            sex = pref.getString("Patient Sex", null);
+            emergencyNum = pref.getString("Patient Emergency Num", null);
+
+            System.out.println(actS);
+
+            contactS = pref.getString("Pref Contacts", null);
+            foodS = pref.getString("Pref Food", null);
+            actS = pref.getString("Pref Activities", null);
+
+            System.out.println(actS);
+
+            if(contactS.contains("|")) {
+                contacts = new ArrayList<String>();
+                st = new StringTokenizer(contactS, "|");
+                while (st.hasMoreTokens())
+                {
+                    contacts.add(st.nextToken());
+                }
+            } else {
+                contacts = new ArrayList<String>(Arrays.asList(contactS));
+            }
+
+            if(foodS.contains("|")) {
+                prefFood = new ArrayList<String>();
+                st = new StringTokenizer(foodS, "|");
+                while (st.hasMoreTokens())
+                {
+                    prefFood.add(st.nextToken());
+                }
+            } else {
+                prefFood = new ArrayList<String>(Arrays.asList(foodS));
+            }
+
+            if(actS.contains("|")) {
+                prefAct = new ArrayList<String>();
+                st = new StringTokenizer(actS, "|");
+                while (st.hasMoreTokens())
+                {
+                    prefAct.add(st.nextToken());
+                }
+            } else {
+                prefAct = new ArrayList<String>(Arrays.asList(actS));
+            }
+
+            System.out.println(contacts);
+            System.out.println(contactS);
             //System.out.println(weeklySchedule);
             //weeklySchedule = (List<Integer>)pref.getIntS("Weekly Schedule", null);
         } catch (NullPointerException e) {
@@ -416,6 +506,46 @@ public class Patient extends Activity implements Serializable {
 
     public int getIdFromName(String name) {
         return prefList.getInt(name, -1);
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getEmergencyNum() {
+        return emergencyNum;
+    }
+
+    public void setEmergencyNum(String emergencyNum) {
+        this.emergencyNum = emergencyNum;
+    }
+
+    public ArrayList<String> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(ArrayList<String> contacts) {
+        this.contacts = contacts;
+    }
+
+    public ArrayList<String> getPrefFood() {
+        return prefFood;
+    }
+
+    public void setPrefFood(ArrayList<String> prefFood) {
+        this.prefFood = prefFood;
+    }
+
+    public ArrayList<String> getPrefAct() {
+        return prefAct;
+    }
+
+    public void setPrefAct(ArrayList<String> prefAct) {
+        this.prefAct = prefAct;
     }
 }
 

@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.govst.zacharyexp.caregiverbuddy.BioNewActivity;
 import com.govst.zacharyexp.caregiverbuddy.MainSelect;
 import com.govst.zacharyexp.caregiverbuddy.R;
 import com.nhaarman.listviewanimations.appearance.ViewAnimator;
@@ -53,38 +54,41 @@ public abstract class EuclidActivity2 extends AppCompatActivity {
     private static final int ANIMATION_DURATION_SHOW_PROFILE_BUTTON = 300;
     private static final int CIRCLE_RADIUS_DP = 50;
 
-    protected RelativeLayout mWrapper;
-    protected ListView mListView;
-    protected FrameLayout mToolbar;
-    protected RelativeLayout mToolbarProfile;
-    protected LinearLayout mProfileDetails;
-    protected TextView mTextViewProfileName;
-    protected TextView mTextViewProfileDescription;
-    protected View mButtonProfile;
+    public RelativeLayout mWrapper;
+    public ListView mListView;
+    public FrameLayout mToolbar;
+    public RelativeLayout mToolbarProfile;
+    public LinearLayout mProfileDetails;
+    public TextView mTextViewProfileName;
+    public TextView mTextViewProfileDescription;
+    public TextView mTextViewDetailsSex;
+    public TextView mTextViewDetailsEmergencyNum;
+    public View mButtonProfile;
 
     public static ShapeDrawable sOverlayShape;
-    static int sScreenWidth;
-    static int sProfileImageHeight;
+    public static int sScreenWidth;
+    public static int sProfileImageHeight;
 
-    private SwingLeftInAnimationAdapter mListViewAnimationAdapter;
-    private ViewAnimator mListViewAnimator;
+    public SwingLeftInAnimationAdapter mListViewAnimationAdapter;
+    public ViewAnimator mListViewAnimator;
 
-    private View mOverlayListItemView;
-    private EuclidState mState = EuclidState.Closed;
+    public View mOverlayListItemView;
+    public EuclidState mState = EuclidState.Closed;
 
-    private float mInitialProfileButtonX;
+    float mInitialProfileButtonX;
 
-    private AnimatorSet mOpenProfileAnimatorSet;
-    private AnimatorSet mCloseProfileAnimatorSet;
-    private Animation mProfileButtonShowAnimation;
+    public AnimatorSet mOpenProfileAnimatorSet;
+    public AnimatorSet mCloseProfileAnimatorSet;
+    public Animation mProfileButtonShowAnimation;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_euclid);
+        setContentView(R.layout.activity_euclid2);
 
         mWrapper = (RelativeLayout) findViewById(R.id.wrapper);
-        mListView = (ListView) findViewById(R.id.list_view);
+        //mListView = (ListView) findViewById(R.id.list_view);
         mToolbar = (FrameLayout) findViewById(R.id.toolbar_list);
         mToolbarProfile = (RelativeLayout) findViewById(R.id.toolbar_profile);
         mProfileDetails = (LinearLayout) findViewById(R.id.wrapper_profile_details);
@@ -108,7 +112,36 @@ public abstract class EuclidActivity2 extends AppCompatActivity {
         sProfileImageHeight = getResources().getDimensionPixelSize(R.dimen.height_profile_image);
         sOverlayShape = buildAvatarCircleOverlay();
 
-        initList();
+        /*////
+        if (mOverlayListItemView == null) {
+            mOverlayListItemView = getLayoutInflater().inflate(R.layout.overlay_list_item, mWrapper, false);
+        } else {
+            mWrapper.removeView(mOverlayListItemView);
+        }
+
+        mOverlayListItemView.findViewById(R.id.view_avatar_overlay).setBackground(sOverlayShape);
+
+        Picasso.with(EuclidActivity2.this).load(Uri.parse((String) item.get(EuclidListAdapter.KEY_AVATAR)))
+                .resize(sScreenWidth, sProfileImageHeight).centerCrop()
+                .placeholder(R.color.blue)
+                .into((ImageView) mOverlayListItemView.findViewById(R.id.image_view_reveal_avatar));
+        Picasso.with(EuclidActivity2.this).load(Uri.parse((String) item.get(EuclidListAdapter.KEY_AVATAR)))
+                .resize(sScreenWidth, sProfileImageHeight).centerCrop()
+                .placeholder(R.color.blue)
+                .into((ImageView) mOverlayListItemView.findViewById(R.id.image_view_avatar));
+
+        ((TextView) mOverlayListItemView.findViewById(R.id.text_view_name)).setText((String) item.get(EuclidListAdapter.KEY_NAME));
+        ((TextView) mOverlayListItemView.findViewById(R.id.text_view_description)).setText((String) item.get(EuclidListAdapter.KEY_DESCRIPTION_SHORT));
+        setProfileDetailsInfo(item);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        //params.topMargin = view.getTop() + mToolbar.getHeight();
+        //params.bottomMargin = -(view.getBottom() - mListView.getHeight());
+        mWrapper.addView(mOverlayListItemView, params);
+        mToolbar.bringToFront();
+        ////*/
+
+        //initList();
     }
 
     private void initList() {
@@ -121,6 +154,7 @@ public abstract class EuclidActivity2 extends AppCompatActivity {
         }
         mListView.setAdapter(mListViewAnimationAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mState = EuclidState.Opening;
@@ -136,17 +170,19 @@ public abstract class EuclidActivity2 extends AppCompatActivity {
      * @param item - data from adapter, that will be set into overlay view.
      * @param view - clicked view.
      */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void showProfileDetails(Map<String, Object> item, final View view) {
-        mListView.setEnabled(false);
+        //mListView.setEnabled(false);
 
-        int profileDetailsAnimationDelay = getMaxDelayShowDetailsAnimation() * Math.abs(view.getTop())
-                / sScreenWidth;
+        //int profileDetailsAnimationDelay = getMaxDelayShowDetailsAnimation() * Math.abs(view.getTop())
+                /// sScreenWidth;
 
         addOverlayListItem(item, view);
-        startRevealAnimation(profileDetailsAnimationDelay);
-        animateOpenProfileDetails(profileDetailsAnimationDelay);
+        //startRevealAnimation(profileDetailsAnimationDelay);
+        //animateOpenProfileDetails(profileDetailsAnimationDelay);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void openProfileDetails(Map<String, Object> item, View view) {
         mState = EuclidState.Opening;
         showProfileDetails(item, view);
@@ -182,8 +218,8 @@ public abstract class EuclidActivity2 extends AppCompatActivity {
         setProfileDetailsInfo(item);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.topMargin = view.getTop() + mToolbar.getHeight();
-        params.bottomMargin = -(view.getBottom() - mListView.getHeight());
+        //params.topMargin = view.getTop() + mToolbar.getHeight();
+        //params.bottomMargin = -(view.getBottom() - mListView.getHeight());
         mWrapper.addView(mOverlayListItemView, params);
         mToolbar.bringToFront();
     }
@@ -193,7 +229,7 @@ public abstract class EuclidActivity2 extends AppCompatActivity {
      *
      * @param item - data from adapter, that will be set into overlay view.
      */
-    private void setProfileDetailsInfo(Map<String, Object> item) {
+    public void setProfileDetailsInfo(Map<String, Object> item) {
         mTextViewProfileName.setText((String) item.get(EuclidListAdapter.KEY_NAME));
         mTextViewProfileDescription.setText((String) item.get(EuclidListAdapter.KEY_DESCRIPTION_FULL));
     }

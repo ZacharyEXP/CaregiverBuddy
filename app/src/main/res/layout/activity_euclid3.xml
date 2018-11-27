@@ -1,0 +1,210 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/wrapper">
+
+<RelativeLayout
+    android:id="@+id/toolbar_profile"
+    android:background="@color/gray"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_toolbar"
+    android:clickable="true"
+    android:visibility="visible">
+
+    <ImageView
+        android:id="@+id/toolbar_profile_back"
+        android:layout_width="@dimen/height_toolbar"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:padding="15dp"
+        android:src="@drawable/ic_arrow_left" />
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="33dp"
+        android:layout_margin="4dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_black_oval">
+
+        <Button
+            android:id="@+id/toolbar_profile_bio2"
+            android:text="@string/toolbar_bio"
+            android:textColor="@color/white"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_white_oval"
+            android:onClick="onClick"
+            style="@style/TextViewProfileToolbarTitle" />
+
+        <Button
+            android:id="@+id/toolbar_profile_details2"
+            android:text="@string/toolbar_details"
+            android:textColor="@color/black"
+            android:layout_margin="1dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_orange_oval"
+            android:onClick="onClick"
+            style="@style/TextViewProfileToolbarTitle" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/toolbar_profile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/parent_linear_layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sex"
+                android:textColor="#000000"
+                android:textSize="13dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/details_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="18dp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/grey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/contact_list">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Close Contacts"
+                android:textColor="#000000"
+                android:textSize="13dp"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/grey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Emergency Contact #"
+                android:textColor="#000000"
+                android:textSize="13dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/details_emergency_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="18dp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/grey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/activity_list">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preferred Activities"
+                android:textColor="#000000"
+                android:textSize="13dp"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/grey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/food_list">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preferred Foods"
+                android:textColor="#000000"
+                android:textSize="13dp"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/grey" />
+
+        </LinearLayout>
+
+        <com.dpro.widgets.WeekdaysPicker
+            android:id="@+id/pat_weekdays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            app:enabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/food_list"
+            app:sunday_first_day="true" />
+    </LinearLayout>
+
+</ScrollView>
+
+
+</RelativeLayout>

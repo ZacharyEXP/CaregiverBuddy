@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_view_avatar"
+        android:layout_below="@+id/toolbar_profile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_profile_image"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:paddingBottom="1dp"
+        tools:src="@drawable/nicolas_cage" />
+    <!--Add 1dp bottom padding to remove weird flickering while animating-->
+
+    <View
+        android:id="@+id/view_avatar_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_profile_image"/>
+
+    <LinearLayout
+        android:id="@+id/wrapper_profile_details"
+        android:layout_marginTop="@dimen/height_profile_picture_with_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:visibility="visible"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/text_view_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            tools:text="SOPHIA"
+            android:fontFamily="sans-serif-light"
+            android:textSize="32sp"
+            android:layout_margin="10dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/text_view_profile_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                tools:text="@string/lorem_ipsum_long"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp" />
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/button_round_edit"
+        android:layout_width="@dimen/size_button_message"
+        android:layout_height="@dimen/size_button_message"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/margin_top_button_message"
+        android:id="@+id/button_profile" />
+
+</RelativeLayout>
