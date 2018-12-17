@@ -6,7 +6,7 @@
     android:background="#d2bad2"
     android:layout_height="match_parent"
 
-    tools:context="com.govst.zacharyexp.caregiverbuddy.InsertQuestionsActivity">
+    tools:context="com.govst.zacharyexp.caregiverbuddy.braingame.InsertQuestionsActivity">
 
     <TextView
         android:layout_width="match_parent"

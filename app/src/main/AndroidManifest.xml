@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_pill"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_pill"
         android:supportsRtl="true"
         android:theme="@style/myAppTheme">
         <!--<activity android:name=".PatientSelect">
@@ -23,27 +23,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewPatientActivity" />
-        <activity android:name=".ActivityTemplate" />
-        <activity android:name=".MainScreen" />
+        <activity android:name=".biography.NewPatientActivity" />
+        <activity android:name=".tbd.MainScreen" />
         <activity android:name=".MainSelect" />
-        <activity android:name=".DrugActivity" />
-        <activity android:name=".NewDrug" />
-        <activity android:name=".ChoreActivity" />
-        <activity android:name=".NewChore" />
-        <activity android:name=".HealthActivity" />
-        <activity android:name=".NewHealth" />
-        <activity android:name=".ChoreMonthActivity" />
-        <activity android:name=".NewCalendar" />
-        <activity android:name=".BioActivity" />
-        <activity android:name=".BioNewActivity" />
-        <activity android:name=".HealthSelectActivity" />
-        <activity android:name=".QuizMainActivity" />
-        <activity android:name=".GameWon" />
-        <activity android:name=".QuizActivity" />
-        <activity android:name=".InsertQuestionsActivity" />
-        <activity android:name=".PlayAgain" />
-        <activity android:name=".TimeUp" />
+        <activity android:name=".drug.DrugActivity" />
+        <activity android:name=".drug.DrugNew" />
+        <activity android:name=".chore.ChoreActivity" />
+        <activity android:name=".chore.ChoreNew" />
+        <activity android:name=".health.HealthActivity" />
+        <activity android:name=".health.HealthNew" />
+        <activity android:name=".tbd.ChoreMonthActivity" />
+        <activity android:name=".calendar.NewCalendar" />
+        <activity android:name=".tbd.BioActivity" />
+        <activity android:name=".biography.BioNewActivity" />
+        <activity android:name=".health.HealthSelectActivity" />
+        <activity android:name=".braingame.QuizMainActivity" />
+        <activity android:name=".braingame.GameWon" />
+        <activity android:name=".braingame.QuizActivity" />
+        <activity android:name=".braingame.InsertQuestionsActivity" />
+        <activity android:name=".braingame.PlayAgain" />
+        <activity android:name=".braingame.TimeUp" />
+        <activity android:name=".biography.BioEdit" />
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

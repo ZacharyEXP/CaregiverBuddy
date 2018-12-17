@@ -14,7 +14,8 @@
         android:layout_marginBottom="10dp"
         android:paddingBottom="1dp"
         tools:src="@drawable/nicolas_cage" />
-    <!--Add 1dp bottom padding to remove weird flickering while animating-->
+    <!--Add 1dp bottom padding to remove weird flickering while animating
+        android:layout_marginTop="@dimen/height_profile_picture_with_toolbar"-->
 
     <View
         android:id="@+id/view_avatar_overlay"
@@ -23,7 +24,7 @@
 
     <LinearLayout
         android:id="@+id/wrapper_profile_details"
-        android:layout_marginTop="@dimen/height_profile_picture_with_toolbar"
+        android:layout_below="@+id/image_view_avatar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -62,13 +63,15 @@
     </LinearLayout>
 
     <include
+        android:id="@+id/button_profile"
         layout="@layout/button_round_edit"
-        android:layout_width="@dimen/size_button_message"
-        android:layout_height="@dimen/size_button_message"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="15dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="14dp"
+        android:layout_marginTop="222dp"
         android:visibility="visible"
-        android:layout_marginTop="@dimen/margin_top_button_message"
-        android:id="@+id/button_profile" />
+        android:onClick="onClick" />
 
 </RelativeLayout>

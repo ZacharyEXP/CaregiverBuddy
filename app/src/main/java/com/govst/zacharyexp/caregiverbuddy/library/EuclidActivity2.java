@@ -3,7 +3,6 @@ package com.govst.zacharyexp.caregiverbuddy.library;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Intent;
 import android.graphics.RectF;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
@@ -27,8 +26,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.govst.zacharyexp.caregiverbuddy.BioNewActivity;
-import com.govst.zacharyexp.caregiverbuddy.MainSelect;
 import com.govst.zacharyexp.caregiverbuddy.R;
 import com.nhaarman.listviewanimations.appearance.ViewAnimator;
 import com.nhaarman.listviewanimations.appearance.simple.SwingLeftInAnimationAdapter;
@@ -95,18 +92,12 @@ public abstract class EuclidActivity2 extends AppCompatActivity {
         mTextViewProfileName = (TextView) findViewById(R.id.text_view_profile_name);
         mTextViewProfileDescription = (TextView) findViewById(R.id.text_view_profile_description);
         mButtonProfile = findViewById(R.id.button_profile);
-        mButtonProfile.post(new Runnable() {
-            @Override
-            public void run() {
-                mInitialProfileButtonX = mButtonProfile.getX();
-            }
-        });
-        findViewById(R.id.toolbar_profile_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                animateCloseProfileDetails();
-            }
-        });
+        //mButtonProfile.post(new Runnable() {
+           // @Override
+           // public void run() {
+                //mInitialProfileButtonX = mButtonProfile.getX();
+            //}
+        //});
 
         sScreenWidth = getResources().getDisplayMetrics().widthPixels;
         sProfileImageHeight = getResources().getDimensionPixelSize(R.dimen.height_profile_image);

@@ -11,7 +11,7 @@
         android:label="LAY"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.govst.zacharyexp.caregiverbuddy.DrugActivity">
+        <activity android:name="com.govst.zacharyexp.caregiverbuddy.drug.DrugActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.govst.zacharyexp.caregiverbuddy.NewDrug"
+        <activity android:name="com.govst.zacharyexp.caregiverbuddy.drug.DrugNew"
            android:theme="@style/NewDrugActivity">
         </activity>
     </application>

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/backgroundcolor"
-    tools:context="com.govst.zacharyexp.caregiverbuddy.QuizMainActivity">
+    tools:context="com.govst.zacharyexp.caregiverbuddy.braingame.QuizMainActivity">
     <TextView
         android:id="@+id/memory_booster"
         android:layout_width="match_parent"

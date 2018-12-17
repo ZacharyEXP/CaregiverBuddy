@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0E8F0"
-    tools:context="com.govst.zacharyexp.caregiverbuddy.BioActivity">
+    tools:context="com.govst.zacharyexp.caregiverbuddy.tbd.BioActivity">
 
     <RelativeLayout
         android:id="@+id/relout"

@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.florentphilippe.lay.com.govst.zacharyexp.caregiverbuddy.DrugActivity">
+    tools:context="fr.florentphilippe.lay.com.govst.zacharyexp.caregiverbuddy.drug.DrugActivity">
 
     <TextView
         android:id="@+id/text_nothing"

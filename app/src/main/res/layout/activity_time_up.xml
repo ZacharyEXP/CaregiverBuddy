@@ -7,7 +7,7 @@
     android:background="@color/backgroundcolor"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.govst.zacharyexp.caregiverbuddy.TimeUp">
+    tools:context="com.govst.zacharyexp.caregiverbuddy.braingame.TimeUp">
 
     <TextView
         android:id="@+id/timeUpText"

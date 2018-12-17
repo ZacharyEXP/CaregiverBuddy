@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 
+import com.govst.zacharyexp.caregiverbuddy.biography.NewPatientActivity;
 import com.govst.zacharyexp.caregiverbuddy.library.EuclidActivity;
 import com.govst.zacharyexp.caregiverbuddy.library.EuclidListAdapter;
 

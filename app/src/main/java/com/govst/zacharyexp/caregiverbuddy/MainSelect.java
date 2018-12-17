@@ -5,6 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.govst.zacharyexp.caregiverbuddy.biography.BioNewActivity;
+import com.govst.zacharyexp.caregiverbuddy.braingame.QuizMainActivity;
+import com.govst.zacharyexp.caregiverbuddy.calendar.NewCalendar;
+import com.govst.zacharyexp.caregiverbuddy.chore.ChoreActivity;
+import com.govst.zacharyexp.caregiverbuddy.drug.DrugActivity;
+import com.govst.zacharyexp.caregiverbuddy.health.HealthSelectActivity;
+
 public class MainSelect extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
