@@ -101,11 +101,15 @@ public class BioNewActivity extends EuclidActivity2 {
         //Picasso.with(BioNewActivity.this).load(Uri.parse((String) profileMap.get(EuclidListAdapter.KEY_AVATAR)))
                 //.resize(sScreenWidth, sProfileImageHeight).centerCrop()
                 //.placeholder(R.color.blue)
-                //.into((ImageView) findViewById(R.id.image_view_reveal_avatar));
-        Picasso.with(BioNewActivity.this).load(Uri.parse((String) profileMap.get(EuclidListAdapter.KEY_AVATAR)))
-                .resize(sScreenWidth, sProfileImageHeight).centerCrop()
-                .placeholder(R.color.blue)
-                .into((ImageView) findViewById(R.id.image_view_avatar));
+        //.into((ImageView) findViewById(R.id.image_view_reveal_avatar));
+        try {
+            Picasso.with(BioNewActivity.this).load(Uri.parse((String) profileMap.get(EuclidListAdapter.KEY_AVATAR)))
+                    .resize(sScreenWidth, sProfileImageHeight).centerCrop()
+                    .placeholder(R.color.blue)
+                    .into((ImageView) findViewById(R.id.image_view_avatar));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         ((TextView) mOverlayListItemView.findViewById(R.id.text_view_name)).setText((String) profileMap.get(EuclidListAdapter.KEY_NAME));
         ((TextView) mOverlayListItemView.findViewById(R.id.text_view_description)).setText((String) profileMap.get(EuclidListAdapter.KEY_DESCRIPTION_SHORT));
@@ -283,30 +287,15 @@ public class BioNewActivity extends EuclidActivity2 {
         wd = (WeekdaysPicker)findViewById(R.id.pat_weekdays);
 
         for(String s : p.getContacts()) {
-            addField(R.layout.bio_field_display, s, s, contactList);
+            addField(R.layout.bio_field_display, s, contactList);
         }
 
         for(String s : p.getPrefFood()) {
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-
+            addField(R.layout.bio_field_display, s, foodList);
         }
 
         for(String s : p.getPrefAct()) {
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-
+            addField(R.layout.bio_field_display, s, activityList);
         }
 
         wd.setSelectedDays(p.getWeeklySchedule());
@@ -319,22 +308,20 @@ public class BioNewActivity extends EuclidActivity2 {
         parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
 
         TextView edittext_var;
-        edittext_var = (TextView) ((View) v.getParent()).findViewById(R.id.number_edit_text);
+        //edittext_var = (TextView) ((View) v.getParent()).findViewById(R.id.number_edit_text);
         //edittext_var.setText(p.);
     }
 
-    public void addField(int id, String s1, String s2, LinearLayout ll) {
+    public void addField(int id, String s1, LinearLayout ll) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(id, null);
         // Add the new row before the add field button.
         ll.addView(rowView, ll.getChildCount() - 1);
 
-        TextView text_var1, text_var2;
+        TextView text_var1;
         text_var1 = (TextView) (rowView.findViewById(R.id.bio_field_1));
-        text_var2 = (TextView) (rowView.findViewById(R.id.bio_field_2));
 
         text_var1.setText(s1);
-        text_var2.setText(s2);
     }
 
     public void onDelete(View v) {

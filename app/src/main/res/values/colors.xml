@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary"> #0000ff</color>
-    <color name="colorSecondary">  #0066ff</color>
-    <!--<color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>-->
+    <!--<color name="colorPrimary"> #0000ff</color>
     <color name="colorPrimaryDark">#e53935</color>
     <color name="colorAccent">#d50000</color>
     <color name="blackFonce">#212121</color>
     <color name="materialGrey">#f44336</color>
     <color name="background_material_light">#eeeeee</color>
     <color name="white">#ffffff</color>
-    <color name="line_color">#e7e7e7</color>
     <color name="content_background">#f2f2f2</color>
-    <color name="solar_background">#009988</color>
     <color name="grey">#757171</color>
-    <color name="circleborder">#EEEEEE</color>
     <color name="gray">#21252a</color>
     <color name="orange">#ff8c6a</color>
     <color name="black">#000000</color>
     <color name="blue">#ff14445a</color>
     <color name="backgroundcolor">#f0e8f0</color>
-    <color name="lightgray">#EDEDED</color>
-    <color name="deeppurple">#7C4DFF</color>
-    <color name="yellow">#FFB300</color>
-    <color name="green">#00bfa5</color>
-    <color name="solidcircle">#F5F5F5</color>
-    <color name="gradend">#f0e8f0</color>
-    <color name="gradstart">#f0e8f0</color>
-    <color name="headings">#f0e8f0</color>
+    <color name="green">#00bfa5</color>-->
+
+    <color name="colorPrimary">#ff8080</color>
+    <color name="colorPrimaryDark">#ff0000</color>
+    <color name="colorAccent">#ff0000</color>
+    <color name="blackFonce">#212121</color>
+    <color name="materialGrey">#e6ffff</color>
+    <color name="background_material_light">#ccffff</color>
+    <color name="white">#ffffff</color>
+    <color name="white2">#fffffb</color>
+    <color name="content_background">#f2f2f2</color>
+    <color name="grey">#757171</color>
+    <color name="gray">#ff3300</color>
+    <color name="orange">#ff9999</color>
+    <color name="black">#000000</color>
+    <color name="blue">#ccffff</color>
+    <color name="backgroundcolor">#ccffff</color>
+    <color name="green">#ccffff</color>
 </resources>

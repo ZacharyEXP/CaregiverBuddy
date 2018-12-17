@@ -60,10 +60,32 @@ public class QuizActivity extends AppCompatActivity {
 
         //databaseHelper.updateQuestion();
         //list = databaseHelper.getAllQuestions(userName);
-        list.add(new QuizQuestion("a", "Who are the patriots?", "La", "Li", "Lu", "Le","La"));
-        list.add(new QuizQuestion("a", "Who are the patriots?", "La", "Li", "Lu", "Le","La"));
-        list.add(new QuizQuestion("a", "Who are the patriots?", "La", "Li", "Lu", "Le","La"));
-        Collections.shuffle(list);
+        list.add(new QuizQuestion("a", "15 * 10 = ?", "15", "45", "150", "0","150"));
+        list.add(new QuizQuestion("a", "What word is most similar to the word 'infrequent'?", "Often", "Rarely", "Always", "Visit","Rarely"));
+        list.add(new QuizQuestion("a", "220 - 72 = ?", "152", "68", "54", "148","148"));
+        list.add(new QuizQuestion("a", "What was the answer to the previous question?", "23", "148", "54", "38","148"));
+
+        list.add(new QuizQuestion("a", "Fill in the vowel(s): Ins_rt", "a", "e", "o", "u","e"));
+        list.add(new QuizQuestion("a", "What word is most similar to the word 'hue'?", "Color", "Texture", "Opacity", "Laughter","Color"));
+        list.add(new QuizQuestion("a", "Fill in the vowel(s): M_n_ge", "a",  "i", "o","u", "a"));
+        list.add(new QuizQuestion("a", "What was the answer to the second question?", "Often", "Rarely", "Always", "Visit","Rarely"));
+
+        list.add(new QuizQuestion("a", "9 + 99 = ?", "108", "90", "81", "999","108"));
+        list.add(new QuizQuestion("a", "128 / 2 = ?", "2", "64", "256", "88","64"));
+        list.add(new QuizQuestion("a", "What word is most similar to the word 'abstract'?", "Shape", "Drawing", "Person", "Vague","Vague"));
+        list.add(new QuizQuestion("a", "What was the answer to the question before the previous one?", "2", "64", "256", "88","64"));
+
+
+        list.add(new QuizQuestion("a", "Fill in the vowel(s): Q_irk", "a", "e", "o", "u","u"));
+        list.add(new QuizQuestion("a", "82 - 85 = ?", "3", "-3", "167", "2","-3"));
+        list.add(new QuizQuestion("a", "What word is most similar to the word 'eccentric'?", "Rare", "Peculiar", "Normal", "Central","Peculiar"));
+        list.add(new QuizQuestion("a", "What word was the subject of the fifth question?", "Color", "Insert", "Opacity", "Laughter","Insert"));
+
+        list.add(new QuizQuestion("a", "Fill in the vowel(s): W_uld", "a", "e", "i", "o","o"));
+        list.add(new QuizQuestion("a", "What word is most similar to the word 'marvelous'?", "Amazing", "Boring", "Watching", "Laughter","Amazing"));
+        list.add(new QuizQuestion("a", "Fill in the vowel(s): Br_in", "a", "e", "o", "u","a"));
+        list.add(new QuizQuestion("a", "What was the answer to the first question?", "15", "45", "150", "0","150"));
+        //Collections.shuffle(list);
 
         currentQuestion = list.get(qid);
 

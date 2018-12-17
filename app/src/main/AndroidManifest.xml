@@ -24,7 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".biography.NewPatientActivity" />
-        <activity android:name=".tbd.MainScreen" />
         <activity android:name=".MainSelect" />
         <activity android:name=".drug.DrugActivity" />
         <activity android:name=".drug.DrugNew" />
@@ -32,9 +31,7 @@
         <activity android:name=".chore.ChoreNew" />
         <activity android:name=".health.HealthActivity" />
         <activity android:name=".health.HealthNew" />
-        <activity android:name=".tbd.ChoreMonthActivity" />
         <activity android:name=".calendar.NewCalendar" />
-        <activity android:name=".tbd.BioActivity" />
         <activity android:name=".biography.BioNewActivity" />
         <activity android:name=".health.HealthSelectActivity" />
         <activity android:name=".braingame.QuizMainActivity" />

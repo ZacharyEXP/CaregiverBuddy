@@ -1,26 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="horizontal" >
-    <EditText
-        android:id="@+id/number_edit_text"
-        android:layout_width="0dp"
+
+    <ImageView
+        android:id="@+id/bio_dot"
+        android:layout_width="15dp"
         android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:inputType="phone"/>
-    <Spinner
-        android:id="@+id/type_spinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:entries="@array/lunar_first_of_month"
-        android:gravity="right" />
-    <Button
-        android:id="@+id/delete_button"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_weight="1"
-        android:background="@android:drawable/ic_delete"
-        android:onClick="onDelete"/>
-</LinearLayout>
+        android:layout_gravity="start"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginVertical="4dp"
+        android:layout_centerVertical="true"
+        android:baselineAlignBottom="true"
+        android:src="@drawable/ic_dot" />
+
+    <EditText
+        android:id="@+id/bio_field_1"
+        android:layout_width="291dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginVertical="5dp"
+        android:layout_toRightOf="@+id/bio_dot" />
+
+    <ImageButton
+        android:id="@+id/bio_add"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toStartOf="@+id/bio_delete"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <ImageButton
+        android:id="@+id/bio_delete"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignRight="@+id/bio_field_1"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@android:drawable/btn_dialog" />
+</RelativeLayout>

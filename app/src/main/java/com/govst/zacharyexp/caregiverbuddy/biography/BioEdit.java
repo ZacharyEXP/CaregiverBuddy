@@ -1,5 +1,6 @@
 package com.govst.zacharyexp.caregiverbuddy.biography;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 
 import com.dpro.widgets.WeekdaysPicker;
 import com.govst.zacharyexp.caregiverbuddy.Patient;
+import com.govst.zacharyexp.caregiverbuddy.PatientSelectNew;
 import com.govst.zacharyexp.caregiverbuddy.R;
 import com.govst.zacharyexp.caregiverbuddy.library.EuclidActivity2;
 import com.govst.zacharyexp.caregiverbuddy.library.EuclidListAdapter;
@@ -41,11 +45,16 @@ public class BioEdit extends EuclidActivity2 {
     private LinearLayout foodList;
     private LinearLayout activityList;
 
+    ArrayList<EditText> contacts, foods, activities;
+    ArrayList<ImageButton> addC, addF, addA, deleteC, deleteF, deleteA;
+
     private WeekdaysPicker wd;
 
     Button bio, details;
     Uri selectedImage;
     String photo;
+
+    Map<String, Object> profileMap;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -56,40 +65,17 @@ public class BioEdit extends EuclidActivity2 {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_bio_edit);
 
+        mTextViewProfileName = (TextView) findViewById(R.id.text_view_profile_name);
+        mTextViewProfileDescription = (TextView) findViewById(R.id.text_view_profile_description);
+
         System.out.println("Test A");
 
         //super.mState = EuclidState.Opening;
-        Map<String, Object> profileMap;
         profileMap = new HashMap<>();
         profileMap.put(EuclidListAdapter.KEY_AVATAR, p.getPatientPicPath());
         profileMap.put(EuclidListAdapter.KEY_NAME, p.getPatientName());
         profileMap.put(EuclidListAdapter.KEY_DESCRIPTION_SHORT, "Age " + p.getPatientAge());
         profileMap.put(EuclidListAdapter.KEY_DESCRIPTION_FULL, p.getPatientDesc());
-
-        bio = (Button)findViewById(R.id.toolbar_profile_bio);
-        details = (Button)findViewById(R.id.toolbar_profile_details);
-
-        /*bio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Bio clicked.");
-                setContentView(R.layout.activity_euclid2);
-
-                bio = (Button)findViewById(R.id.toolbar_profile_bio);
-                details = (Button)findViewById(R.id.toolbar_profile_details);
-            }
-        });
-
-        details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Details clicked.");
-                setContentView(R.layout.activity_euclid3);
-
-                bio = (Button)findViewById(R.id.toolbar_profile_bio2);
-                details = (Button)findViewById(R.id.toolbar_profile_details2);
-            }
-        });*/
 
         if (mOverlayListItemView == null) {
             mOverlayListItemView = getLayoutInflater().inflate(R.layout.overlay_list_item, mWrapper, false);
@@ -98,23 +84,35 @@ public class BioEdit extends EuclidActivity2 {
             mOverlayListItemView = getLayoutInflater().inflate(R.layout.overlay_list_item, mWrapper, false);
         }
 
-        //mOverlayListItemView = getLayoutInflater().inflate(R.layout.overlay_list_item, mWrapper, false);
-
         mOverlayListItemView.findViewById(R.id.view_avatar_overlay).setBackground(sOverlayShape);
 
-        //Picasso.with(BioNewActivity.this).load(Uri.parse((String) profileMap.get(EuclidListAdapter.KEY_AVATAR)))
-        //.resize(sScreenWidth, sProfileImageHeight).centerCrop()
-        //.placeholder(R.color.blue)
-        //.into((ImageView) findViewById(R.id.image_view_reveal_avatar));
-        Picasso.with(BioEdit.this).load(Uri.parse((String) profileMap.get(EuclidListAdapter.KEY_AVATAR)))
-                .resize(sScreenWidth, sProfileImageHeight).centerCrop()
-                .placeholder(R.color.blue)
-                .into((ImageView) findViewById(R.id.image_view_avatar));
+        try {
+            Picasso.with(BioEdit.this).load(Uri.parse((String) profileMap.get(EuclidListAdapter.KEY_AVATAR)))
+                    .resize(sScreenWidth, sProfileImageHeight).centerCrop()
+                    .placeholder(R.color.blue)
+                    .into((ImageView) findViewById(R.id.image_view_avatar));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        ((TextView) mOverlayListItemView.findViewById(R.id.text_view_name)).setText((String) profileMap.get(EuclidListAdapter.KEY_NAME));
-        ((TextView) mOverlayListItemView.findViewById(R.id.text_view_description)).setText((String) profileMap.get(EuclidListAdapter.KEY_DESCRIPTION_SHORT));
+        //((TextView) mOverlayListItemView.findViewById(R.id.text_view_name)).setText((String) profileMap.get(EuclidListAdapter.KEY_NAME));
+        //((TextView) mOverlayListItemView.findViewById(R.id.text_view_description)).setText((String) profileMap.get(EuclidListAdapter.KEY_DESCRIPTION_SHORT));
+
+        mTextViewProfileName.setText((String) profileMap.get(EuclidListAdapter.KEY_NAME));
+        mTextViewProfileDescription.setText((String) profileMap.get(EuclidListAdapter.KEY_DESCRIPTION_SHORT));
         setProfileDetailsInfo(profileMap);
 
+        contacts = new ArrayList<>();
+        foods = new ArrayList<>();
+        activities = new ArrayList<>();
+        addC = new ArrayList<>();
+        addF= new ArrayList<>();
+        addA = new ArrayList<>();
+        deleteC = new ArrayList<>();
+        deleteF = new ArrayList<>();
+        deleteA = new ArrayList<>();
+
+        refreshDetails();
     }
 
     @Override
@@ -123,22 +121,6 @@ public class BioEdit extends EuclidActivity2 {
         List<Map<String, Object>> profilesList = new ArrayList<>();
 
         System.out.println("Test D");
-
-        /*ArrayList<String> avatars = new ArrayList<>();
-        for (String s : p.getListPics()) {
-            System.out.println("Test B");
-            avatars.add(s);
-        }
-        ArrayList<String> names = new ArrayList<>();
-        for (String s : p.getListNames()) {
-            System.out.println("Test C");
-            names.add(s);
-        }
-        ArrayList<String> ages = new ArrayList<>();
-        for (String s : p.getListAges()) {
-            System.out.println("Test C");
-            ages.add(s);
-        }*/
 
         profileMap = new HashMap<>();
         profileMap.put(EuclidListAdapter.KEY_AVATAR, p.getPatientPicPath());
@@ -150,6 +132,7 @@ public class BioEdit extends EuclidActivity2 {
         return new EuclidListAdapter(this, R.layout.list_item, profilesList);
     }
 
+    @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void onClick(View v) {
         // Perform action on click
@@ -159,52 +142,46 @@ public class BioEdit extends EuclidActivity2 {
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto , 1);
                 break;
+            case R.id.button_confirm:
+                ArrayList<String> temp1 = new ArrayList<>();
+                ArrayList<String> temp2 = new ArrayList<>();
+                ArrayList<String> temp3 = new ArrayList<>();
+
+                p.setSex(mTextViewDetailsSex.getText().toString());
+                p.setEmergencyNum(mTextViewDetailsEmergencyNum.getText().toString());
+                p.setWeeklySchedule(wd.getSelectedDays());
+                p.setPatientName(mTextViewProfileName.getText().toString());
+                p.setPatientDesc(mTextViewProfileDescription.getText().toString());
+                p.setPatientPicPath(photo);
+
+
+                for(EditText t : contacts) {
+                    temp1.add(t.getText().toString());
+                    System.out.println("Test AA2");
+                    System.out.println(t.getText().toString());
+                }
+                System.out.println(temp1);
+                p.setContacts(temp1);
+
+                for(EditText t : foods) {
+                    temp2.add(t.getText().toString());
+                }
+                p.setPrefFood(temp2);
+
+                for(EditText t : activities) {
+                    temp3.add(t.getText().toString());
+                }
+                p.setPrefAct(temp3);
+
+                p.save();
+                p.saveList();
+
+                Intent intent = new Intent(this, PatientSelectNew.class);
+                startActivity(intent);
+                break;
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void refreshBio() {
-        mWrapper = (RelativeLayout) findViewById(R.id.wrapper);
-        //mListView = (ListView) findViewById(R.id.list_view);
-        mToolbar = (FrameLayout) findViewById(R.id.toolbar_list);
-        mToolbarProfile = (RelativeLayout) findViewById(R.id.toolbar_profile);
-        mProfileDetails = (LinearLayout) findViewById(R.id.wrapper_profile_details);
-        mTextViewProfileName = (TextView) findViewById(R.id.text_view_profile_name);
-        mTextViewProfileDescription = (TextView) findViewById(R.id.text_view_profile_description);
-        mButtonProfile = findViewById(R.id.button_profile);
-
-        Map<String, Object> profileMap;
-        profileMap = new HashMap<>();
-        profileMap.put(EuclidListAdapter.KEY_AVATAR, p.getPatientPicPath());
-        profileMap.put(EuclidListAdapter.KEY_NAME, p.getPatientName());
-        profileMap.put(EuclidListAdapter.KEY_DESCRIPTION_SHORT, "Age " + p.getPatientAge());
-        profileMap.put(EuclidListAdapter.KEY_DESCRIPTION_FULL, p.getPatientDesc());
-
-        if (mOverlayListItemView == null) {
-            mOverlayListItemView = getLayoutInflater().inflate(R.layout.overlay_list_item, mWrapper, false);
-        } else {
-            mWrapper.removeView(mOverlayListItemView);
-            mOverlayListItemView = getLayoutInflater().inflate(R.layout.overlay_list_item, mWrapper, false);
-
-        }
-
-        //mOverlayListItemView = getLayoutInflater().inflate(R.layout.overlay_list_item, mWrapper, false);
-
-        mOverlayListItemView.findViewById(R.id.view_avatar_overlay).setBackground(sOverlayShape);
-
-        try{
-            Picasso.with(BioEdit.this).load(Uri.parse((String) profileMap.get(EuclidListAdapter.KEY_AVATAR)))
-                    .resize(sScreenWidth, sProfileImageHeight).centerCrop()
-                    .placeholder(R.color.blue)
-                    .into((ImageView) findViewById(R.id.image_view_avatar));
-
-            ((TextView) mOverlayListItemView.findViewById(R.id.text_view_name)).setText((String) profileMap.get(EuclidListAdapter.KEY_NAME));
-            ((TextView) mOverlayListItemView.findViewById(R.id.text_view_description)).setText((String) profileMap.get(EuclidListAdapter.KEY_DESCRIPTION_SHORT));
-            setProfileDetailsInfo(profileMap);
-        } catch (Exception e) {
-
-        }
-    }
 
     public void refreshDetails() {
         mWrapper = (RelativeLayout) findViewById(R.id.wrapper);
@@ -227,30 +204,15 @@ public class BioEdit extends EuclidActivity2 {
         wd = (WeekdaysPicker)findViewById(R.id.pat_weekdays);
 
         for(String s : p.getContacts()) {
-            addField(R.layout.bio_field_display, s, s, contactList);
+            addField(R.layout.bio_field_entry, s, contactList);
         }
 
         for(String s : p.getPrefFood()) {
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-            addField(R.layout.bio_field_display, s, "AAA", foodList);
-
+            addField(R.layout.bio_field_entry, s, foodList);
         }
 
         for(String s : p.getPrefAct()) {
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-            addField(R.layout.bio_field_display, s, "BBB", activityList);
-
+            addField(R.layout.bio_field_entry, s, activityList);
         }
 
         wd.setSelectedDays(p.getWeeklySchedule());
@@ -263,22 +225,70 @@ public class BioEdit extends EuclidActivity2 {
         parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
 
         TextView edittext_var;
-        edittext_var = (TextView) ((View) v.getParent()).findViewById(R.id.number_edit_text);
+        //edittext_var = (TextView) ((View) v.getParent()).findViewById(R.id.number_edit_text);
         //edittext_var.setText(p.);
     }
 
-    public void addField(int id, String s1, String s2, LinearLayout ll) {
+    public void addField(int id, String s1, LinearLayout ll) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(id, null);
         // Add the new row before the add field button.
         ll.addView(rowView, ll.getChildCount() - 1);
 
-        TextView text_var1, text_var2;
-        text_var1 = (TextView) (rowView.findViewById(R.id.bio_field_1));
-        text_var2 = (TextView) (rowView.findViewById(R.id.bio_field_2));
-
+        EditText text_var1;
+        ImageButton add, delete;
+        text_var1 = (EditText) (rowView.findViewById(R.id.bio_field_1));
         text_var1.setText(s1);
-        text_var2.setText(s2);
+
+        add = (ImageButton) (rowView.findViewById(R.id.bio_add));
+        delete = (ImageButton) (rowView.findViewById(R.id.bio_delete));
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addField(id, "", ll);
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //onDelete(rowView);
+                if(ll.getChildCount() > 3) {
+                    ll.removeView(rowView);
+                    switch (ll.getId()) {
+                        case R.id.contact_list:
+                            contacts.remove(text_var1);
+                            break;
+                        case R.id.food_list:
+                            foods.remove(text_var1);
+                            break;
+                        case R.id.activity_list:
+                            activities.remove(text_var1);
+                            break;
+                    }
+                }
+            }
+        });
+
+        switch(ll.getId()) {
+            case R.id.contact_list:
+                contacts.add(text_var1);
+                System.out.println("Test AA");
+                //addC.add(add);
+                //deleteC.add(delete);
+                break;
+            case R.id.food_list:
+                foods.add(text_var1);
+                //addF.add(add);
+                //deleteF.add(delete);
+                break;
+            case R.id.activity_list:
+                activities.add(text_var1);
+                //addA.add(add);
+                //deleteA.add(delete);
+                break;
+        }
     }
 
     public void onDelete(View v) {

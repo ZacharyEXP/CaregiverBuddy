@@ -1,5 +1,6 @@
 package com.govst.zacharyexp.caregiverbuddy.library;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -36,6 +37,7 @@ public class EuclidListAdapter extends ArrayAdapter<Map<String, Object>> {
         mInflater = LayoutInflater.from(context);
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -46,7 +48,9 @@ public class EuclidListAdapter extends ArrayAdapter<Map<String, Object>> {
             viewHolder.mViewOverlay = convertView.findViewById(R.id.view_avatar_overlay);
             viewHolder.mListItemAvatar = (ImageView) convertView.findViewById(R.id.image_view_avatar);
             viewHolder.mListItemName = (TextView) convertView.findViewById(R.id.text_view_name);
+            viewHolder.mListItemName.setTextColor(R.color.black);
             viewHolder.mListItemDescription = (TextView) convertView.findViewById(R.id.text_view_description);
+            viewHolder.mListItemDescription.setTextColor(R.color.black);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

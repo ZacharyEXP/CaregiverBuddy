@@ -139,6 +139,7 @@ public class DrugNew extends AppCompatActivity {
     //Method which shows the date picker fragment dialog
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
+        newFragment.setStyle(R.style.myAppTheme, R.style.Theme_AppCompat);
         newFragment.show(getSupportFragmentManager(), "datePicker");
         int anInt = newFragment.getId();
 

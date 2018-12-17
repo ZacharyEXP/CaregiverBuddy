@@ -20,6 +20,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //Creating a default calendar with the current date
         final Calendar calendar = Calendar.getInstance();
+        this.setStyle(R.style.myAppTheme, R.style.myAppTheme);
 
         //Initialize variables with current date
         int year = calendar.get(Calendar.YEAR);

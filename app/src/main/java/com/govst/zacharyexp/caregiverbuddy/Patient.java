@@ -34,9 +34,6 @@ public class Patient extends Activity implements Serializable {
     ArrayList<String> prefFood = new ArrayList<String>();
     ArrayList<String> prefAct = new ArrayList<String>();
 
-    ArrayList<Task> tasks= new ArrayList<Task>();
-    ArrayList<Med> meds = new ArrayList<Med>();
-
     ArrayList<String> names = new ArrayList<String>();
     ArrayList<String> ages = new ArrayList<String>();
     ArrayList<String> pics = new ArrayList<String>();
@@ -89,25 +86,22 @@ public class Patient extends Activity implements Serializable {
         StringJoiner foodSJ = new StringJoiner("|");
         StringJoiner actSJ = new StringJoiner("|");
 
-        if(contacts.size() > 0) {
-            for (String n : contacts) {
-                contactSJ.add(n);
-            }
+        for (String n : contacts) {
+            System.out.println(n + "&&&");
+            contactSJ.add(n);
         }
-        if(prefFood.size() > 0) {
-            for (String n : prefFood) {
-                foodSJ.add(n);
-            }
+        for (String n : prefFood) {
+            foodSJ.add(n);
         }
-        if(prefAct.size() > 0) {
-            for (String n : prefAct) {
-                actSJ.add(n);
-            }
+        for (String n : prefAct) {
+            actSJ.add(n);
         }
 
         contactS = contactSJ.toString();
         foodS = foodSJ.toString();
         actS = actSJ.toString();
+
+        System.out.println(contactS + "##");
 
         edit.putString("Pref Contacts", contactS);
         edit.putString("Pref Food", foodS);
@@ -123,23 +117,6 @@ public class Patient extends Activity implements Serializable {
             edit.putInt("Patient Age", patientAge);
             edit.putString("Patient Desc", patientDesc);
             edit.putInt("Patient ID", patientID);
-
-            for(int i = 0; i < tasks.size(); i++) {
-                edit.putString("Task #" + Integer.toString(i) + " Desc", tasks.get(i).getDesc());
-                edit.putString("Task #" + Integer.toString(i) + " Start", tasks.get(i).getStart());
-                edit.putString("Task #" + Integer.toString(i) + " Recur", tasks.get(i).getRecur());
-                edit.putString("Task #" + Integer.toString(i) + " Done", tasks.get(i).getDone());
-                highestTask++;
-            }
-
-            for(int i = 0; i < meds.size(); i++) {
-                edit.putString("Med #" + Integer.toString(i) + " Name", meds.get(i).getName());
-                edit.putString("Med #" + Integer.toString(i) + " Done", meds.get(i).getDone());
-                edit.putString("Med #" + Integer.toString(i) + " Days", meds.get(i).getDays());
-                edit.putString("Med #" + Integer.toString(i) + " PicPath", meds.get(i).getPicPath());
-                edit.putString("Med #" + Integer.toString(i) + " Amount", meds.get(i).getAmount());
-                highestMed++;
-            }
 
             edit.putInt("Highest Task", highestTask);
             edit.putInt("Highest Med", highestMed);
@@ -170,23 +147,6 @@ public class Patient extends Activity implements Serializable {
 
             highestTask = pref.getInt("Highest Task", 0);
             highestMed = pref.getInt("Highest Med", 0);
-
-            for(int i = 0; i < highestTask; i++) {
-                temp1 = pref.getString("Task #" + Integer.toString(i) + " Desc", null);
-                temp2 = pref.getString("Task #" + Integer.toString(i) + " Start", null);
-                temp3 = pref.getString("Task #" + Integer.toString(i) + " Recur", null);
-                temp4 = pref.getString("Task #" + Integer.toString(i) + " Done", null);
-                tasks.add(new Task(temp1, temp2, temp3, temp4));
-            }
-
-            for(int i = 0; i < highestMed; i++) {
-                temp1 = pref.getString("Med #" + Integer.toString(i) + " Name", null);
-                temp2 = pref.getString("Med #" + Integer.toString(i) + " Done", null);
-                temp3 = pref.getString("Med #" + Integer.toString(i) + " Days", null);
-                temp4 = pref.getString("Med #" + Integer.toString(i) + " PicPath", null);
-                temp5 = pref.getString("Med #" + Integer.toString(i) + " Amount", null);
-                meds.add(new Med(temp1, temp2, temp3, temp4, temp5));
-            }
 
             patientPicPath = pref.getString("Patient Pic Path", null);
             String savedString = pref.getString("Weekly Schedule", null);
@@ -346,7 +306,6 @@ public class Patient extends Activity implements Serializable {
         }
     }
 
-    // Setters
     public void setPatientName(String name) {
         patientName = name;
     }
@@ -379,15 +338,6 @@ public class Patient extends Activity implements Serializable {
         pics.add(pic);
     }
 
-    public void addTask(Task t) {
-        tasks.add(t);
-    }
-
-    public void addMed(Med m) {
-        meds.add(m);
-    }
-
-    // Getters
     public String getPatientName() {
         return patientName;
     }
@@ -418,78 +368,6 @@ public class Patient extends Activity implements Serializable {
 
     public String getListPic(int index) {
         return pics.get(index);
-    }
-
-    public ArrayList<String> getTaskDescs() {
-        ArrayList<String> arr = new ArrayList<>();
-        for(Task t : tasks) {
-            arr.add(t.getDesc());
-        }
-        return arr;
-    }
-
-    public ArrayList<String> getTaskStarts() {
-        ArrayList<String> arr = new ArrayList<>();
-        for(Task t : tasks) {
-            arr.add(t.getStart());
-        }
-        return arr;
-    }
-
-    public ArrayList<String> getTasksDone() {
-        ArrayList<String> arr = new ArrayList<>();
-        for(Task t : tasks) {
-            arr.add(t.getDone());
-        }
-        return arr;
-    }
-
-    public ArrayList<String> getTaskRecurrences() {
-        ArrayList<String> arr = new ArrayList<>();
-        for(Task t : tasks) {
-            arr.add(t.getRecur());
-        }
-        return arr;
-    }
-
-    public ArrayList<String> getMedNames() {
-        ArrayList<String> arr = new ArrayList<>();
-        for(Med m : meds) {
-            arr.add(m.getName());
-        }
-        return arr;
-    }
-
-    public ArrayList<String> getMedAmounts() {
-        ArrayList<String> arr = new ArrayList<>();
-        for(Med m : meds) {
-            arr.add(m.getAmount());
-        }
-        return arr;
-    }
-
-    public ArrayList<String> getMedsDone() {
-        ArrayList<String> arr = new ArrayList<>();
-        for(Med m : meds) {
-            arr.add(m.getDone());
-        }
-        return arr;
-    }
-
-    public ArrayList<String> getMedsDays() {
-        ArrayList<String> arr = new ArrayList<>();
-        for(Med m : meds) {
-            arr.add(m.getDays());
-        }
-        return arr;
-    }
-
-    public ArrayList<String> getMedPicPaths() {
-        ArrayList<String> arr = new ArrayList<>();
-        for(Med m : meds) {
-            arr.add(m.getPicPath());
-        }
-        return arr;
     }
 
     public ArrayList<String> getListNames() {
@@ -549,7 +427,7 @@ public class Patient extends Activity implements Serializable {
     }
 }
 
-class Task {
+/*class Task {
     String desc, start, recur, done;
     ArrayList<String> arr = new ArrayList<>();
 
@@ -661,4 +539,4 @@ class Med {
     public ArrayList<String> getArray() {
         return arr;
     }
-}
+}*/

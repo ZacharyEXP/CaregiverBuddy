@@ -7,7 +7,7 @@
 
     <FrameLayout
         android:id="@+id/toolbar_list"
-        android:background="@color/orange"
+        android:background="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar">
 
@@ -24,16 +24,16 @@
 
     <ListView
         android:id="@+id/list_view"
-        android:divider="@drawable/list_divider"
-        android:layout_below="@+id/toolbar_list"
-        android:background="@color/gray"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_list"
+        android:background="#ffffff"
+        android:divider="@drawable/list_divider"
         tools:listitem="@layout/list_item" />
 
     <RelativeLayout
         android:id="@+id/toolbar_profile"
-        android:background="@color/gray"
+        android:background="@color/black"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_toolbar"
@@ -74,39 +74,41 @@
 
     <LinearLayout
         android:id="@+id/wrapper_profile_details"
-        android:layout_marginTop="@dimen/height_profile_picture_with_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/height_profile_picture_with_toolbar"
+        android:background="#ffffff"
+        android:clickable="true"
         android:orientation="vertical"
-        android:background="@color/white"
-        android:visibility="invisible"
-        android:clickable="true">
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/text_view_profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
-            tools:text="SOPHIA"
+            android:layout_margin="10dp"
             android:fontFamily="sans-serif-light"
+            android:textColor="@color/black"
+            android:textColorLink="@color/black"
             android:textSize="32sp"
-            android:layout_margin="10dp" />
+            tools:text="SOPHIA" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginRight="10dp">
 
             <TextView
                 android:id="@+id/text_view_profile_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                tools:text="@string/lorem_ipsum_long"
                 android:fontFamily="sans-serif"
-                android:textSize="18sp" />
+                android:textColor="@color/black"
+                android:textColorLink="@color/black"
+                android:textSize="18sp"
+                tools:text="@string/lorem_ipsum_long" />
 
         </ScrollView>
 

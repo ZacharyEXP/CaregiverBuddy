@@ -186,6 +186,8 @@ public abstract class EuclidActivity extends AppCompatActivity {
         ((TextView) mOverlayListItemView.findViewById(R.id.text_view_description)).setText((String) item.get(EuclidListAdapter.KEY_DESCRIPTION_SHORT));
         setProfileDetailsInfo(item);
 
+        mOverlayListItemView.setBackgroundColor(getResources().getColor(R.color.black));
+
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.topMargin = view.getTop() + mToolbar.getHeight();
         params.bottomMargin = -(view.getBottom() - mListView.getHeight());
@@ -485,7 +487,7 @@ public abstract class EuclidActivity extends AppCompatActivity {
                         sScreenWidth / 2 - dpToPx(getCircleRadiusDp() * 2),
                         sProfileImageHeight / 2 - dpToPx(getCircleRadiusDp() * 2)),
                 new float[]{radius, radius, radius, radius, radius, radius, radius, radius}));
-        overlay.getPaint().setColor(getResources().getColor(R.color.gray));
+        overlay.getPaint().setColor(getResources().getColor(R.color.white2));
 
         return overlay;
     }
