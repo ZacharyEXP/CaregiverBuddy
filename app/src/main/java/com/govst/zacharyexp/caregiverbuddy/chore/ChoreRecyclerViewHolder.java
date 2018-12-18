@@ -23,11 +23,11 @@ public class ChoreRecyclerViewHolder extends RecyclerView.ViewHolder{
 
         //findViews
 
-        cardTitle = (TextView) v.findViewById(R.id.card_title);
-        subtitleContent = (TextView) v.findViewById(R.id.subtitle_content);
-        startDateValue = (TextView) v.findViewById(R.id.start_date_card);
-        endDateValue = (TextView)  v.findViewById(R.id.end_date_card);
-        deleteButton = (ImageButton) v.findViewById(R.id.delete);
+        cardTitle = v.findViewById(R.id.card_title);
+        subtitleContent = v.findViewById(R.id.subtitle_content);
+        startDateValue = v.findViewById(R.id.start_date_card);
+        endDateValue = v.findViewById(R.id.end_date_card);
+        deleteButton = v.findViewById(R.id.delete);
         deleteButton.setVisibility(View.GONE);
     }
 

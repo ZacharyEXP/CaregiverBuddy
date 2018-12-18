@@ -26,15 +26,15 @@ public class InsertQuestionsActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_insert_questions);
         userName=getIntent().getExtras().getString("username");
         //db= new DatabaseHelper(this);
-        etQuestion= (EditText) findViewById(R.id.question);
-        etOptionA=(EditText) findViewById(R.id.optiona);
-        etOptionB=(EditText) findViewById(R.id.optionb);
-        etOptionC=(EditText) findViewById(R.id.optionc);
-        etOptionD=(EditText) findViewById(R.id.optiond);
-        etAnswer=(EditText) findViewById(R.id.answer);
-        nextButton=(Button) findViewById(R.id.nextbutton);
-        doneButton=(Button) findViewById(R.id.donebutton);
-        insertButton=(Button) findViewById(R.id.insertbutton);
+        etQuestion= findViewById(R.id.question);
+        etOptionA= findViewById(R.id.optiona);
+        etOptionB= findViewById(R.id.optionb);
+        etOptionC= findViewById(R.id.optionc);
+        etOptionD= findViewById(R.id.optiond);
+        etAnswer= findViewById(R.id.answer);
+        nextButton= findViewById(R.id.nextbutton);
+        doneButton= findViewById(R.id.donebutton);
+        insertButton= findViewById(R.id.insertbutton);
         nextButton.setOnClickListener(this);
         doneButton.setOnClickListener(this);
         insertButton.setOnClickListener(this);
@@ -53,7 +53,6 @@ public class InsertQuestionsActivity extends AppCompatActivity implements View.O
                 optionc=etOptionC.getText().toString();
                 optiond=etOptionD.getText().toString();
                 answer=etAnswer.getText().toString();
-                //db.insertQuizQuestions(userName,question,optiona,optionb,optionc,optiond,answer);
                 Toast.makeText(getApplicationContext(), "Successfully inserted", Toast.LENGTH_SHORT).show();
                 break;
 

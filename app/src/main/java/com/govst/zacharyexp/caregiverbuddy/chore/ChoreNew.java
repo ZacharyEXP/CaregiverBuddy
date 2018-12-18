@@ -36,19 +36,19 @@ public class ChoreNew extends AppCompatActivity {
         ch = ChoreTools.readAnArray(getApplicationContext());
 
         //Importing all components from UI
-        final EditText choreName = (EditText) findViewById(R.id.edit_name_chore);
-        final EditText typeName = (EditText) findViewById(R.id.edit_type_name);
+        final EditText choreName = findViewById(R.id.edit_name_chore);
+        final EditText typeName = findViewById(R.id.edit_type_name);
 
-        final Button buttonStartDate = (Button) findViewById(R.id.button_start_date);
-        final Button buttonEndDate = (Button) findViewById(R.id.button_end_date);
+        final Button buttonStartDate = findViewById(R.id.button_start_date);
+        final Button buttonEndDate = findViewById(R.id.button_end_date);
 
-        final EditText timesPerFrequency = (EditText) findViewById(R.id.edit_frequency);
-        final Spinner frequencySelector = (Spinner) findViewById(R.id.spinner_frequency_selector);
+        final EditText timesPerFrequency = findViewById(R.id.edit_frequency);
+        final Spinner frequencySelector = findViewById(R.id.spinner_frequency_selector);
 
-        final Spinner absoluteTime = (Spinner) findViewById(R.id.spinner_time2);
-        final Spinner relativeTime = (Spinner) findViewById(R.id.spinner_time1);
+        final Spinner absoluteTime = findViewById(R.id.spinner_time2);
+        final Spinner relativeTime = findViewById(R.id.spinner_time1);
 
-        FloatingActionButton okButton = (FloatingActionButton) findViewById(R.id.fab_ok);
+        FloatingActionButton okButton = findViewById(R.id.fab_ok);
 
 
         //Initialise the current date

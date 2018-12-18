@@ -60,7 +60,7 @@ public class ChoreActivity extends AppCompatActivity implements ChoreRecyclerAda
 
 
         //Importing Floating Action button
-        FloatingActionButton newChoreButton = (FloatingActionButton) findViewById(R.id.new_chore_button);
+        FloatingActionButton newChoreButton = findViewById(R.id.new_chore_button);
 
         //Setting the newchoreButton click listener
         newChoreButton.setOnClickListener(
@@ -100,7 +100,7 @@ public class ChoreActivity extends AppCompatActivity implements ChoreRecyclerAda
         }
 
         //Recycler view management & integration
-        mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
+        mainRecycler = findViewById(R.id.main_recycler);
 
         mainRecycler.setHasFixedSize(true);
 

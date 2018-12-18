@@ -23,11 +23,11 @@ public class QuizMainActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_main);
         //uname=getIntent().getExtras().getString("username");
-        playGame = (Button) findViewById(R.id.playGame);
-        quitGame = (Button) findViewById(R.id.quitGame);
+        playGame = findViewById(R.id.playGame);
+        quitGame = findViewById(R.id.quitGame);
 
-        playGame.setOnClickListener((View.OnClickListener) this);
-        quitGame.setOnClickListener((View.OnClickListener) this);
+        playGame.setOnClickListener(this);
+        quitGame.setOnClickListener(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

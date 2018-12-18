@@ -46,10 +46,10 @@ public class EuclidListAdapter extends ArrayAdapter<Map<String, Object>> {
             convertView = mInflater.inflate(R.layout.list_item, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.mViewOverlay = convertView.findViewById(R.id.view_avatar_overlay);
-            viewHolder.mListItemAvatar = (ImageView) convertView.findViewById(R.id.image_view_avatar);
-            viewHolder.mListItemName = (TextView) convertView.findViewById(R.id.text_view_name);
+            viewHolder.mListItemAvatar = convertView.findViewById(R.id.image_view_avatar);
+            viewHolder.mListItemName = convertView.findViewById(R.id.text_view_name);
             viewHolder.mListItemName.setTextColor(R.color.black);
-            viewHolder.mListItemDescription = (TextView) convertView.findViewById(R.id.text_view_description);
+            viewHolder.mListItemDescription = convertView.findViewById(R.id.text_view_description);
             viewHolder.mListItemDescription.setTextColor(R.color.black);
             convertView.setTag(viewHolder);
         } else {

@@ -36,7 +36,7 @@ public class HealthNew extends AppCompatActivity {
 
         //Importing all components from UI
         //final EditText healthName = (EditText) findViewById(R.id.edit_name_health);
-        final TextView healthName = (TextView) findViewById(R.id.edit_name_health);
+        final TextView healthName = findViewById(R.id.edit_name_health);
         //final EditText typeName = (EditText) findViewById(R.id.edit_type_name);
 
         //final Button buttonStartDate = (Button) findViewById(R.id.button_start_date);
@@ -48,8 +48,8 @@ public class HealthNew extends AppCompatActivity {
         //final Spinner absoluteTime = (Spinner) findViewById(R.id.spinner_time2);
         //final Spinner relativeTime = (Spinner) findViewById(R.id.spinner_time1);
 
-        FloatingActionButton okButton = (FloatingActionButton) findViewById(R.id.fab_ok);
-        LinearLayout l_layout = (LinearLayout) findViewById(R.id.health_var);
+        FloatingActionButton okButton = findViewById(R.id.fab_ok);
+        LinearLayout l_layout = findViewById(R.id.health_var);
 
         healthType = getIntent().getIntExtra("HEALTH_TYPE", -1);
 

@@ -19,8 +19,8 @@ public class TimeUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_up);
 
-        playAgainButton = (Button) findViewById(R.id.playAgainButton);
-        timeUpText = (TextView) findViewById(R.id.timeUpText);
+        playAgainButton = findViewById(R.id.playAgainButton);
+        timeUpText = findViewById(R.id.timeUpText);
 
         //play again button onclick listener
         playAgainButton.setOnClickListener(new View.OnClickListener() {

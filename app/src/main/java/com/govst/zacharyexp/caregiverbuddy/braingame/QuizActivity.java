@@ -39,15 +39,15 @@ public class QuizActivity extends AppCompatActivity {
         list = new ArrayList<>();
 
         //userName = getIntent().getExtras().getString("username");
-        buttonA= (Button) findViewById(R.id.buttonA);
-        buttonB= (Button) findViewById(R.id.buttonB);
-        buttonC= (Button) findViewById(R.id.buttonC);
-        buttonD= (Button) findViewById(R.id.buttonD);
-        questionText=(TextView)findViewById(R.id.question);
-        timeText = (TextView)findViewById(R.id.timeText);
-        coinText = (TextView)findViewById(R.id.coinText);
-        quizText = (TextView)findViewById(R.id.quizText);
-        resultText = (TextView)findViewById(R.id.resultText);
+        buttonA= findViewById(R.id.buttonA);
+        buttonB= findViewById(R.id.buttonB);
+        buttonC= findViewById(R.id.buttonC);
+        buttonD= findViewById(R.id.buttonD);
+        questionText= findViewById(R.id.question);
+        timeText = findViewById(R.id.timeText);
+        coinText = findViewById(R.id.coinText);
+        quizText = findViewById(R.id.quizText);
+        resultText = findViewById(R.id.resultText);
 
         //databaseHelper = new DatabaseHelper(this);
         //databaseHelper.getWritableDatabase();
@@ -298,8 +298,8 @@ public class QuizActivity extends AppCompatActivity {
         onPause();
 
 
-        TextView correctText = (TextView) correctAnswer.findViewById(R.id.correctText);
-        Button buttonNext = (Button) correctAnswer.findViewById(R.id.dialogNext);
+        TextView correctText = correctAnswer.findViewById(R.id.correctText);
+        Button buttonNext = correctAnswer.findViewById(R.id.dialogNext);
 
 
         buttonNext.setOnClickListener(new View.OnClickListener() {

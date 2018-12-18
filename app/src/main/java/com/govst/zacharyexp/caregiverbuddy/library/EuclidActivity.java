@@ -84,13 +84,13 @@ public abstract class EuclidActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_euclid);
 
-        mWrapper = (RelativeLayout) findViewById(R.id.wrapper);
-        mListView = (ListView) findViewById(R.id.list_view);
-        mToolbar = (FrameLayout) findViewById(R.id.toolbar_list);
-        mToolbarProfile = (RelativeLayout) findViewById(R.id.toolbar_profile);
-        mProfileDetails = (LinearLayout) findViewById(R.id.wrapper_profile_details);
-        mTextViewProfileName = (TextView) findViewById(R.id.text_view_profile_name);
-        mTextViewProfileDescription = (TextView) findViewById(R.id.text_view_profile_description);
+        mWrapper = findViewById(R.id.wrapper);
+        mListView = findViewById(R.id.list_view);
+        mToolbar = findViewById(R.id.toolbar_list);
+        mToolbarProfile = findViewById(R.id.toolbar_profile);
+        mProfileDetails = findViewById(R.id.wrapper_profile_details);
+        mTextViewProfileName = findViewById(R.id.text_view_profile_name);
+        mTextViewProfileDescription = findViewById(R.id.text_view_profile_description);
         mButtonProfile = findViewById(R.id.button_profile);
         mButtonProfile.post(new Runnable() {
             @Override
@@ -229,7 +229,7 @@ public abstract class EuclidActivity extends AppCompatActivity {
      * @return - animator object that starts circle reveal animation.
      */
     private SupportAnimator getAvatarRevealAnimator() {
-        final LinearLayout mWrapperListItemReveal = (LinearLayout) mOverlayListItemView.findViewById(R.id.wrapper_list_item_reveal);
+        final LinearLayout mWrapperListItemReveal = mOverlayListItemView.findViewById(R.id.wrapper_list_item_reveal);
 
         int finalRadius = Math.max(mOverlayListItemView.getWidth(), mOverlayListItemView.getHeight());
 

@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 
+import com.govst.zacharyexp.caregiverbuddy.biography.BioEdit;
 import com.govst.zacharyexp.caregiverbuddy.biography.NewPatientActivity;
 import com.govst.zacharyexp.caregiverbuddy.library.EuclidActivity;
 import com.govst.zacharyexp.caregiverbuddy.library.EuclidListAdapter;
@@ -20,9 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Oleksii Shliama on 1/27/15.
- */
 public class PatientSelectNew extends EuclidActivity {
     Patient p; //= new Patient();
     Context c;
@@ -34,8 +32,6 @@ public class PatientSelectNew extends EuclidActivity {
         p = new Patient(c);
         super.onCreate(savedInstanceState);
 
-        System.out.println("Test A");
-
         mButtonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +39,7 @@ public class PatientSelectNew extends EuclidActivity {
             }
         });
 
-        FloatingActionButton newPatientButton = (FloatingActionButton) findViewById(R.id.new_patient);
+        FloatingActionButton newPatientButton = findViewById(R.id.new_patient);
 
         //Setting the newhealthButton click listener
         newPatientButton.setOnClickListener(
@@ -51,7 +47,7 @@ public class PatientSelectNew extends EuclidActivity {
                     public void onClick(View v){
 
                         //Setting the new activity
-                        Intent i = new Intent (getApplicationContext(),NewPatientActivity.class);
+                        Intent i = new Intent (getApplicationContext(), BioEdit.class);
                         startActivity(i);
                     }
                 }

@@ -23,7 +23,6 @@ import java.util.List;
 
 public class NewPatientActivity extends Activity {
 
-    public static final String FILENAME = "patientlist.txt";
     public String nameS, ageS, infoS;
     public EditText info, name, age;
     public WeekdaysPicker weekdaysPicker;
@@ -44,12 +43,12 @@ public class NewPatientActivity extends Activity {
 
         p = new Patient(c);
 
-        Button button2 = (Button)findViewById(R.id.button2);
-        info = (EditText)findViewById(R.id.patient_desc);
-        name = (EditText)findViewById(R.id.patient_name);
-        age = (EditText)findViewById(R.id.patient_age);
-        weekdaysPicker = (WeekdaysPicker)findViewById(R.id.weekdays);
-        Button choosePhoto = (Button)findViewById(R.id.button_choose);
+        Button button2 = findViewById(R.id.button2);
+        info = findViewById(R.id.patient_desc);
+        name = findViewById(R.id.patient_name);
+        age = findViewById(R.id.patient_age);
+        weekdaysPicker = findViewById(R.id.weekdays);
+        Button choosePhoto = findViewById(R.id.button_choose);
 
         List<Integer> days = Arrays.asList();
         weekdaysPicker.setSelectedDays(days);

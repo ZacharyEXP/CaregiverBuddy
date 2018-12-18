@@ -21,8 +21,8 @@ public class PlayAgain extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_play_again);
 
         userName= getIntent().getExtras().getString("username");
-        playAgain = (Button) findViewById(R.id.playAgainButton);
-        wrongAnswerText = (TextView) findViewById(R.id.wrongAns);
+        playAgain = findViewById(R.id.playAgainButton);
+        wrongAnswerText = findViewById(R.id.wrongAns);
 
         playAgain.setOnClickListener(this);
 

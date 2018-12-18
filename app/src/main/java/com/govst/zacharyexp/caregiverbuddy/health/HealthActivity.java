@@ -55,7 +55,7 @@ public class HealthActivity extends AppCompatActivity implements HealthRecyclerA
 
 
         //Importing Floating Action button
-        FloatingActionButton newHealthButton = (FloatingActionButton) findViewById(R.id.new_health_button);
+        FloatingActionButton newHealthButton = findViewById(R.id.new_health_button);
 
         //Setting the newhealthButton click listener
         newHealthButton.setOnClickListener(
@@ -87,7 +87,7 @@ public class HealthActivity extends AppCompatActivity implements HealthRecyclerA
         }
 
         //Recycler view management & integration
-        mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
+        mainRecycler = findViewById(R.id.main_recycler);
 
         mainRecycler.setHasFixedSize(true);
 

@@ -425,118 +425,24 @@ public class Patient extends Activity implements Serializable {
     public void setPrefAct(ArrayList<String> prefAct) {
         this.prefAct = prefAct;
     }
-}
 
-/*class Task {
-    String desc, start, recur, done;
-    ArrayList<String> arr = new ArrayList<>();
+    public void updateListInfo(String oldName, String newName, String oldAge, String newAge, String oldPic, String newPic) {
+        if(names.contains(oldName)){
+            names.set(names.indexOf(oldName), newName);
+        } else {
+            names.add(newName);
+        }
 
-    Task(String de, String s, String r, String d) {
-        arr.add(de);
-        arr.add(s);
-        arr.add(r);
-        arr.add(d);
-    }
+        if(ages.contains(oldAge)){
+            ages.set(ages.indexOf(oldAge), newAge);
+        } else {
+            ages.add(newAge);
+        }
 
-    Task(ArrayList<String> ar) {
-        arr = ar;
-    }
-
-    public void setDesc(String d) {
-        arr.set(0, d);
-    }
-
-    public void setStart(String s) {
-        arr.set(1, s);
-    }
-
-    public void setRecur(String r) {
-        arr.set(2, r);
-    }
-
-    public void setDone(String d) {
-        arr.set(3, d);
-    }
-
-    public String getDesc() {
-        return arr.get(0);
-    }
-
-    public String getStart() {
-        return arr.get(1);
-    }
-
-    public String getRecur() {
-        return arr.get(2);
-    }
-
-    public String getDone() {
-        return arr.get(3);
-    }
-
-    public ArrayList<String> getArray() {
-
-        return arr;
+        if(pics.contains(oldPic)){
+            pics.set(pics.indexOf(oldPic), newPic);
+        } else {
+            pics.add(newPic);
+        }
     }
 }
-
-class Med {
-    String name, done, days, picPath, amount;
-    ArrayList<String> arr = new ArrayList<>();
-
-    Med(String n, String d, String da, String p, String a) {
-        arr.add(n);
-        arr.add(d);
-        arr.add(da);
-        arr.add(p);
-        arr.add(a);
-    }
-
-    Med(ArrayList<String> ar) {
-        arr = ar;
-    }
-
-    public void setName(String n) {
-        arr.set(0, n);
-    }
-
-    public void setDone(String d) {
-        arr.set(1, d);
-    }
-
-    public void setDays(String d) {
-        arr.set(2, d);
-    }
-
-    public void setPicPath(String p) {
-        arr.set(3, p);
-    }
-
-    public void setAmount(String a) {
-        arr.set(4, a);
-    }
-
-    public String getName() {
-        return arr.get(0);
-    }
-
-    public String getDone() {
-        return arr.get(1);
-    }
-
-    public String getDays() {
-        return arr.get(2);
-    }
-
-    public String getPicPath() {
-        return arr.get(3);
-    }
-
-    public String getAmount() {
-        return arr.get(4);
-    }
-
-    public ArrayList<String> getArray() {
-        return arr;
-    }
-}*/

@@ -39,7 +39,12 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <EditText
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
                     android:id="@+id/text_view_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,6 +53,19 @@
                     android:hint="Patient Name"
                     android:textColor="@color/gray"
                     android:textSize="32sp" />
+
+                    <EditText
+                        android:id="@+id/text_view_profile_age"
+                        android:layout_width="83dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:ems="10"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="Age"
+                        android:inputType="number"
+                        android:textColor="@color/gray" />
+                </LinearLayout>
+
 
                 <ScrollView
                     android:layout_width="match_parent"

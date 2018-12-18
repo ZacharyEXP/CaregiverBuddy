@@ -23,10 +23,10 @@ public class GameWon extends AppCompatActivity implements View.OnClickListener {
 
         userName=getIntent().getExtras().getString("username");
         coinValue=getIntent().getExtras().getInt("CoinValue");
-        playAgain =(Button) findViewById(R.id.playagainbutton);
-        quit =(Button) findViewById(R.id.quitbutton);
-        coinText=(TextView) findViewById(R.id.coins);
-        questionText =(TextView) findViewById(R.id.questionText);
+        playAgain = findViewById(R.id.playagainbutton);
+        quit = findViewById(R.id.quitbutton);
+        coinText= findViewById(R.id.coins);
+        questionText = findViewById(R.id.questionText);
         setValue();
         playAgain.setOnClickListener(this);
         quit.setOnClickListener(this);

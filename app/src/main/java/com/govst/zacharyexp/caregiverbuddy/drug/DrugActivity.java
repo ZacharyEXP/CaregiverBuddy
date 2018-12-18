@@ -61,7 +61,7 @@ public class DrugActivity extends AppCompatActivity implements DrugRecyclerAdapt
 
 
         //Importing Floating Action button
-        FloatingActionButton newDrugButton = (FloatingActionButton) findViewById(R.id.new_drug_button);
+        FloatingActionButton newDrugButton = findViewById(R.id.new_drug_button);
 
         //Setting the newDrugButton click listener
         newDrugButton.setOnClickListener(
@@ -110,7 +110,7 @@ public class DrugActivity extends AppCompatActivity implements DrugRecyclerAdapt
         }
 
         //Recycler view management & integration
-        mainRecycler = (RecyclerView) findViewById(R.id.main_recycler);
+        mainRecycler = findViewById(R.id.main_recycler);
         mainRecycler.setHasFixedSize(true);
 
         mainRecyclerLayout = new LinearLayoutManager(this);
